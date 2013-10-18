@@ -23,6 +23,8 @@ var A3  = new sounds.Note("A",  440.000, 4);
 var ABC = new sounds.NoteCollection([A, B, C], "ABC");
 var BCD = new sounds.NoteCollection([B, C, D], "BCD"); // use only at NoteCollection mutation
 
+var CEG = new sounds.Chord([C, E, G], "C mayor");
+
 // ===== assertions =====
 
 // Note getters
@@ -100,4 +102,25 @@ BCD.removeNotesWithFreqRange(490, 700);
 console.assert(BCD.getSize() === 2, "45");
 console.assert(JSON.stringify(BCD.getNotes()) === JSON.stringify([A, G]), "46");
 
-
+// Chord access and mutation
+console.assert(CEG.getNotesAsString() === "C E G ", "47");
+CEG.invert(1);
+console.assert(CEG.getNotesAsString() === "E G C ", "48");
+CEG.invert(1);
+console.assert(CEG.getNotesAsString() === "G C E ", "49");
+CEG.invert(1);
+console.assert(CEG.getNotesAsString() === "C E G ", "50");
+CEG.invert(-1);
+console.assert(CEG.getNotesAsString() === "G C E ", "51");
+CEG.invert(-1);
+console.assert(CEG.getNotesAsString() === "E G C ", "52");
+CEG.invert(-1);
+console.assert(CEG.getNotesAsString() === "C E G ", "53");
+CEG.invert(2);
+console.assert(CEG.getNotesAsString() === "G C E ", "54");
+CEG.invert(-1);
+console.assert(CEG.getNotesAsString() === "E G C ", "55");
+CEG.invert(-2);
+console.assert(CEG.getNotesAsString() === "G C E ", "56");
+CEG.reset();
+console.assert(CEG.getNotesAsString() === "C E G ", "57");
