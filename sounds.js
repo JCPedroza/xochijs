@@ -1,8 +1,15 @@
-function Note(name, freq, octave){
+/**
+* Represents a musical note.
+* @param name   The name of the note.
+* @param freq   Frequency of the note (optional).
+* @param octave Index/octave of the note (optional).
+* @param name2  Secondary name of the note (optional).
+*/
+function Note(name, freq, octave, name2){
     this.name   = name;
-    this.octave = typeof octave === "undefined" ? 0 : octave;  // default argument is 0
-    this.freq   = typeof freq   === "undefined" ? 0 : freq;    // default argument is 0
-    this.name2  = "";
+    this.octave = typeof octave === "undefined" ? 0  : octave;  // default argument is 0
+    this.freq   = typeof freq   === "undefined" ? 0  : freq;    // default argument is 0
+    this.name2  = typeof name2  === "undefined" ? "" : name2;   // default argument is ""
     
     // ==================================
     //             setters
@@ -54,13 +61,20 @@ function Note(name, freq, octave){
 
     /** Returns the object state as a string. */
     this.toString = function(){
-        return "name=" + this.name + " freq=" + this.freq + " octave=" + this.octave;
+        return "name=" + this.name + " freq=" + this.freq + " octave=" + this.octave +
+                " name2=" + this.name2;
     };
 }
 
+/**
+* Represents a group of notes. Parent constructor for Chord and Scale.
+* @param notes An array of Note objects.
+* @param name  Name for the NoteCollection (optional).
+* @param name2 Secondary name for the NoteCollection (optional).
+*/
 function NoteCollection(notes, name, name2){
-    this._notes  = notes;                                      // array of notes
-    this._notes2 = notes.slice(0);                             // original notes (clone)
+    this.notes  = notes;                                       // array of notes
+    this.notes2 = notes.slice(0);                              // original notes (clone)
     this.name    = typeof name  === "undefined" ? "" : name;   // default argument is ""
     this.name2   = typeof name2 === "undefined" ? "" : name2;  // default argument is ""
     this.size    = notes.length;
@@ -71,13 +85,13 @@ function NoteCollection(notes, name, name2){
 
     /** Change the notes. */ // !!! Should this implement variable arguments?
     this.setNotes = function(notes){
-        this._notes = notes;
-        this.size   = this._notes.length;
+        this.notes = notes;
+        this.size   = this.notes.length;
     };
     
     /** Adds one note. */
     this.addNote = function(note){
-        this._notes.push(note);
+        this.notes.push(note);
         this.size++;
     };
     
@@ -93,42 +107,66 @@ function NoteCollection(notes, name, name2){
 
     /** Resets notes to its original state (notes2). */
     this.reset = function(){
-        this._notes = this._notes2.slice(0);
-        this.size   = this._notes.length;
+        this.notes = this.notes2.slice(0);
+        this.size   = this.notes.length;
     };
 
     /** Sends the first note to the last index. */  // !!! Can this be more efficient?
     this.rotate = function(){
-        this._notes.push(this._notes.shift());
+        this.notes.push(this.notes.shift());
     };
-    
+
+    /** Sends the last note to the first index. */  // !!! Can this be more efficient?
+    this.rotateBack = function(){
+        this.notes.unshift(this.notes.pop());
+    };
+
+
     /** Reverses the order of the notes. */
     this.reverse = function(){
-        this._notes.reverse();
+        this.notes.reverse();
     };
 
     /** Removes the note at given index. */
     this.removeNoteAt = function(index){
-        this._notes.splice(index, 1);
+        this.notes.splice(index, 1);
         this.size--;
     };
 
-    /** !!! Removes all the notes with given name. */
+    /** Removes all the notes with given name. */
     this.removeNotesWithName = function(name){
-        this._notes = this._notes.filter(
+        this.notes = this.notes.filter(
             function(element){
                 return element.name !== name;
             });
-        this.size = this._notes.length;
+        this.size = this.notes.length;
     };
 
-    /** !!! Removes all the notes with given frequency. */
+    /** Removes all the notes with given secondary name (name2). */
+    this.removeNotesWithName2 = function(name){
+        this.notes = this.notes.filter(
+            function(element){
+                return element.name2 !== name;
+            });
+        this.size = this.notes.length;
+    };
+
+    /** Removes all the notes with given frequency. */
     this.removeNotesWithFreq = function(freq){
-        this._notes = this._notes.filter(
+        this.notes = this.notes.filter(
             function(element){
                 return element.freq !== freq;
             });
-        this.size = this._notes.length;
+        this.size = this.notes.length;
+    };
+
+    /** Removes all the notes within a frequency range, inclusive. */
+    this.removeNotesWithFreqRange = function(fromFreq, toFreq){
+        this.notes = this.notes.filter(
+            function(element){
+                return element.freq < fromFreq || element.freq > toFreq;
+            });
+        this.size = this.notes.length;
     };
 
     // ==================================
@@ -139,28 +177,33 @@ function NoteCollection(notes, name, name2){
     this.toString = function(){
         var returnString = "size=" + this.size + " name=" + this.name + " name2=" + this.name2;
         returnString += "\nnotes=";
-        for (var i in this._notes){
+        for (var i in this.notes){
             returnString += " <";
-            returnString += this._notes[i].toString();
+            returnString += this.notes[i].toString();
             returnString += ">";
         }
         returnString += "\nnotes2=";
-        for (var j in this._notes2){
+        for (var j in this.notes2){
             returnString += " <";
-            returnString += this._notes2[j].toString();
+            returnString += this.notes2[j].toString();
             returnString += ">";
         }
         return returnString;
     };
 
+    /** Retunrs the size of the string NoteCollection. */
+    this.getSize = function(){
+        return this.size;
+    };
+
     /** Returns the notes. */
     this.getNotes = function(){
-        return this._notes;
+        return this.notes;
     };
 
     /** Returns the original notes. */
     this.getOriginalNotes = function(){
-        return this._notes2;
+        return this.notes2;
     };
 
     /** Returns name. */
@@ -176,24 +219,24 @@ function NoteCollection(notes, name, name2){
     /** Returns the name of the notes as a string. */
     this.getNotesAsString = function(){
         var returnString = "";
-        for (var i in this._notes)
-            returnString += this._notes[i].name + " ";
+        for (var i in this.notes)
+            returnString += this.notes[i].name + " ";
         return returnString;
     };
 
     /** Returns the name of the original notes as a string. */
     this.getOriginalNotesAsString = function(){
         var returnString = "";
-        for (var i in this._notes2)
-            returnString += this._notes2[i].name + " ";
+        for (var i in this.notes2)
+            returnString += this.notes2[i].name + " ";
         return returnString;
     };
 
     /** Returns the frequencies of the notes as a string. */
     this.getFreqsAsString = function(){
         var returnString = "";
-        for (var i in this._notes)
-            returnString += this._notes[i].freq + " ";
+        for (var i in this.notes)
+            returnString += this.notes[i].freq + " ";
         return returnString;
     };
 
