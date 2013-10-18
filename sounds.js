@@ -73,11 +73,11 @@ function Note(name, freq, octave, name2){
 * @param name2 Secondary name for the NoteCollection (optional).
 */
 function NoteCollection(notes, name, name2){
-    this.notes  = notes;                                       // array of notes
-    this.notes2 = notes.slice(0);                              // original notes (clone)
-    this.name    = typeof name  === "undefined" ? "" : name;   // default argument is ""
-    this.name2   = typeof name2 === "undefined" ? "" : name2;  // default argument is ""
-    this.size    = notes.length;
+    this.notes  = notes;                                      // array of notes
+    this.notes2 = notes.slice(0);                             // original notes (clone)
+    this.name   = typeof name  === "undefined" ? "" : name;   // default argument is ""
+    this.name2  = typeof name2 === "undefined" ? "" : name2;  // default argument is ""
+    this.size   = notes.length;
     
     // ==================================
     //             setters
@@ -86,7 +86,7 @@ function NoteCollection(notes, name, name2){
     /** Change the notes. */ // !!! Should this implement variable arguments?
     this.setNotes = function(notes){
         this.notes = notes;
-        this.size   = this.notes.length;
+        this.size  = this.notes.length;
     };
     
     /** Adds one note. */
@@ -108,7 +108,7 @@ function NoteCollection(notes, name, name2){
     /** Resets notes to its original state (notes2). */
     this.reset = function(){
         this.notes = this.notes2.slice(0);
-        this.size   = this.notes.length;
+        this.size  = this.notes.length;
     };
 
     /** Sends the first note to the last index. */  // !!! Can this be more efficient?
@@ -175,7 +175,7 @@ function NoteCollection(notes, name, name2){
     
     /** Returns the object state as a string */
     this.toString = function(){
-        var returnString = "size=" + this.size + " name=" + this.name + " name2=" + this.name2;
+        var returnString = "size=" + this.size + " <name=" + this.name + " name2=" + this.name2;
         returnString += "\nnotes=";
         for (var i in this.notes){
             returnString += " <";
@@ -242,6 +242,43 @@ function NoteCollection(notes, name, name2){
 
 }
 
+/**
+* Represents a group of notes as a Chord. 
+* Inherits fron NoteCollection.
+* @param notes An array of Note objects.
+* @param name  Name for the NoteCollection (optional).
+* @param name2 Secondary name for the NoteCollection (optional).
+*/
+function Chord(notes, name, name2){
+    NoteCollection.call(this, notes, name, name2);  // inherits from NoteCollection
+
+    // ==================================
+    //             setters
+    // ==================================
+
+    /** Sets notes to nth inversion. Sets to previous inversions if n is negative. */
+    this.invert = function(n){
+        if (n > 0)
+            for (var i = 0; i < n; i++)
+                this.notes.push(this.notes.shift());
+        if (n < 0)
+            for (var j = 0; j > n; j--)
+                this.notes.unshift(this.notes.pop());
+    };
+
+    /** 
+    * Sets notes to nth inversion, using the original notes (notes2) as reference. 
+    * Sets to previous inversions if n is negative.
+    */
+    this.invertOriginal = function(n){
+        this.reset();
+        this.invert(n);
+    };
+
+    
+}
+
 // node exports
 exports.Note = Note;
 exports.NoteCollection = NoteCollection;
+exports.Chord = Chord;
