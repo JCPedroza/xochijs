@@ -73,6 +73,7 @@ function Note(name, freq, octave, name2){
 * @param name2 Secondary name for the NoteCollection (optional).
 */
 function NoteCollection(notes, name, name2){
+    if (!(notes instanceof Array)) throw new Error("notes must be an array of Note");
     this.notes  = notes;                                      // array of notes
     this.notes2 = notes.slice(0);                             // original notes (clone)
     this.name   = typeof name  === "undefined" ? "" : name;   // default argument is ""
@@ -85,12 +86,14 @@ function NoteCollection(notes, name, name2){
 
     /** Change the notes. */ // !!! Should this implement variable arguments?
     this.setNotes = function(notes){
+        if (!(notes instanceof Array)) throw new Error("notes must be an array of Note");
         this.notes = notes;
         this.size  = this.notes.length;
     };
     
     /** Adds one note. */
     this.addNote = function(note){
+        if (!(note instanceof Note)) throw new Error("note must be a Note object");
         this.notes.push(note);
         this.size++;
     };
@@ -129,6 +132,7 @@ function NoteCollection(notes, name, name2){
 
     /** Removes the note at given index. */
     this.removeNoteAt = function(index){
+        if (index < 0) throw new Error("index must be > 0");
         this.notes.splice(index, 1);
         this.size--;
     };
@@ -258,6 +262,7 @@ function Chord(notes, name, name2){
 
     /** Sets notes to nth inversion. Sets to previous inversions if n is negative. */
     this.invert = function(n){
+        if (typeof(n) !== "number") throw new Error("n must be of type number");
         if (n > 0)
             for (var i = 0; i < n; i++)
                 this.notes.push(this.notes.shift());
@@ -271,11 +276,11 @@ function Chord(notes, name, name2){
     * Sets to previous inversions if n is negative.
     */
     this.invertOriginal = function(n){
+        if (typeof(n) !== "number") throw new Error("n must be of type number");
         this.reset();
         this.invert(n);
     };
-
-    
+  
 }
 
 // node exports
