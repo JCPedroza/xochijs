@@ -47,6 +47,11 @@ function Note(name, freq, octave){
         return this.freq;
     };
 
+    /** Returns secondary name (name2). */
+    this.getName2 = function(){
+        return this.name2;
+    };
+
     /** Returns the object state as a string. */
     this.toString = function(){
         return "name=" + this.name + " freq=" + this.freq + " octave=" + this.octave;
