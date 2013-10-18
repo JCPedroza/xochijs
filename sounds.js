@@ -2,7 +2,51 @@ function Note(name, freq, octave){
     this.name   = name;
     this.octave = typeof octave === "undefined" ? 0 : octave;  // default argument is 0
     this.freq   = typeof freq   === "undefined" ? 0 : freq;    // default argument is 0
+    this.name2  = "";
     
+    // ==================================
+    //             setters
+    // ==================================
+
+    /** Sets name. */
+    this.setName = function(newName){
+        this.name = newName;
+    };
+
+    /** Sets octave. */
+    this.setOctave = function(newOctave){
+        this.octave = newOctave;
+    };
+
+    /** Sets freq. */
+    this.setFreq = function(newFreq){
+        this.freq = newFreq;
+    };
+
+    /** Sets the secondary name (name2). */
+    this.setName2 = function(newName2){
+        this.name2 = newName2;
+    };
+
+    // ==================================
+    //             getters
+    // ==================================
+
+    /** Returns name. */
+    this.getName = function(){
+        return this.name;
+    };
+
+    /** Returns octave. */
+    this.getOctave = function(){
+        return this.octave;
+    };
+
+    /** Returns freq. */
+    this.getFreq = function(){
+        return this.freq;
+    };
+
     /** Returns the object state as a string. */
     this.toString = function(){
         return "name=" + this.name + " freq=" + this.freq + " octave=" + this.octave;
