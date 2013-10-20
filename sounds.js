@@ -1,9 +1,12 @@
 /**
 * Represents a musical note.
+*
+* @constructor
 * @param name   The name of the note.
 * @param freq   Frequency of the note (optional).
 * @param octave Index/octave of the note (optional).
 * @param name2  Secondary name of the note (optional).
+* @returns A Note object.
 */
 function Note(name, freq, octave, name2){
     this.name   = name;
@@ -260,7 +263,7 @@ function Chord(notes, name, name2){
     //             setters
     // ==================================
 
-    /** Sets notes to nth inversion. Sets to previous inversions if n is negative. */
+    /** Sets notes to nth inversion. Sets to previous inversions if n is negative. */ // !!! can this be done more efficiently?
     this.invert = function(n){
         if (typeof(n) !== "number") throw new Error("n must be of type number");
         if (n > 0)
