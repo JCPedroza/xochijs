@@ -1,6 +1,9 @@
 // ===== imports =====
 
-var sounds = require("./sounds");
+var sounds   = require("./sounds");
+var process  = require("./process");
+var formulas = require("./formulas");
+
 
 // ===== declarations =====
 
@@ -23,21 +26,27 @@ var A3  = new sounds.Note("A",  440.000, 4);
 var ABC = new sounds.NoteCollection([A, B, C], "ABC");
 var BCD = new sounds.NoteCollection([B, C, D], "BCD"); // use only at NoteCollection mutation
 
-var CEG = new sounds.Chord([C, E, G], "C mayor");
+var CEG = new sounds.Chord([C, E, G], "C major");
+var ACE = new sounds.Chord([A, C, E], "A minor");
+var FAC = new sounds.Chord([F, A, C], "F major");
+
+var CM  = new sounds.Scale([C, D, E, F, G, A, B], "C ionian");
+
+var chc1 = new sounds.ChordCollection([CEG, ACE, FAC], "chc1");
 
 // ===== assertions =====
 
 // Note getters
-console.assert(A.name === "A", "1");
-console.assert(A.freq === 440.000, "2");
-console.assert(A.octave === 4, "3");
-console.assert(A.toString() === "name=A freq=440 octave=4 name2=La", "4");
+console.assert(A.name === "A");
+console.assert(A.freq === 440.000);
+console.assert(A.octave === 4);
+console.assert(A.toString() === "name=A name2=La freq=440 octave=4");
 
 // NoteCollection getters
-console.assert(ABC.size === 3, "5");
-console.assert(ABC.name === "ABC", "6");
-console.assert(ABC.name2 === "", "7");
-console.assert(JSON.stringify(ABC.getNotes()) === JSON.stringify([A, B, C]), "8");
+console.assert(ABC.size === 3);
+console.assert(ABC.name === "ABC");
+console.assert(ABC.name2 === "");
+console.assert(JSON.stringify(ABC.getNotes()) === JSON.stringify([A, B, C]));
 
 // NoteCollection mutation
 BCD.addNote(E);
@@ -124,3 +133,16 @@ CEG.invert(-2);
 console.assert(CEG.getNotesAsString() === "G C E ", "56");
 CEG.reset();
 console.assert(CEG.getNotesAsString() === "C E G ", "57");
+
+// ChordCollection access and mutation
+console.assert(chc1.getChordsAsString() === "C major A minor F major ");
+
+// Process stepCount
+console.assert(process.stepCount(A, Bb) === 1);
+console.assert(process.stepCount(A, B)  === 2);
+console.assert(process.stepCount(G, Ab) === 1);
+console.assert(process.stepCount(D, Db) === 11);
+
+// Process scalize
+console.assert(process.scalize(C, formulas.MAJOR).getNotesAsString() === "C D E F G A B ");
+console.assert(process.scalize(C, formulas.MINOR).getNotesAsString() === "C D Eb F G Ab Bb ");

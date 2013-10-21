@@ -14,9 +14,9 @@ function Note(name, freq, octave, name2){
     this.freq   = typeof freq   === "undefined" ? 0  : freq;    // default argument is 0
     this.name2  = typeof name2  === "undefined" ? "" : name2;   // default argument is ""
     
-    // ==================================
-    //             setters
-    // ==================================
+    // ==============================================
+    //                    setters
+    // ==============================================
 
     /** Sets name. */
     this.setName = function(newName){
@@ -38,9 +38,9 @@ function Note(name, freq, octave, name2){
         this.name2 = newName2;
     };
 
-    // ==================================
-    //             getters
-    // ==================================
+    // ==============================================
+    //                    getters
+    // ==============================================
 
     /** Returns name. */
     this.getName = function(){
@@ -64,8 +64,7 @@ function Note(name, freq, octave, name2){
 
     /** Returns the object state as a string. */
     this.toString = function(){
-        return "name=" + this.name + " freq=" + this.freq + " octave=" + this.octave +
-                " name2=" + this.name2;
+        return "name=" + this.name + " name2=" + this.name2 + " freq=" + this.freq + " octave=" + this.octave;
     };
 }
 
@@ -83,9 +82,9 @@ function NoteCollection(notes, name, name2){
     this.name2  = typeof name2 === "undefined" ? "" : name2;  // default argument is ""
     this.size   = notes.length;
     
-    // ==================================
-    //             setters
-    // ==================================
+    // ==============================================
+    //                    setters
+    // ==============================================
 
     /** Change the notes. */ // !!! Should this implement variable arguments?
     this.setNotes = function(notes){
@@ -176,22 +175,22 @@ function NoteCollection(notes, name, name2){
         this.size = this.notes.length;
     };
 
-    // ==================================
-    //             getters
-    // ==================================
+    // ==============================================
+    //                    getters
+    // ==============================================
     
     /** Returns the object state as a string */
     this.toString = function(){
-        var returnString = "size=" + this.size + " <name=" + this.name + " name2=" + this.name2;
-        returnString += "\nnotes=";
+        var returnString = "name=" + this.name + "\nname2=" + this.name2 + "\nsize=" + this.size;
+        returnString += "\nnotes=\n";
         for (var i in this.notes){
-            returnString += " <";
+            returnString += "<";
             returnString += this.notes[i].toString();
             returnString += ">";
         }
-        returnString += "\nnotes2=";
+        returnString += "\nnotes2=\n";
         for (var j in this.notes2){
-            returnString += " <";
+            returnString += "<";
             returnString += this.notes2[j].toString();
             returnString += ">";
         }
@@ -259,9 +258,9 @@ function NoteCollection(notes, name, name2){
 function Chord(notes, name, name2){
     NoteCollection.call(this, notes, name, name2);  // inherits from NoteCollection
 
-    // ==================================
-    //             setters
-    // ==================================
+    // ==============================================
+    //                    setters
+    // ==============================================
 
     /** Sets notes to nth inversion. Sets to previous inversions if n is negative. */ // !!! can this be done more efficiently?
     this.invert = function(n){
@@ -283,10 +282,61 @@ function Chord(notes, name, name2){
         this.reset();
         this.invert(n);
     };
-  
+}
+
+/** Group of Note objects with melodic dynamics (like a succession of notes). */
+function Scale(notes, name, name2){
+    NoteCollection.call(this, notes, name, name2);  // inherits from NoteCollection
+}
+
+/** Represents a group of chords */
+function ChordCollection(chords, name, name2){
+    if (!(chords instanceof Array)) throw new Error("chords must be an array of Chord");
+    this.name   = typeof name  === "undefined" ? "" : name;   // default argument is ""
+    this.name2  = typeof name2 === "undefined" ? "" : name2;  // default argument is ""
+    this.chords = chords;
+    this.size   = chords.length;
+
+    // ==============================================
+    //                    setters
+    // ==============================================
+
+    this.setChords = function(newChords){
+        if (!(chords instanceof Array)) throw new Error("chords must be an array of Chord");
+        this.chords = newChords;
+        this.size   = chords.length;
+    };
+
+    // ==============================================
+    //                    getters
+    // ==============================================
+
+    this.getChords = function(){
+        return this.chords;
+    };
+
+    this.getChordsAsString = function(){
+        var returnString = "";
+        for (var i in this.chords)
+            returnString += this.chords[i].name + " ";
+        return returnString;
+    };
+
+    this.toString = function(){
+        var returnString = "name=" + this.name + "\nname2=" + this.name2 + "\nsize=" + this.size;
+        returnString += "\n\nchords= ";
+        for (var i in this.chords){
+            returnString += "\n<<<\n";
+            returnString += this.chords[i].toString();
+            returnString += "\n>>>";
+        }
+        return returnString;
+    };
 }
 
 // node exports
-exports.Note = Note;
-exports.NoteCollection = NoteCollection;
-exports.Chord = Chord;
+exports.Note            = Note;
+exports.NoteCollection  = NoteCollection;
+exports.Chord           = Chord;
+exports.Scale           = Scale;
+exports.ChordCollection = ChordCollection;
