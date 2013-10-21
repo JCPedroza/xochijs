@@ -1,1 +1,2 @@
 - chord identification algorithm
+- formulate: scale and chord method to output their formula as numbers
