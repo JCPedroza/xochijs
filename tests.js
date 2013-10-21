@@ -33,6 +33,7 @@ var FAC = new sounds.Chord([F, A, C], "F major");
 var CM  = new sounds.Scale([C, D, E, F, G, A, B], "C ionian");
 
 var chc1 = new sounds.ChordCollection([CEG, ACE, FAC], "chc1");
+var h1   = new sounds.Harmony([CEG, ACE, FAC], "h1");
 
 // ===== assertions =====
 
@@ -136,6 +137,9 @@ console.assert(CEG.getNotesAsString() === "C E G ", "57");
 
 // ChordCollection access and mutation
 console.assert(chc1.getChordsAsString() === "C major A minor F major ");
+
+// Harmony access and mutation
+console.assert(h1.getChordsAsString() === "C major A minor F major ");
 
 // Process stepCount
 console.assert(process.stepCount(A, Bb) === 1);

@@ -334,9 +334,16 @@ function ChordCollection(chords, name, name2){
     };
 }
 
+function Harmony(chords, name, name2){
+    ChordCollection.call(this, chords, name, name2);
+}
+
+
+
 // node exports
 exports.Note            = Note;
 exports.NoteCollection  = NoteCollection;
 exports.Chord           = Chord;
 exports.Scale           = Scale;
 exports.ChordCollection = ChordCollection;
+exports.Harmony         = Harmony;
