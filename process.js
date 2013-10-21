@@ -5,7 +5,7 @@ var ET12POOL = ["Ab", "A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G"]
 
 /** Counts the steps between two notes. */
 var stepCount = function(note1, note2, pool){
-    var thePool = typeof pool === "undefined" ? ET12POOL : pool;  // default argument is ET12POOL
+    var thePool = pool || ET12POOL;
     var result  = thePool.indexOf(note2.getName()) - thePool.indexOf(note1.getName());
     if (result < 0) result += thePool.length;
     return result;
@@ -13,7 +13,7 @@ var stepCount = function(note1, note2, pool){
 
 /** Builds a Scale object, based on a formula. */
 var scalize = function(note, formula, pool){
-    var thePool      = typeof pool === "undefined" ? ET12POOL : pool;  // default argument is ET12POOL
+    var thePool      = pool || ET12POOL;
     var noteArray    = [];
     var currentIndex = thePool.indexOf(note.getName());
     var poolSize     = thePool.length;

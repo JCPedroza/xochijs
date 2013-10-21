@@ -10,9 +10,9 @@
 */
 function Note(name, freq, octave, name2){
     this.name   = name;
-    this.octave = typeof octave === "undefined" ? 0  : octave;  // default argument is 0
-    this.freq   = typeof freq   === "undefined" ? 0  : freq;    // default argument is 0
-    this.name2  = typeof name2  === "undefined" ? "" : name2;   // default argument is ""
+    this.octave = octave || 0;
+    this.freq   = freq   || 0;
+    this.name2  = name2  || "";
     
     // ==============================================
     //                    setters
@@ -76,10 +76,10 @@ function Note(name, freq, octave, name2){
 */
 function NoteCollection(notes, name, name2){
     if (!(notes instanceof Array)) throw new Error("notes must be an array of Note");
-    this.notes  = notes;                                      // array of notes
-    this.notes2 = notes.slice(0);                             // original notes (clone)
-    this.name   = typeof name  === "undefined" ? "" : name;   // default argument is ""
-    this.name2  = typeof name2 === "undefined" ? "" : name2;  // default argument is ""
+    this.notes  = notes;           // array of notes
+    this.notes2 = notes.slice(0);  // original notes (clone)
+    this.name   = name  || "";
+    this.name2  = name2 || "";
     this.size   = notes.length;
     
     // ==============================================
@@ -292,8 +292,8 @@ function Scale(notes, name, name2){
 /** Represents a group of chords */
 function ChordCollection(chords, name, name2){
     if (!(chords instanceof Array)) throw new Error("chords must be an array of Chord");
-    this.name   = typeof name  === "undefined" ? "" : name;   // default argument is ""
-    this.name2  = typeof name2 === "undefined" ? "" : name2;  // default argument is ""
+    this.name   = name  || "";
+    this.name2  = name2 || "";
     this.chords = chords;
     this.size   = chords.length;
 
