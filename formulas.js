@@ -1,3 +1,6 @@
+// ===========================================
+//              Scale Formulas
+// ===========================================
 
 // Formulas for pentatonic scales
 exports.MINOR_PENTATONIC = [3, 2, 2, 3, 2];  // minor pentatonic
@@ -38,4 +41,18 @@ exports.HARMONIC_MINOR   = [2, 1, 2, 2, 1, 3, 1]; // harmonic minor
 exports.LOCRIAN_SHARP7   = [1, 2, 2, 1, 3, 1, 2]; // locrian sharp 7
 exports.IONIAN_AUGMENTED = [2, 2, 1, 3, 1, 2, 1]; // ionian augmented
 
+// ===========================================
+//              Chord Formulas
+// ===========================================
 
+// Chord formulas:
+var triadFormulas = {
+    "major triad":      [4, 3],
+    "minor triad":      [3, 4],
+    "augmented triad":  [4, 4],
+    "diminished triad": [3, 3],
+    "suspended fourth": [5, 2],
+    "suspended second": [2, 5]
+};
+
+exports.triadFormulas = triadFormulas;
