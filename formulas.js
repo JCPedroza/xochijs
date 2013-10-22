@@ -47,12 +47,12 @@ exports.IONIAN_AUGMENTED = [2, 2, 1, 3, 1, 2, 1]; // ionian augmented
 
 // Chord formulas:
 var triadFormulas = {
-    "major triad":      [4, 3],
-    "minor triad":      [3, 4],
-    "augmented triad":  [4, 4],
-    "diminished triad": [3, 3],
-    "suspended fourth": [5, 2],
-    "suspended second": [2, 5]
+    "maj":  [4, 3],
+    "min":  [3, 4],
+    "aug":  [4, 4],
+    "dim":  [3, 3],
+    "sus4": [5, 2],
+    "sus2": [2, 5]
 };
 
 exports.triadFormulas = triadFormulas;
