@@ -1,3 +1,6 @@
+/** Used as default pool (equal temperament 12 semi-tones). */
+var ET12POOL = ["Ab", "A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G"];
+
 /**
 * Represents a musical note.
 *
@@ -15,7 +18,7 @@ function Note(name, freq, octave, name2){
     this.name2  = name2  || "";
     
     // ==============================================
-    //                    setters
+    //                   Mutators
     // ==============================================
 
     /** Sets name. */
@@ -39,7 +42,7 @@ function Note(name, freq, octave, name2){
     };
 
     // ==============================================
-    //                    getters
+    //                  Accessors
     // ==============================================
 
     /** Returns name. */
@@ -83,7 +86,7 @@ function NoteCollection(notes, name, name2){
     this.size   = notes.length;
     
     // ==============================================
-    //                    setters
+    //                   Mutators
     // ==============================================
 
     /** Change the notes. */ // !!! Should this implement variable arguments?
@@ -176,7 +179,7 @@ function NoteCollection(notes, name, name2){
     };
 
     // ==============================================
-    //                    getters
+    //                  Accessors
     // ==============================================
     
     /** Returns the object state as a string */
@@ -246,6 +249,21 @@ function NoteCollection(notes, name, name2){
         return returnString;
     };
 
+    /** Builds an array of the indexes the notes have in a pool. */
+    this.toIndexes = function(pool){
+        var thePool = pool || ET12POOL;
+        var returnArray = [];
+        for (var i in this.notes)
+            returnArray.push(thePool.indexOf(this.notes[i].name));
+        return returnArray;
+    };
+
+    /** Builds a formula based on the indexes the notes have in a pool. */
+    this.toFormula = function(pool){
+        var thePool = pool || ET12POOL;
+        return "!!!";
+    };
+
 }
 
 /**
@@ -259,7 +277,7 @@ function Chord(notes, name, name2){
     NoteCollection.call(this, notes, name, name2);  // inherits from NoteCollection
 
     // ==============================================
-    //                    setters
+    //                   Mutators
     // ==============================================
 
     /** Sets notes to nth inversion. Sets to previous inversions if n is negative. */ // !!! can this be done more efficiently?
@@ -298,7 +316,7 @@ function ChordCollection(chords, name, name2){
     this.size   = chords.length;
 
     // ==============================================
-    //                    setters
+    //                   Mutators
     // ==============================================
 
     this.setChords = function(newChords){
@@ -308,7 +326,7 @@ function ChordCollection(chords, name, name2){
     };
 
     // ==============================================
-    //                    getters
+    //                  Accessors
     // ==============================================
 
     this.getChords = function(){

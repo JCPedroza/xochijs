@@ -23,8 +23,9 @@ var Ab = new sounds.Note("Ab", 830.609, 5);
 var A2  = new sounds.Note("A",  440.000, 4);
 var A3  = new sounds.Note("A",  440.000, 4);
 
-var ABC = new sounds.NoteCollection([A, B, C], "ABC");
-var BCD = new sounds.NoteCollection([B, C, D], "BCD"); // use only at NoteCollection mutation
+var ABC  = new sounds.NoteCollection([A, B, C], "ABC");
+var GAbC = new sounds.NoteCollection([G, Ab, C], "GAbC");
+var BCD  = new sounds.NoteCollection([B, C, D], "BCD"); // use only at NoteCollection mutation
 
 var CEG = new sounds.Chord([C, E, G], "C major");
 var ACE = new sounds.Chord([A, C, E], "A minor");
@@ -38,16 +39,18 @@ var h1   = new sounds.Harmony([CEG, ACE, FAC], "h1");
 // ===== assertions =====
 
 // Note getters
-console.assert(A.name === "A");
-console.assert(A.freq === 440.000);
+console.assert(A.name   === "A");
+console.assert(A.freq   === 440.000);
 console.assert(A.octave === 4);
 console.assert(A.toString() === "name=A name2=La freq=440 octave=4");
 
 // NoteCollection getters
-console.assert(ABC.size === 3);
-console.assert(ABC.name === "ABC");
+console.assert(ABC.size  === 3);
+console.assert(ABC.name  === "ABC");
 console.assert(ABC.name2 === "");
-console.assert(JSON.stringify(ABC.getNotes()) === JSON.stringify([A, B, C]));
+console.assert(JSON.stringify(ABC.getNotes())   === JSON.stringify([A, B, C]));
+console.assert(JSON.stringify(ABC.toIndexes())  === JSON.stringify([1, 3, 4]));
+console.assert(JSON.stringify(GAbC.toIndexes()) === JSON.stringify([11, 0, 4]));
 
 // NoteCollection mutation
 BCD.addNote(E);
@@ -113,6 +116,7 @@ console.assert(BCD.getSize() === 2, "45");
 console.assert(JSON.stringify(BCD.getNotes()) === JSON.stringify([A, G]), "46");
 
 // Chord access and mutation
+console.assert(JSON.stringify(CEG.toIndexes()) === JSON.stringify([4, 8, 11]));
 console.assert(CEG.getNotesAsString() === "C E G ", "47");
 CEG.invert(1);
 console.assert(CEG.getNotesAsString() === "E G C ", "48");
