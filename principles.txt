@@ -1,1 +1,0 @@
-Private instance variables are expensive, avoid them if possible: http://blog.jcoglan.com/2012/01/19/the-cost-of-privacy/
