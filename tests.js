@@ -165,6 +165,10 @@ console.assert(process.stepCount(D, Db) === 11);
 console.assert(process.scalize(C, formulas.MAJOR).getNotesAsString() === "C D E F G A B ");
 console.assert(process.scalize(C, formulas.MINOR).getNotesAsString() === "C D Eb F G Ab Bb ");
 
+// Process harmonize
+console.assert(process.harmonize(CM, 3).getChordsNotesAsString() ===
+    "< C E G > < D F A > < E G B > < F A C > < G B D > < A C E > < B D F > ");
+
 // NoteCollection.toFormula()
 console.assert(CEG.toFormula().toString()  === [4 ,3, 5].toString());
 console.assert(FAC.toFormula().toString()  === [4, 3, 5].toString());
@@ -174,3 +178,4 @@ console.assert(CEGB.toFormula().toString() === [4, 3, 4, 1 ].toString());
 console.assert(FACE.toFormula().toString() === [4, 3, 4, 1 ].toString());
 console.assert(ACEG.toFormula().toString() === [3, 4, 3, 2 ].toString());
 console.assert(DFAC.toFormula().toString() === [3, 4, 3, 2 ].toString());
+
