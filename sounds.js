@@ -358,6 +358,13 @@ function ChordCollection(chords, name, name2){
         return returnString;
     };
 
+    this.getChordsNotesAsString = function(){
+        var returnString = "";
+        for (var i in this.chords)
+            returnString += this.chords[i].getNotesAsString() + " ";
+        return returnString;
+    };
+
     this.toString = function(){
         var returnString = "name=" + this.name + "\nname2=" + this.name2 + "\nsize=" + this.size;
         returnString += "\n\nchords= ";
