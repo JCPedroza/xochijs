@@ -73,6 +73,7 @@ function Note(name, freq, octave, name2){
 
 /**
 * Represents a group of notes. Parent constructor for Chord and Scale.
+* @constructor
 * @param notes An array of Note objects.
 * @param name  Name for the NoteCollection (optional).
 * @param name2 Secondary name for the NoteCollection (optional).
@@ -278,6 +279,7 @@ function NoteCollection(notes, name, name2){
 /**
 * Represents a group of notes as a Chord. 
 * Inherits fron NoteCollection.
+* @constructor
 * @param notes An array of Note objects.
 * @param name  Name for the NoteCollection (optional).
 * @param name2 Secondary name for the NoteCollection (optional).
@@ -311,12 +313,19 @@ function Chord(notes, name, name2){
     };
 }
 
-/** Group of Note objects with melodic dynamics (like a succession of notes). */
+/** 
+* Group of Note objects with melodic dynamics (like a succession of notes).
+*
+* @constructor
+*/
 function Scale(notes, name, name2){
     NoteCollection.call(this, notes, name, name2);  // inherits from NoteCollection
 }
 
-/** Represents a group of chords */
+/** 
+* Represents a group of chords 
+* @constructor
+*/
 function ChordCollection(chords, name, name2){
     if (!(chords instanceof Array)) throw new Error("chords must be an array of Chord");
     this.name   = name  || "";
@@ -361,6 +370,10 @@ function ChordCollection(chords, name, name2){
     };
 }
 
+/**
+* Represents a group of chords.
+* @constructor
+*/
 function Harmony(chords, name, name2){
     ChordCollection.call(this, chords, name, name2);
 }
