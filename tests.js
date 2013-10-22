@@ -51,6 +51,7 @@ console.assert(ABC.name2 === "");
 console.assert(JSON.stringify(ABC.getNotes())   === JSON.stringify([A, B, C]));
 console.assert(JSON.stringify(ABC.toIndexes())  === JSON.stringify([1, 3, 4]));
 console.assert(JSON.stringify(GAbC.toIndexes()) === JSON.stringify([11, 0, 4]));
+console.assert(ABC.toFormula().toString() === [2, 1, 9].toString());
 
 // NoteCollection mutation
 BCD.addNote(E);
@@ -138,6 +139,10 @@ CEG.invert(-2);
 console.assert(CEG.getNotesAsString() === "G C E ", "56");
 CEG.reset();
 console.assert(CEG.getNotesAsString() === "C E G ", "57");
+console.assert(CEG.toFormula().toString() === [4,3,5].toString());
+
+// Scale access and mutation
+console.assert(CM.toFormula().toString() === [2,2,1,2,2,2,1].toString());
 
 // ChordCollection access and mutation
 console.assert(chc1.getChordsAsString() === "C major A minor F major ");

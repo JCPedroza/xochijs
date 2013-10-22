@@ -258,10 +258,19 @@ function NoteCollection(notes, name, name2){
         return returnArray;
     };
 
-    /** Builds a formula based on the indexes the notes have in a pool. */
+    /** Builds a formula based on the indexes the notes have in a pool. */ // !!! this can be more efficient
     this.toFormula = function(pool){
-        var thePool = pool || ET12POOL;
-        return "!!!";
+        var thePool       = pool || ET12POOL;
+        var indexArray    = this.toIndexes();
+        var returnArray   = [];
+        var formulaLength = indexArray.length;
+        var poolLength    = thePool.length;
+        for (var i = 0; i < formulaLength; i++){
+            var sum = indexArray[i] - indexArray[(i + 1) % formulaLength];
+            if (sum > 0) sum -= poolLength;
+            returnArray.push(Math.abs(sum));
+        }
+        return returnArray;
     };
 
 }
