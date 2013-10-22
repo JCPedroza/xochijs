@@ -150,10 +150,10 @@ console.assert(CEG.getNotesAsString() === "C E G ");
 console.assert(CM.toFormula().toString() === [2,2,1,2,2,2,1].toString());
 
 // ChordCollection access and mutation
-console.assert(chc1.getChordsAsString() === "C major A minor F major ");
+console.assert(chc1.getChordsNames() === "C major A minor F major ");
 
 // Harmony access and mutation
-console.assert(h1.getChordsAsString() === "C major A minor F major ");
+console.assert(h1.getChordsNames() === "C major A minor F major ");
 
 // Process stepCount
 console.assert(process.stepCount(A, Bb) === 1);

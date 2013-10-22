@@ -351,7 +351,7 @@ function ChordCollection(chords, name, name2){
         return this.chords;
     };
 
-    this.getChordsAsString = function(){
+    this.getChordsNames = function(){
         var returnString = "";
         for (var i in this.chords)
             returnString += this.chords[i].name + " ";
