@@ -31,6 +31,8 @@ var GAbC = new sounds.NoteCollection([G, Ab, C], "GAbC");
 var BCD  = new sounds.NoteCollection([B, C, D], "BCD"); // use only at NoteCollection mutation
 
 var CEG  = new sounds.Chord([C, E, G], "C major");
+var EGC  = new sounds.Chord([E, G, C], "C major inv");
+var CGE  = new sounds.Chord([C, G, E], "C major");
 var ACE  = new sounds.Chord([A, C, E], "A minor");
 var FAC  = new sounds.Chord([F, A, C], "F major");
 var DFA  = new sounds.Chord([D, F, A], "D minor");
@@ -185,7 +187,7 @@ console.assert(process.stepCount(D, Db) === 11);
 console.assert(process.scalize(C, formulas.MAJOR).getNotesAsString() === "C D E F G A B ");
 console.assert(process.scalize(C, formulas.MINOR).getNotesAsString() === "C D Eb F G Ab Bb ");
 
-// Process harmonize
+// harmony.harmonize
 console.assert(harmony.harmonize(CM, 3).getChordsNotesAsString() ===
     "< C E G > < D F A > < E G B > < F A C > < G B D > < A C E > < B D F > ");
 
@@ -199,8 +201,9 @@ for (var i = 0; i < CEGinvs.length; i++)
 console.assert(equals(CEGinvs2, ['C E G ', 'E G C ', 'G C E ']));
 
 
-// Process identifyTriad
+// identify.identifyChord
 console.assert(equals(identify.identifyChord(CEG),  ['C maj' ]));
+console.assert(equals(identify.identifyChord(EGC),  ['C maj' ]));
 console.assert(equals(identify.identifyChord(CEAb), ['C aug', 'E aug', 'Ab aug']));
 console.assert(equals(identify.identifyChord(CDG),  ['C sus2', 'G sus4']));
 console.assert(equals(identify.identifyChord(CFG),  ['C sus4', 'F sus2']));
@@ -210,6 +213,9 @@ console.assert(equals(identify.identifyChord(ACEb), ['A dim' ] ));
 // Process arraysEqual
 console.assert(equals([1, 2], [1, 2])    === true);
 console.assert(equals([1, 3, 4], [1, 2]) === false);
+
+console.log(process.permute(["C", "E", "G"]));
+console.log(identify.identifyChord(CGE));
 
 
 
