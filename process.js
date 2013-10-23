@@ -14,6 +14,27 @@ var arraysEqual = function(a, b) {
   return true;
 };
 
+/** Generates an array that contains the permutations of the input array */
+var permute = function(input) {
+    var permArr = [],
+    usedChars = [];
+    function main(input){
+        var i, ch;
+        for (i = 0; i < input.length; i++) {
+            ch = input.splice(i, 1)[0];
+            usedChars.push(ch);
+            if (input.length === 0) {
+                permArr.push(usedChars.slice());
+            }
+            main(input);
+            input.splice(i, 0, ch);
+            usedChars.pop();
+        }
+        return permArr;
+    }
+    return main(input);
+};
+
 /** Counts the steps between two notes. */
 var stepCount = function(note1, note2, pool){
     var thePool = pool || ET12POOL;
@@ -97,11 +118,12 @@ var identifyTrichord = function(triad){
 };
 
 // Node exports:
-exports.arraysEqual     = arraysEqual;
-exports.stepCount       = stepCount;
-exports.scalize         = scalize;
-exports.harmonize       = harmonize;
-exports.buildInversions = buildInversions;
-exports.identifyChord   = identifyChord;
-exports.identifyTrichord   = identifyTrichord; //!!! only for tests, remove
+exports.arraysEqual      = arraysEqual;
+exports.permute          = permute;
+exports.stepCount        = stepCount;
+exports.scalize          = scalize;
+exports.harmonize        = harmonize;
+exports.buildInversions  = buildInversions;
+exports.identifyChord    = identifyChord;
+exports.identifyTrichord = identifyTrichord; //!!! only for tests, remove
 

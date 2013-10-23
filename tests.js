@@ -202,10 +202,10 @@ console.assert(equals(process.identifyChord(CFG),  ['F sus2', 'C sus4']));
 console.assert(equals(process.identifyChord(ACE),  ['A min' ]));
 console.assert(equals(process.identifyChord(ACEb), ['A dim' ] ));
 
-
 // Process arraysEqual
 console.assert(equals([1, 2], [1, 2])    === true);
 console.assert(equals([1, 3, 4], [1, 2]) === false);
+
 
 
 
