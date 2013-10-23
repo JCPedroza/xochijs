@@ -77,7 +77,8 @@ var buildInversions = function(chord){
     var chordCopy   = new sounds.Chord(chord.getNotes().slice(0));
     var chordSize   = chordCopy.getSize();
     var returnArray = [];
-    for (var i = 0; i < chordSize; i++){
+    returnArray.push(new sounds.Chord(chordCopy.getNotes().slice(0)));
+    for (var i = 1; i < chordSize; i++){
         chordCopy.invert(1);
         returnArray.push(new sounds.Chord(chordCopy.getNotes().slice(0)));
     }
@@ -100,14 +101,14 @@ var identifyChord = function(chord){
 * Currently identifies major, minor, augmented, and diminished triads, and
 * suspended 4th, suspended 2nd chords.
 */
-var identifyTrichord = function(triad){
-    var inversions  = buildInversions(triad);                  // array with all the inversions of the chord
-    var formula     = formulas.triadFormulas;                  // triad formulas
+var identifyTrichord = function(trichord){
+    var inversions  = buildInversions(trichord);                  // array with all the inversions of the chord
+    var formula     = formulas.trichordFormulas;                  // trichord formulas
     var returnArray = [];                                      // array that will be populated with possible names
     for (var i = 0; i < 3; i++){
         var current = inversions[i].toFormula().slice(0, -1);  // last value in formula is not relevant
         var lowest  = inversions[i].getNotes()[0].getName();   // lowest note, to determine root
-        for (var key in formula){                              // loop through triad formulas
+        for (var key in formula){                              // loop through trichord formulas
             if (formula.hasOwnProperty(key)){                  // checks property doesn't come from prototype
                 if (arraysEqual(current,formula[key]))         // checks for a match
                     returnArray.push(lowest + " " + key);      // add lowest note and key if there is a match

@@ -192,13 +192,14 @@ var CEGinvs  = process.buildInversions(CEG);
 var CEGinvs2 = [];
 for (var i = 0; i < CEGinvs.length; i++)
     CEGinvs2[i] = CEGinvs[i].getNotesAsString();
-console.assert(CEGinvs2.toString() === ['E G C ', 'G C E ', 'C E G '].toString());
+console.assert(equals(CEGinvs2, ['C E G ', 'E G C ', 'G C E ']));
+
 
 // Process identifyTriad
 console.assert(equals(process.identifyChord(CEG),  ['C maj' ]));
-console.assert(equals(process.identifyChord(CEAb), ['E aug', 'Ab aug', 'C aug']));
-console.assert(equals(process.identifyChord(CDG),  ['G sus4', 'C sus2']));
-console.assert(equals(process.identifyChord(CFG),  ['F sus2', 'C sus4']));
+console.assert(equals(process.identifyChord(CEAb), ['C aug', 'E aug', 'Ab aug']));
+console.assert(equals(process.identifyChord(CDG),  ['C sus2', 'G sus4']));
+console.assert(equals(process.identifyChord(CFG),  ['C sus4', 'F sus2']));
 console.assert(equals(process.identifyChord(ACE),  ['A min' ]));
 console.assert(equals(process.identifyChord(ACEb), ['A dim' ] ));
 
