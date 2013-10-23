@@ -1,7 +1,18 @@
-var sounds = require("./sounds");
+var sounds   = require("./sounds");
+var formulas = require("./formulas");
 
 /** Used as default pool (equal temperament 12 semi-tones). */
 var ET12POOL = ["Ab", "A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G"];
+
+/** Checks equality between two arrays. */  // needs to handle nested arrays
+var arraysEqual = function(a, b) {
+  if (a === b)                  return true;
+  if (a === null || b === null) return false;
+  if (a.length != b.length)     return false;
+  for (var i = 0; i < a.length; ++i)
+    if (a[i] !== b[i]) return false;
+  return true;
+};
 
 /** Counts the steps between two notes. */
 var stepCount = function(note1, note2, pool){
@@ -40,12 +51,52 @@ var harmonize = function(scale, depth){
     return new sounds.Harmony(chordArray);
 };
 
-/** Identifies the name of a chord. */
+/** Builds an array with all the possible inversions of a Chord object. */ // !!! needs to be tested
+var buildInversions = function(chord){
+    var chordCopy   = new sounds.Chord(chord.getNotes().slice(0));
+    var chordSize   = chordCopy.getSize();
+    var returnArray = [];
+    for (var i = 0; i < chordSize; i++){
+        chordCopy.invert(1);
+        returnArray.push(new sounds.Chord(chordCopy.getNotes().slice(0)));
+    }
+    return returnArray;
+};
+
+// ===========================================
+//              Chord Recognition
+// ===========================================
+
+// !!! needs datatype that ties formula number and note name
+/** Identifies the name of a Chord object, returns an array of possible names. */
 var identifyChord = function(chord){
-    return "!!!"
+    var chordSize = chord.getSize();
+    if (chordSize === 3) return identifyTriad(chord);
+};
+
+var identifyTriad = function(triad){
+    var inversions  = buildInversions(triad);                  // array with all the inversions of the chord
+    var formula     = formulas.triadFormulas;                  // triad formulas
+    var returnArray = [];                                      // array that will be populated with possible names
+    for (var i = 0; i < 3; i++){
+        var current = inversions[i].toFormula().slice(0, -1);  // last value in formula is not relevant
+        var lowest  = inversions[i].getNotes()[0].getName();   // lowest note, to determine root
+        for (var key in formula){                              // loop through triad formulas
+            if (formula.hasOwnProperty(key)){                  // checks property doesn't come from prototype
+                if (arraysEqual(current,formula[key]))         // checks for a match
+                    returnArray.push(lowest + " " + key);      // add lowest note and key if there is a match
+            }
+        }
+    }
+    return returnArray;                                        // return the array with the possible names
 };
 
 // Node exports:
-exports.stepCount = stepCount;
-exports.scalize   = scalize;
-exports.harmonize = harmonize;
+exports.arraysEqual     = arraysEqual;
+exports.stepCount       = stepCount;
+exports.scalize         = scalize;
+exports.harmonize       = harmonize;
+exports.buildInversions = buildInversions;
+exports.identifyChord   = identifyChord;
+exports.identifyTriad   = identifyTriad; //!!! only for tests, remove
+
