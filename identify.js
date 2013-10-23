@@ -18,20 +18,34 @@ var identifyChord = function(chord){
 * suspended 4th, suspended 2nd chords.
 */
 var identifyTrichord = function(trichord){
-    var inversions  = process.buildInversions(trichord);        // array with all the inversions of the chord
-    var formula     = formulas.trichordFormulas;                // trichord formulas
-    var returnArray = [];                                       // array that will be populated with possible names
+    var inversions  = process.buildInversions(trichord);        // Array with all the inversions of the chord.
+    var formula     = formulas.trichordFormulas;                // Trichord formulas.
+    var returnArray = [];                                       // Array that will be populated with possible names.
     for (var i = 0; i < 3; i++){
-        var current = inversions[i].toFormula().slice(0, -1);   // last value in formula is not relevant
-        var lowest  = inversions[i].getNotes()[0].getName();    // lowest note, to determine root
-        for (var key in formula){                               // loop through trichord formulas
-            if (formula.hasOwnProperty(key)){                   // checks property doesn't come from prototype
-                if (process.arraysEqual(current,formula[key]))  // checks for a match
-                    returnArray.push(lowest + " " + key);       // add lowest note and key if there is a match
+        var current = inversions[i].toFormula().slice(0, -1);   // Last value in formula is not relevant.
+        var lowest  = inversions[i].getNotes()[0].getName();    // Lowest note, to determine root.
+        for (var key in formula){                               // Loop through trichord formulas.
+            if (formula.hasOwnProperty(key)){                   // Checks property doesn't come from prototype.
+                if (process.arraysEqual(current,formula[key]))  // Checks for a match.
+                    returnArray.push(lowest + " " + key);       // Add lowest note and key if there is a match.
             }
         }
     }
-    return returnArray;                                         // return the array with the possible names
+    return returnArray;                                         // Return the array with the possible names.
 };
 
+// ===========================================
+//          Chord Formula Recognition
+// ===========================================
+
+// !!! everything
+/*
+* Identifies a chord based on its formula.
+* @param formula a sequence or array of numbers.
+*/
+var identifyChordFormula = function(formula){
+    Array.prototype.slice.call(arguments);  // Cast to array.
+};
+
+// Node exports:
 exports.identifyChord = identifyChord;
