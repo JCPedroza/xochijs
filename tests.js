@@ -3,6 +3,7 @@
 var sounds   = require("./sounds");
 var process  = require("./process");
 var formulas = require("./formulas");
+var harmony  = require("./harmony");
 
 // ===== declarations =====
 
@@ -184,8 +185,10 @@ console.assert(process.scalize(C, formulas.MAJOR).getNotesAsString() === "C D E 
 console.assert(process.scalize(C, formulas.MINOR).getNotesAsString() === "C D Eb F G Ab Bb ");
 
 // Process harmonize
-console.assert(process.harmonize(CM, 3).getChordsNotesAsString() ===
+console.assert(harmony.harmonize(CM, 3).getChordsNotesAsString() ===
     "< C E G > < D F A > < E G B > < F A C > < G B D > < A C E > < B D F > ");
+
+
 
 // Process buildInversions
 var CEGinvs  = process.buildInversions(CEG);

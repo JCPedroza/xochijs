@@ -56,31 +56,14 @@ var scalize = function(note, formula, pool){
     return new sounds.Scale(noteArray);
 };
 
-/** Forms chords derived from the input scale, using superimposed thirds. */
-var harmonize = function(scale, depth){
-    if (depth < 1 || typeof depth !== "number")
-        throw new Error("depth must be a number > 0");
-    var chordArray = [];
-    var notes      = scale.getNotes();
-    var scaleSize  = scale.getSize();
-    for(var i = 0; i < scaleSize; i++){                  // For every note in the scale:
-        var aNoteArray = [];                             // Build a note array (a chord):
-        for(var j = 0, k = 0; j < depth; j++, k += 2)    // With that note plus a number -
-            aNoteArray[j] = notes[(k + i) % scaleSize];  // of superimposed thirds (depth).
-        chordArray.push(new sounds.Chord(aNoteArray));   // Add that chord to chordList.
-    }
-    return new sounds.Harmony(chordArray);
-};
-
 /** Builds an array with all the possible inversions of a Chord object. */ // !!! needs to be tested
 var buildInversions = function(chord){
     var chordCopy   = new sounds.Chord(chord.getNotes().slice(0));
     var chordSize   = chordCopy.getSize();
     var returnArray = [];
-    returnArray.push(new sounds.Chord(chordCopy.getNotes().slice(0)));
-    for (var i = 1; i < chordSize; i++){
-        chordCopy.invert(1);
+    for (var i = 0; i < chordSize; i++){
         returnArray.push(new sounds.Chord(chordCopy.getNotes().slice(0)));
+        chordCopy.invert(1);
     }
     return returnArray;
 };
@@ -102,8 +85,8 @@ var identifyChord = function(chord){
 * suspended 4th, suspended 2nd chords.
 */
 var identifyTrichord = function(trichord){
-    var inversions  = buildInversions(trichord);                  // array with all the inversions of the chord
-    var formula     = formulas.trichordFormulas;                  // trichord formulas
+    var inversions  = buildInversions(trichord);               // array with all the inversions of the chord
+    var formula     = formulas.trichordFormulas;               // trichord formulas
     var returnArray = [];                                      // array that will be populated with possible names
     for (var i = 0; i < 3; i++){
         var current = inversions[i].toFormula().slice(0, -1);  // last value in formula is not relevant
@@ -123,7 +106,6 @@ exports.arraysEqual      = arraysEqual;
 exports.permute          = permute;
 exports.stepCount        = stepCount;
 exports.scalize          = scalize;
-exports.harmonize        = harmonize;
 exports.buildInversions  = buildInversions;
 exports.identifyChord    = identifyChord;
 exports.identifyTrichord = identifyTrichord; //!!! only for tests, remove
