@@ -1,1 +1,7 @@
-- chord identification algorithm
+- chord identification algorithm (on it)
+
+- chord possibilities: name all the chords that can be done with a set of notes that are not in order
+
+- datatype that ties formula number with note name for chord recognition
+    
+- in unit test: use custom equality function rather than stringify
