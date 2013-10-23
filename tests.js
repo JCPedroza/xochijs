@@ -31,6 +31,10 @@ var CEG  = new sounds.Chord([C, E, G], "C major");
 var ACE  = new sounds.Chord([A, C, E], "A minor");
 var FAC  = new sounds.Chord([F, A, C], "F major");
 var DFA  = new sounds.Chord([D, F, A], "D minor");
+var CFG  = new sounds.Chord([C, F, G], "C sus4");
+var CDG  = new sounds.Chord([C, D, G], "C sus2");
+var ACEb = new sounds.Chord([A, C, Eb], "A dim");
+var CEAb = new sounds.Chord([C, E, Ab], "C aug");
 var CEGB = new sounds.Chord([C, E, G, B], "C major 7");
 var ACEG = new sounds.Chord([A, C, E, G], "A minor 7");
 var FACE = new sounds.Chord([F, A, C, E], "F major 7");
@@ -155,6 +159,19 @@ console.assert(chc1.getChordsNames() === "C major A minor F major ");
 // Harmony access and mutation
 console.assert(h1.getChordsNames() === "C major A minor F major ");
 
+// NoteCollection.toFormula()
+console.assert(CEG.toFormula().toString()  === [4 ,3, 5].toString());
+console.assert(FAC.toFormula().toString()  === [4, 3, 5].toString());
+console.assert(ACE.toFormula().toString()  === [3, 4, 5].toString());
+console.assert(DFA.toFormula().toString()  === [3, 4, 5].toString());
+console.assert(CEGB.toFormula().toString() === [4, 3, 4, 1].toString());
+console.assert(FACE.toFormula().toString() === [4, 3, 4, 1].toString());
+console.assert(ACEG.toFormula().toString() === [3, 4, 3, 2].toString());
+console.assert(DFAC.toFormula().toString() === [3, 4, 3, 2].toString());
+console.assert(CFG.toFormula().toString()  === [5, 2, 5].toString());
+console.assert(CDG.toFormula().toString()  === [2, 5, 5].toString());
+
+
 // Process stepCount
 console.assert(process.stepCount(A, Bb) === 1);
 console.assert(process.stepCount(A, B)  === 2);
@@ -169,13 +186,29 @@ console.assert(process.scalize(C, formulas.MINOR).getNotesAsString() === "C D Eb
 console.assert(process.harmonize(CM, 3).getChordsNotesAsString() ===
     "< C E G > < D F A > < E G B > < F A C > < G B D > < A C E > < B D F > ");
 
-// NoteCollection.toFormula()
-console.assert(CEG.toFormula().toString()  === [4 ,3, 5].toString());
-console.assert(FAC.toFormula().toString()  === [4, 3, 5].toString());
-console.assert(ACE.toFormula().toString()  === [3, 4, 5].toString());
-console.assert(DFA.toFormula().toString()  === [3, 4, 5].toString());
-console.assert(CEGB.toFormula().toString() === [4, 3, 4, 1 ].toString());
-console.assert(FACE.toFormula().toString() === [4, 3, 4, 1 ].toString());
-console.assert(ACEG.toFormula().toString() === [3, 4, 3, 2 ].toString());
-console.assert(DFAC.toFormula().toString() === [3, 4, 3, 2 ].toString());
+// Process buildInversions
+var CEGinvs  = process.buildInversions(CEG);
+var CEGinvs2 = [];
+for (var i = 0; i < CEGinvs.length; i++)
+    CEGinvs2[i] = CEGinvs[i].getNotesAsString();
+console.assert(CEGinvs2.toString() === ['E G C ', 'G C E ', 'C E G '].toString());
+
+// Process identifyTriad
+console.log(process.identifyChord(CEG));
+console.log(process.identifyChord(CEAb));
+console.log(process.identifyChord(CDG));
+console.log(process.identifyChord(CFG));
+console.log(process.identifyChord(ACE));
+console.log(process.identifyChord(ACEb));
+
+
+// Process arrayEquals
+console.assert(process.arraysEqual([1, 2], [1, 2])    === true);
+console.assert(process.arraysEqual([1, 3, 4], [1, 2]) === false);
+
+
+
+
+
+
 
