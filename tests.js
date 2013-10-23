@@ -31,8 +31,12 @@ var GAbC = new sounds.NoteCollection([G, Ab, C], "GAbC");
 var BCD  = new sounds.NoteCollection([B, C, D], "BCD"); // use only at NoteCollection mutation
 
 var CEG  = new sounds.Chord([C, E, G], "C major");
-var EGC  = new sounds.Chord([E, G, C], "C major inv");
 var CGE  = new sounds.Chord([C, G, E], "C major");
+var EGC  = new sounds.Chord([E, G, C], "C major");
+var ECG  = new sounds.Chord([E, C, G], "C major");
+var GCE  = new sounds.Chord([G, C, E], "C major");
+var GEC  = new sounds.Chord([G, E, C], "C major");
+
 var ACE  = new sounds.Chord([A, C, E], "A minor");
 var FAC  = new sounds.Chord([F, A, C], "F major");
 var DFA  = new sounds.Chord([D, F, A], "D minor");
@@ -203,7 +207,11 @@ console.assert(equals(CEGinvs2, ['C E G ', 'E G C ', 'G C E ']));
 
 // identify.identifyChord
 console.assert(equals(identify.identifyChord(CEG),  ['C maj' ]));
+console.assert(equals(identify.identifyChord(CGE),  ['C maj' ]));
 console.assert(equals(identify.identifyChord(EGC),  ['C maj' ]));
+console.assert(equals(identify.identifyChord(ECG),  ['C maj' ]));
+console.assert(equals(identify.identifyChord(GEC),  ['C maj' ]));
+console.assert(equals(identify.identifyChord(GCE),  ['C maj' ]));
 console.assert(equals(identify.identifyChord(CEAb), ['C aug', 'E aug', 'Ab aug']));
 console.assert(equals(identify.identifyChord(CDG),  ['C sus2', 'G sus4']));
 console.assert(equals(identify.identifyChord(CFG),  ['C sus4', 'F sus2']));
@@ -220,6 +228,8 @@ var buildPermutations1Str = "";
 for (var i = 0; i < buildPermutations1.length; i++)
     buildPermutations1Str += buildPermutations1[i].getNotesAsString() + " ";
 console.assert(buildPermutations1Str === "C E G  C G E  E C G  E G C  G C E  G E C  ");
+
+
 
 
 
