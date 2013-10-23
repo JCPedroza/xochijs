@@ -15,7 +15,7 @@ var chord = function(chord){
 // Helper for chord(), deals with trichords.
 var identifyTrichord = function(trichord){
     var permutations = process.buildPermutations(trichord);      // Array with all the permutations of the chord.
-    var formula      = formulas.trichordFormulas;                // Trichord formulas.
+    var formula      = formulas.threeNoteChords;                  // Trichord formulas.
     var returnArray  = [];                                       // Array that will be populated with possible names.
     for (var i = 0; i < permutations.length; i++){
         var current = permutations[i].toFormula().slice(0, -1);  // Last value in formula is not relevant.

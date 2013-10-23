@@ -42,11 +42,11 @@ exports.LOCRIAN_SHARP7   = [1, 2, 2, 1, 3, 1, 2]; // locrian sharp 7
 exports.IONIAN_AUGMENTED = [2, 2, 1, 3, 1, 2, 1]; // ionian augmented
 
 // ===========================================
-//              Chord Formulas
+//               Chord Formulas
 // ===========================================
 
 // Chord formulas:
-var trichordFormulas = {
+var threeNoteChords = {
     "maj":  [4, 3],
     "min":  [3, 4],
     "aug":  [4, 4],
@@ -55,4 +55,5 @@ var trichordFormulas = {
     "sus2": [2, 5]
 };
 
-exports.trichordFormulas = trichordFormulas;
+// Node exports:
+exports.threeNoteChords = threeNoteChords;
