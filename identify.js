@@ -12,11 +12,7 @@ var chord = function(chord){
     if (chordSize === 3) return identifyTrichord(chord);
 };
 
-/** 
-* Helper for identifyChord. 
-* Currently identifies major, minor, augmented, and diminished triads, and
-* suspended 4th, suspended 2nd chords.
-*/
+// Helper for chord(), deals with trichords.
 var identifyTrichord = function(trichord){
     var permutations = process.buildPermutations(trichord);      // Array with all the permutations of the chord.
     var formula      = formulas.trichordFormulas;                // Trichord formulas.
