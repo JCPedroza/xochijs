@@ -7,7 +7,7 @@
 
 // !!! needs datatype that ties formula number and note name
 /** Identifies the name of a Chord object, returns an array of possible names. */
-var identifyChord = function(chord){
+var chord = function(chord){
     var chordSize = chord.getSize();
     if (chordSize === 3) return identifyTrichord(chord);
 };
@@ -48,4 +48,4 @@ var identifyChordFormula = function(formula){
 };
 
 // Node exports:
-exports.identifyChord = identifyChord;
+exports.chord = chord;

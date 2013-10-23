@@ -205,18 +205,18 @@ for (var i = 0; i < CEGinvs.length; i++)
 console.assert(equals(CEGinvs2, ['C E G ', 'E G C ', 'G C E ']));
 
 
-// identify.identifyChord
-console.assert(equals(identify.identifyChord(CEG),  ['C maj' ]));
-console.assert(equals(identify.identifyChord(CGE),  ['C maj' ]));
-console.assert(equals(identify.identifyChord(EGC),  ['C maj' ]));
-console.assert(equals(identify.identifyChord(ECG),  ['C maj' ]));
-console.assert(equals(identify.identifyChord(GEC),  ['C maj' ]));
-console.assert(equals(identify.identifyChord(GCE),  ['C maj' ]));
-console.assert(equals(identify.identifyChord(CEAb), ['C aug', 'E aug', 'Ab aug']));
-console.assert(equals(identify.identifyChord(CDG),  ['C sus2', 'G sus4']));
-console.assert(equals(identify.identifyChord(CFG),  ['C sus4', 'F sus2']));
-console.assert(equals(identify.identifyChord(ACE),  ['A min' ]));
-console.assert(equals(identify.identifyChord(ACEb), ['A dim' ] ));
+// identify.chord
+console.assert(equals(identify.chord(CEG),  ['C maj' ]));
+console.assert(equals(identify.chord(CGE),  ['C maj' ]));
+console.assert(equals(identify.chord(EGC),  ['C maj' ]));
+console.assert(equals(identify.chord(ECG),  ['C maj' ]));
+console.assert(equals(identify.chord(GEC),  ['C maj' ]));
+console.assert(equals(identify.chord(GCE),  ['C maj' ]));
+console.assert(equals(identify.chord(CEAb), ['C aug', 'E aug', 'Ab aug']));
+console.assert(equals(identify.chord(CDG),  ['C sus2', 'G sus4']));
+console.assert(equals(identify.chord(CFG),  ['C sus4', 'F sus2']));
+console.assert(equals(identify.chord(ACE),  ['A min' ]));
+console.assert(equals(identify.chord(ACEb), ['A dim' ] ));
 
 // Process arraysEqual
 console.assert(equals([1, 2], [1, 2])    === true);
