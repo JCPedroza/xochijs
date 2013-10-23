@@ -46,7 +46,7 @@ exports.IONIAN_AUGMENTED = [2, 2, 1, 3, 1, 2, 1]; // ionian augmented
 // ===========================================
 
 // Chord formulas:
-var triadFormulas = {
+var trichordFormulas = {
     "maj":  [4, 3],
     "min":  [3, 4],
     "aug":  [4, 4],
@@ -55,4 +55,4 @@ var triadFormulas = {
     "sus2": [2, 5]
 };
 
-exports.triadFormulas = triadFormulas;
+exports.trichordFormulas = trichordFormulas;
