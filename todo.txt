@@ -4,6 +4,8 @@
 
 - interval : from step to name "minor second", "perfect fifth", etc.
 
+- another toFormula but with formula taking always the root as reference.
+
 - chord possibilities: name all the chords that can be done with a set of notes that are not in order
 
 - chord identification: iterate through all permutations, insead of only inversions?
