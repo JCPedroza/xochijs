@@ -71,10 +71,15 @@ var buildInversions = function(chord){
 /** Identifies the name of a Chord object, returns an array of possible names. */
 var identifyChord = function(chord){
     var chordSize = chord.getSize();
-    if (chordSize === 3) return identifyTriad(chord);
+    if (chordSize === 3) return identifyTrichord(chord);
 };
 
-var identifyTriad = function(triad){
+/** 
+* Helper for identifyChord. 
+* Currently identifies major, minor, augmented, and diminished triads, and
+* suspended 4th, suspended 2nd chords.
+*/
+var identifyTrichord = function(triad){
     var inversions  = buildInversions(triad);                  // array with all the inversions of the chord
     var formula     = formulas.triadFormulas;                  // triad formulas
     var returnArray = [];                                      // array that will be populated with possible names
@@ -98,5 +103,5 @@ exports.scalize         = scalize;
 exports.harmonize       = harmonize;
 exports.buildInversions = buildInversions;
 exports.identifyChord   = identifyChord;
-exports.identifyTriad   = identifyTriad; //!!! only for tests, remove
+exports.identifyTrichord   = identifyTrichord; //!!! only for tests, remove
 
