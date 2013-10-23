@@ -1,3 +1,5 @@
+= IMPROTANT: chord identification shoudl search in permutations, not only inversions!
+
 = IMPORTANT: should the inversions be handled in the recognition algorithm, or stored as formulas?
 
 - chord identification algorithm (on it)
