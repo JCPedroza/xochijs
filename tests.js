@@ -4,6 +4,7 @@ var sounds   = require("./sounds");
 var process  = require("./process");
 var formulas = require("./formulas");
 var harmony  = require("./harmony");
+var identify = require("./identify");
 
 // ===== declarations =====
 
@@ -199,12 +200,12 @@ console.assert(equals(CEGinvs2, ['C E G ', 'E G C ', 'G C E ']));
 
 
 // Process identifyTriad
-console.assert(equals(process.identifyChord(CEG),  ['C maj' ]));
-console.assert(equals(process.identifyChord(CEAb), ['C aug', 'E aug', 'Ab aug']));
-console.assert(equals(process.identifyChord(CDG),  ['C sus2', 'G sus4']));
-console.assert(equals(process.identifyChord(CFG),  ['C sus4', 'F sus2']));
-console.assert(equals(process.identifyChord(ACE),  ['A min' ]));
-console.assert(equals(process.identifyChord(ACEb), ['A dim' ] ));
+console.assert(equals(identify.identifyChord(CEG),  ['C maj' ]));
+console.assert(equals(identify.identifyChord(CEAb), ['C aug', 'E aug', 'Ab aug']));
+console.assert(equals(identify.identifyChord(CDG),  ['C sus2', 'G sus4']));
+console.assert(equals(identify.identifyChord(CFG),  ['C sus4', 'F sus2']));
+console.assert(equals(identify.identifyChord(ACE),  ['A min' ]));
+console.assert(equals(identify.identifyChord(ACEb), ['A dim' ] ));
 
 // Process arraysEqual
 console.assert(equals([1, 2], [1, 2])    === true);
