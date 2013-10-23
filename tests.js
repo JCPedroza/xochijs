@@ -214,9 +214,12 @@ console.assert(equals(identify.identifyChord(ACEb), ['A dim' ] ));
 console.assert(equals([1, 2], [1, 2])    === true);
 console.assert(equals([1, 3, 4], [1, 2]) === false);
 
-console.log(process.permute(["C", "E", "G"]));
-console.log(identify.identifyChord(CGE));
-
+// process.buildPermutations()
+var buildPermutations1    = process.buildPermutations(CEG);
+var buildPermutations1Str = "";
+for (var i = 0; i < buildPermutations1.length; i++)
+    buildPermutations1Str += buildPermutations1[i].getNotesAsString() + " ";
+console.assert(buildPermutations1Str === "C E G  C G E  E C G  E G C  G C E  G E C  ");
 
 
 

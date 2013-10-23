@@ -56,7 +56,7 @@ var scalize = function(note, formula, pool){
     return new sounds.Scale(noteArray);
 };
 
-/** Builds an array with all the possible inversions of a Chord object. */ // !!! needs to be tested
+/** Builds an array with all the possible inversions of a Chord object. */
 var buildInversions = function(chord){
     var chordCopy   = new sounds.Chord(chord.getNotes().slice(0));
     var chordSize   = chordCopy.getSize();
@@ -68,11 +68,20 @@ var buildInversions = function(chord){
     return returnArray;
 };
 
-
+/*+ Builds an array with all the permutations of a Chord object. */
+var buildPermutations = function (chord){
+    var chordNotes    = chord.getNotes().slice(0);  // Copy array of notes, the notes of the chord.
+    var permutedArray = permute(chordNotes);        // Build an array of its permutations.
+    var returnArray   = [];                         // Array that will be populated with Chord objects.
+    for (var i in permutedArray)                    // Create a Chord object with each permutation.
+        returnArray.push(new sounds.Chord(permutedArray[i]));
+    return returnArray;                             // Return the array of Chord objects.
+};
 
 // Node exports:
-exports.arraysEqual      = arraysEqual;
-exports.permute          = permute;
-exports.stepCount        = stepCount;
-exports.scalize          = scalize;
-exports.buildInversions  = buildInversions;
+exports.arraysEqual       = arraysEqual;
+exports.permute           = permute;
+exports.stepCount         = stepCount;
+exports.scalize           = scalize;
+exports.buildInversions   = buildInversions;
+exports.buildPermutations = buildPermutations;
