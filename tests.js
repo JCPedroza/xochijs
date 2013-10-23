@@ -4,8 +4,9 @@ var sounds   = require("./sounds");
 var process  = require("./process");
 var formulas = require("./formulas");
 
-
 // ===== declarations =====
+
+var equals = process.arraysEqual;  // checks equality for arrays
 
 var A  = new sounds.Note("A",  440.000, 4, "La");
 var Bb = new sounds.Note("Bb", 466.164, 4);
@@ -194,17 +195,17 @@ for (var i = 0; i < CEGinvs.length; i++)
 console.assert(CEGinvs2.toString() === ['E G C ', 'G C E ', 'C E G '].toString());
 
 // Process identifyTriad
-console.log(process.identifyChord(CEG));
-console.log(process.identifyChord(CEAb));
-console.log(process.identifyChord(CDG));
-console.log(process.identifyChord(CFG));
-console.log(process.identifyChord(ACE));
-console.log(process.identifyChord(ACEb));
+console.assert(equals(process.identifyChord(CEG),  ['C maj' ]));
+console.assert(equals(process.identifyChord(CEAb), ['E aug', 'Ab aug', 'C aug']));
+console.assert(equals(process.identifyChord(CDG),  ['G sus4', 'C sus2']));
+console.assert(equals(process.identifyChord(CFG),  ['F sus2', 'C sus4']));
+console.assert(equals(process.identifyChord(ACE),  ['A min' ]));
+console.assert(equals(process.identifyChord(ACEb), ['A dim' ] ));
 
 
-// Process arrayEquals
-console.assert(process.arraysEqual([1, 2], [1, 2])    === true);
-console.assert(process.arraysEqual([1, 3, 4], [1, 2]) === false);
+// Process arraysEqual
+console.assert(equals([1, 2], [1, 2])    === true);
+console.assert(equals([1, 3, 4], [1, 2]) === false);
 
 
 
