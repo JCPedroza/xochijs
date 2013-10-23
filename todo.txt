@@ -1,5 +1,7 @@
 - chord identification algorithm (on it)
 
+- interval : from step to name "minor second", "perfect fifth", etc.
+
 - chord possibilities: name all the chords that can be done with a set of notes that are not in order
 
 - chord identification: iterate through all permutations, insead of only inversions?
