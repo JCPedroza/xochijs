@@ -194,8 +194,8 @@ console.assert(process.scalize(C, formulas.MINOR).getNotesAsString() === "C D Eb
 // harmony.harmonize
 console.assert(harmony.harmonize(CM, 3).getChordsNotesAsString() ===
     "< C E G > < D F A > < E G B > < F A C > < G B D > < A C E > < B D F > ");
-
-
+console.assert(harmony.harmonize(CM, 3, 1), [['C maj' ], ['D min' ], ['E min' ], ['F maj' ],
+                                            [ 'G maj' ], ['A min' ],['B dim' ]]);
 
 // Process buildInversions
 var CEGinvs  = process.buildInversions(CEG);
