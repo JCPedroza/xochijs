@@ -229,6 +229,8 @@ for (var i = 0; i < buildPermutations1.length; i++)
     buildPermutations1Str += buildPermutations1[i].getNotesAsString() + " ";
 console.assert(buildPermutations1Str === "C E G  C G E  E C G  E G C  G C E  G E C  ");
 
+// process.toFormula()
+console.assert(equals(process.toFormula(["C", "D", "E", "F", "G", "A", "B"]), [2, 2, 1, 2, 2, 2, 1]));
 
 
 

@@ -68,7 +68,7 @@ var buildInversions = function(chord){
     return returnArray;
 };
 
-/*+ Builds an array with all the permutations of a Chord object. */
+/** Builds an array with all the permutations of a Chord object. */
 var buildPermutations = function (chord){
     var chordNotes    = chord.getNotes().slice(0);  // Copy array of notes, the notes of the chord.
     var permutedArray = permute(chordNotes);        // Build an array of its permutations.
@@ -78,6 +78,29 @@ var buildPermutations = function (chord){
     return returnArray;                             // Return the array of Chord objects.
 };
 
+// !!! handle other data types
+/** Returns the formula of the provided sequence of notes */
+var toFormula = function(notes, pool){
+    var thePool       = pool || ET12POOL;
+    var returnArray   = [];
+    var notesLength   = notes.length;
+    var thePoolLength = thePool.length;
+    if (typeof notes[0] === "string") return toFormula0(notes, thePool, [], notesLength, thePoolLength);
+    else throw new Error("notes format not supported");
+};
+
+// Helper for toFormula, handles array of strings 
+var toFormula0 = function(notes, thePool, returnArray, notesLength, thePoolLength){
+    for (var i = 0; i < notesLength; i++){
+        if (thePool.indexOf(notes[i]) === -1){    // Checks that the note is in the pool.
+            throw new Error(notes[i] + " is not in the pool.");}
+        var value = thePool.indexOf(notes[i]) - thePool.indexOf(notes[(i + 1) % notesLength]);
+        if (value > 0) value -= thePoolLength;
+        returnArray.push(Math.abs(value));
+    }
+    return returnArray;
+};
+
 // Node exports:
 exports.arraysEqual       = arraysEqual;
 exports.permute           = permute;
@@ -85,3 +108,4 @@ exports.stepCount         = stepCount;
 exports.scalize           = scalize;
 exports.buildInversions   = buildInversions;
 exports.buildPermutations = buildPermutations;
+exports.toFormula         = toFormula;
