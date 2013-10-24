@@ -45,15 +45,32 @@ exports.IONIAN_AUGMENTED = [2, 2, 1, 3, 1, 2, 1]; // ionian augmented
 //               Chord Formulas
 // ===========================================
 
-// Chord formulas:
 var threeNoteChords = {
-    "maj":  [4, 3],
-    "min":  [3, 4],
-    "aug":  [4, 4],
-    "dim":  [3, 3],
-    "sus4": [5, 2],
-    "sus2": [2, 5]
+    "maj" : [4, 3],  // Major triad
+    "min" : [3, 4],  // Minor triad
+    "aug" : [4, 4],  // Augmented triad
+    "dim" : [3, 3],  // Diminished triad
+    "sus4": [5, 2],  // Suspended fourth trichord
+    "sus2": [2, 5]   // Suspended second trichord
 };
+
+// !!! https://en.wikipedia.org/wiki/Chord_names_and_symbols_%28jazz_and_pop_music%29#Seventh_chords
+var fourNoteChords = {
+    // 7th chords:
+    "maj7"   : [],  // Major seventh
+    "min7"   : [],  // Minor seventh 
+    "7"      : [],  // Dominant seventh
+    "min7b5" : [],  // Half-diminished seventh
+    "dim7"   : [],  // Diminished seventh
+    "minmaj7": [],  // Minor-major seventh
+    "maj7#5" : [],  // Augmented-major seventh
+    "7b5"    : [],  // Augmented seventh
+    "7#5"    : [],  // Dominant seventh flat five
+    // 6th chords
+    "maj6"   : [],  // Major sixth
+    "min6"   : []   // Minor sixth 
+};
+
 
 // Node exports:
 exports.threeNoteChords = threeNoteChords;
