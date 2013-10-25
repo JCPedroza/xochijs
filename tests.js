@@ -6,9 +6,17 @@ var formulas = require("./formulas");
 var harmony  = require("./harmony");
 var identify = require("./identify");
 
-// ===== declarations =====
+// ==== compare and assert functions ===
 
 var equals = process.arraysEqual;  // checks equality for arrays
+var aea = function(a, b){          // assert equals for arrays
+    console.assert(equals(a, b));
+};
+var ae = function(a){              // console.assert alias
+    console.assert(a);
+};
+
+// ===== declarations =====
 
 var A  = new sounds.Note("A",  440.000, 4, "La");
 var Bb = new sounds.Note("Bb", 466.164, 4);
@@ -57,144 +65,144 @@ var h1   = new sounds.Harmony([CEG, ACE, FAC], "h1");
 // ===== assertions =====
 
 // Note getters
-console.assert(A.name   === "A");
-console.assert(A.freq   === 440.000);
-console.assert(A.octave === 4);
-console.assert(A.toString() === "name=A name2=La freq=440 octave=4");
+ae(A.name   === "A");
+ae(A.freq   === 440.000);
+ae(A.octave === 4);
+ae(A.toString() === "name=A name2=La freq=440 octave=4");
 
 // NoteCollection getters
-console.assert(ABC.size  === 3);
-console.assert(ABC.name  === "ABC");
-console.assert(ABC.name2 === "");
-console.assert(JSON.stringify(ABC.getNotes())   === JSON.stringify([A, B, C]));
-console.assert(JSON.stringify(ABC.toIndexes())  === JSON.stringify([1, 3, 4]));
-console.assert(JSON.stringify(GAbC.toIndexes()) === JSON.stringify([11, 0, 4]));
-console.assert(ABC.toFormula().toString() === [2, 1, 9].toString());
+ae(ABC.size  === 3);
+ae(ABC.name  === "ABC");
+ae(ABC.name2 === "");
+ae(JSON.stringify(ABC.getNotes())   === JSON.stringify([A, B, C]));
+ae(JSON.stringify(ABC.toIndexes())  === JSON.stringify([1, 3, 4]));
+ae(JSON.stringify(GAbC.toIndexes()) === JSON.stringify([11, 0, 4]));
+ae(ABC.toFormula().toString() === [2, 1, 9].toString());
 
 // NoteCollection mutation
 BCD.addNote(E);
-console.assert(JSON.stringify(BCD.getNotes()) === JSON.stringify([B, C, D, E]));
-console.assert(BCD.size === 4);
+ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([B, C, D, E]));
+ae(BCD.size === 4);
 BCD.reset();
-console.assert(BCD.size === 3);
-console.assert(JSON.stringify(BCD.getNotes()) === JSON.stringify([B, C, D]));
+ae(BCD.size === 3);
+ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([B, C, D]));
 BCD.setNotes([D, E]);
-console.assert(BCD.size === 2);
-console.assert(JSON.stringify(BCD.getNotes()) === JSON.stringify([D, E]));
+ae(BCD.size === 2);
+ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([D, E]));
 BCD.reset();
-console.assert(BCD.size === 3);
-console.assert(JSON.stringify(BCD.getNotes()) === JSON.stringify([B, C, D]));
+ae(BCD.size === 3);
+ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([B, C, D]));
 BCD.reverse();
-console.assert(BCD.size === 3);
-console.assert(JSON.stringify(BCD.getNotes()) === JSON.stringify([D, C, B]));
+ae(BCD.size === 3);
+ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([D, C, B]));
 BCD.rotate();
-console.assert(JSON.stringify(BCD.getNotes()) === JSON.stringify([C, B, D]));
+ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([C, B, D]));
 BCD.removeNoteAt(1);
-console.assert(JSON.stringify(BCD.getNotes()) === JSON.stringify([C, D]));
-console.assert(BCD.size === 2);
-console.assert(BCD.getNotesAsString() === "C D ");
-console.assert(BCD.getOriginalNotesAsString() === "B C D ");
-console.assert(BCD.getFreqsAsString() === "523.251 587.33 ");
+ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([C, D]));
+ae(BCD.size === 2);
+ae(BCD.getNotesAsString() === "C D ");
+ae(BCD.getOriginalNotesAsString() === "B C D ");
+ae(BCD.getFreqsAsString() === "523.251 587.33 ");
 BCD.setName("C D");
 BCD.setName2("secondary name");
-console.assert(BCD.getName() === "C D");
-console.assert(BCD.getName2() === "secondary name");
+ae(BCD.getName() === "C D");
+ae(BCD.getName2() === "secondary name");
 BCD.setNotes([C, A, B, A2, A3, G, C, A2]);
-console.assert(BCD.getNotesAsString() === "C A B A A G C A ");
-console.assert(BCD.size === 8);
+ae(BCD.getNotesAsString() === "C A B A A G C A ");
+ae(BCD.size === 8);
 BCD.removeNotesWithName("A");
-console.assert(BCD.getNotesAsString() === "C B G C ");
-console.assert(BCD.size === 4);
+ae(BCD.getNotesAsString() === "C B G C ");
+ae(BCD.size === 4);
 BCD.setNotes([C, A, B, A2, A3, G, C, A2]);
 BCD.removeNotesWithFreq(440);
-console.assert(BCD.getNotesAsString() === "C B G C ");
-console.assert(BCD.size === 4);
+ae(BCD.getNotesAsString() === "C B G C ");
+ae(BCD.size === 4);
 BCD.removeNotesWithName2("Do");
-console.assert(BCD.getNotesAsString() === "B G ");
-console.assert(BCD.size === 2);
+ae(BCD.getNotesAsString() === "B G ");
+ae(BCD.size === 2);
 BCD.reset();
-console.assert(BCD.size === 3);
-console.assert(JSON.stringify(BCD.getNotes()) === JSON.stringify([B, C, D]));
+ae(BCD.size === 3);
+ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([B, C, D]));
 BCD.rotateBack();
-console.assert(JSON.stringify(BCD.getNotes()) === JSON.stringify([D, B, C]));
+ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([D, B, C]));
 BCD.rotateBack();
-console.assert(JSON.stringify(BCD.getNotes()) === JSON.stringify([C, D, B]));
+ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([C, D, B]));
 BCD.rotateBack();
-console.assert(JSON.stringify(BCD.getNotes()) === JSON.stringify([B, C, D]));
+ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([B, C, D]));
 BCD.rotate();
-console.assert(JSON.stringify(BCD.getNotes()) === JSON.stringify([C, D, B]));
+ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([C, D, B]));
 BCD.rotate();
-console.assert(JSON.stringify(BCD.getNotes()) === JSON.stringify([D, B, C]));
+ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([D, B, C]));
 BCD.rotate();
-console.assert(JSON.stringify(BCD.getNotes()) === JSON.stringify([B, C, D]));
+ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([B, C, D]));
 BCD.setNotes([A, B, C, D, E, F, G]);
-console.assert(BCD.getSize() === 7, "43");
-console.assert(JSON.stringify(BCD.getNotes()) === JSON.stringify([A, B, C, D, E, F, G]));
+ae(BCD.getSize() === 7, "43");
+ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([A, B, C, D, E, F, G]));
 BCD.removeNotesWithFreqRange(490, 700);
-console.assert(BCD.getSize() === 2, "45");
-console.assert(JSON.stringify(BCD.getNotes()) === JSON.stringify([A, G]));
+ae(BCD.getSize() === 2, "45");
+ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([A, G]));
 
 // Chord access and mutation
-console.assert(JSON.stringify(CEG.toIndexes()) === JSON.stringify([4, 8, 11]));
-console.assert(CEG.getNotesAsString() === "C E G ");
+ae(JSON.stringify(CEG.toIndexes()) === JSON.stringify([4, 8, 11]));
+ae(CEG.getNotesAsString() === "C E G ");
 CEG.invert(1);
-console.assert(CEG.getNotesAsString() === "E G C ");
+ae(CEG.getNotesAsString() === "E G C ");
 CEG.invert(1);
-console.assert(CEG.getNotesAsString() === "G C E ");
+ae(CEG.getNotesAsString() === "G C E ");
 CEG.invert(1);
-console.assert(CEG.getNotesAsString() === "C E G ");
+ae(CEG.getNotesAsString() === "C E G ");
 CEG.invert(-1);
-console.assert(CEG.getNotesAsString() === "G C E ");
+ae(CEG.getNotesAsString() === "G C E ");
 CEG.invert(-1);
-console.assert(CEG.getNotesAsString() === "E G C ");
+ae(CEG.getNotesAsString() === "E G C ");
 CEG.invert(-1);
-console.assert(CEG.getNotesAsString() === "C E G ");
+ae(CEG.getNotesAsString() === "C E G ");
 CEG.invert(2);
-console.assert(CEG.getNotesAsString() === "G C E ");
+ae(CEG.getNotesAsString() === "G C E ");
 CEG.invert(-1);
-console.assert(CEG.getNotesAsString() === "E G C ");
+ae(CEG.getNotesAsString() === "E G C ");
 CEG.invert(-2);
-console.assert(CEG.getNotesAsString() === "G C E ");
+ae(CEG.getNotesAsString() === "G C E ");
 CEG.reset();
-console.assert(CEG.getNotesAsString() === "C E G ");
+ae(CEG.getNotesAsString() === "C E G ");
 
 
 // Scale access and mutation
-console.assert(CM.toFormula().toString() === [2,2,1,2,2,2,1].toString());
+ae(CM.toFormula().toString() === [2,2,1,2,2,2,1].toString());
 
 // ChordCollection access and mutation
-console.assert(chc1.getChordsNames() === "C major A minor F major ");
+ae(chc1.getChordsNames() === "C major A minor F major ");
 
 // Harmony access and mutation
-console.assert(h1.getChordsNames() === "C major A minor F major ");
+ae(h1.getChordsNames() === "C major A minor F major ");
 
 // NoteCollection.toFormula()
-console.assert(CEG.toFormula().toString()  === [4 ,3, 5].toString());
-console.assert(FAC.toFormula().toString()  === [4, 3, 5].toString());
-console.assert(ACE.toFormula().toString()  === [3, 4, 5].toString());
-console.assert(DFA.toFormula().toString()  === [3, 4, 5].toString());
-console.assert(CEGB.toFormula().toString() === [4, 3, 4, 1].toString());
-console.assert(FACE.toFormula().toString() === [4, 3, 4, 1].toString());
-console.assert(ACEG.toFormula().toString() === [3, 4, 3, 2].toString());
-console.assert(DFAC.toFormula().toString() === [3, 4, 3, 2].toString());
-console.assert(CFG.toFormula().toString()  === [5, 2, 5].toString());
-console.assert(CDG.toFormula().toString()  === [2, 5, 5].toString());
+ae(CEG.toFormula().toString()  === [4 ,3, 5].toString());
+ae(FAC.toFormula().toString()  === [4, 3, 5].toString());
+ae(ACE.toFormula().toString()  === [3, 4, 5].toString());
+ae(DFA.toFormula().toString()  === [3, 4, 5].toString());
+ae(CEGB.toFormula().toString() === [4, 3, 4, 1].toString());
+ae(FACE.toFormula().toString() === [4, 3, 4, 1].toString());
+ae(ACEG.toFormula().toString() === [3, 4, 3, 2].toString());
+ae(DFAC.toFormula().toString() === [3, 4, 3, 2].toString());
+ae(CFG.toFormula().toString()  === [5, 2, 5].toString());
+ae(CDG.toFormula().toString()  === [2, 5, 5].toString());
 
 
 // Process stepCount
-console.assert(process.stepCount(A, Bb) === 1);
-console.assert(process.stepCount(A, B)  === 2);
-console.assert(process.stepCount(G, Ab) === 1);
-console.assert(process.stepCount(D, Db) === 11);
+ae(process.stepCount(A, Bb) === 1);
+ae(process.stepCount(A, B)  === 2);
+ae(process.stepCount(G, Ab) === 1);
+ae(process.stepCount(D, Db) === 11);
 
 // Process scalize
-console.assert(process.scalize(C, formulas.MAJOR).getNotesAsString() === "C D E F G A B ");
-console.assert(process.scalize(C, formulas.MINOR).getNotesAsString() === "C D Eb F G Ab Bb ");
+ae(process.scalize(C, formulas.MAJOR).getNotesAsString() === "C D E F G A B ");
+ae(process.scalize(C, formulas.MINOR).getNotesAsString() === "C D Eb F G Ab Bb ");
 
 // harmony.harmonize
-console.assert(harmony.harmonize(CM, 3).getChordsNotesAsString() ===
+ae(harmony.harmonize(CM, 3).getChordsNotesAsString() ===
     "< C E G > < D F A > < E G B > < F A C > < G B D > < A C E > < B D F > ");
-console.assert(harmony.harmonize(CM, 3, 1), [['C maj' ], ['D min' ], ['E min' ], ['F maj' ],
+ae(harmony.harmonize(CM, 3, 1), [['C maj' ], ['D min' ], ['E min' ], ['F maj' ],
                                             [ 'G maj' ], ['A min' ],['B dim' ]]);
 
 // Process buildInversions
@@ -202,50 +210,65 @@ var CEGinvs  = process.buildInversions(CEG);
 var CEGinvs2 = [];
 for (var i = 0; i < CEGinvs.length; i++)
     CEGinvs2[i] = CEGinvs[i].getNotesAsString();
-console.assert(equals(CEGinvs2, ['C E G ', 'E G C ', 'G C E ']));
-
-
-// identify.chord
-console.assert(equals(identify.chord(CEG),  ['C maj' ]));
-console.assert(equals(identify.chord(CGE),  ['C maj' ]));
-console.assert(equals(identify.chord(EGC),  ['C maj' ]));
-console.assert(equals(identify.chord(ECG),  ['C maj' ]));
-console.assert(equals(identify.chord(GEC),  ['C maj' ]));
-console.assert(equals(identify.chord(GCE),  ['C maj' ]));
-console.assert(equals(identify.chord(CEAb), ['C aug', 'E aug', 'Ab aug']));
-console.assert(equals(identify.chord(CDG),  ['C sus2', 'G sus4']));
-console.assert(equals(identify.chord(CFG),  ['C sus4', 'F sus2']));
-console.assert(equals(identify.chord(ACE),  ['A min' ]));
-console.assert(equals(identify.chord(ACEb), ['A dim' ] ));
+ae(equals(CEGinvs2, ['C E G ', 'E G C ', 'G C E ']));
 
 // Process arraysEqual
-console.assert(equals([1, 2], [1, 2])    === true);
-console.assert(equals([1, 3, 4], [1, 2]) === false);
+ae(equals([1, 2], [1, 2])    === true);
+ae(equals([1, 3, 4], [1, 2]) === false);
 
 // process.buildPermutations()
 var buildPermutations1    = process.buildPermutations(CEG);
 var buildPermutations1Str = "";
 for (var i = 0; i < buildPermutations1.length; i++)
     buildPermutations1Str += buildPermutations1[i].getNotesAsString() + " ";
-console.assert(buildPermutations1Str === "C E G  C G E  E C G  E G C  G C E  G E C  ");
+ae(buildPermutations1Str === "C E G  C G E  E C G  E G C  G C E  G E C  ");
 
-// process.toFormula()
-console.assert(equals(process.toFormula(["C", "D", "E", "F", "G", "A", "B"]), [2, 2, 1, 2, 2, 2, 1]));
-console.assert(equals(process.toFormula(["C", "E", "G", "B"]),   [4, 3, 4, 1]));
-console.assert(equals(process.toFormula(["C", "Eb", "G", "Bb"]), [3, 4, 3, 2]));
-console.assert(equals(process.toFormula(["C", "E", "G", "Bb"]),  [4, 3, 3, 2]));
-console.assert(equals(process.toFormula(["C", "Eb", "Gb", "Bb"]),[3, 3, 4, 2]));
-console.assert(equals(process.toFormula(["C", "Eb", "Gb", "A"]), [3, 3, 3, 3]));
-console.assert(equals(process.toFormula(["C", "Eb", "G", "B"]),  [3, 4, 4, 1]));
-console.assert(equals(process.toFormula(["C", "E", "Ab", "B"]),  [4, 4, 3, 1]));
-console.assert(equals(process.toFormula(["C", "E", "Gb", "Bb"]), [4, 2, 4, 2]));
-console.assert(equals(process.toFormula(["C", "E", "Ab", "Bb"]), [4, 4, 2, 2]));
-console.assert(equals(process.toFormula(["C", "E", "G", "A"]),   [4, 3, 2, 3]));
-console.assert(equals(process.toFormula(["C", "Eb", "G", "A"]),  [3, 4, 2, 3]));
-console.assert(equals(process.toFormula(["C", "E", "G", "F"]),   [4, 3, 10, 7]));
-console.assert(equals(process.toFormula(["C", "E", "G", "D"]),   [4, 3, 7, 10]));
-console.assert(equals(process.toFormula(["C", "Eb", "G", "D"]),  [3, 4, 7, 10]));
+// =========================================================================
+//                         process.toFormula() 
+// =========================================================================
 
+aea(process.toFormula(["C", "E",  "B"]),        [4, 7, 1 ]);
+aea(process.toFormula(["C", "Eb", "Bb"]),       [3, 7, 2 ]);
+aea(process.toFormula(["C", "E",  "Bb"]),       [4, 6, 2 ]);
+aea(process.toFormula(["C", "Eb", "A"]),        [3, 6, 3 ]);
+aea(process.toFormula(["C", "Eb", "B"]),        [3, 8, 1 ]);
+aea(process.toFormula(["C", "E",  "A"]),        [4, 5, 3 ]);
+aea(process.toFormula(["C", "Eb", "A"]),        [3, 6, 3 ]);
+aea(process.toFormula(["C", "E",  "D"]),        [4, 10, 10 ]);
+aea(process.toFormula(["C", "E",  "F"]),        [4, 1, 7 ]);
+aea(process.toFormula(["C", "E",  "G",  "B"]),  [4, 3, 4, 1]);
+aea(process.toFormula(["C", "Eb", "G",  "Bb"]), [3, 4, 3, 2]);
+aea(process.toFormula(["C", "E",  "G",  "Bb"]), [4, 3, 3, 2]);
+aea(process.toFormula(["C", "Eb", "Gb", "Bb"]), [3, 3, 4, 2]);
+aea(process.toFormula(["C", "Eb", "Gb", "A"]),  [3, 3, 3, 3]);
+aea(process.toFormula(["C", "Eb", "G",  "B"]),  [3, 4, 4, 1]);
+aea(process.toFormula(["C", "E",  "Ab", "B"]),  [4, 4, 3, 1]);
+aea(process.toFormula(["C", "E",  "Gb", "Bb"]), [4, 2, 4, 2]);
+aea(process.toFormula(["C", "E",  "Ab", "Bb"]), [4, 4, 2, 2]);
+aea(process.toFormula(["C", "E",  "G",  "A"]),  [4, 3, 2, 3]);
+aea(process.toFormula(["C", "Eb", "G",  "A"]),  [3, 4, 2, 3]);
+aea(process.toFormula(["C", "E",  "G",  "F"]),  [4, 3, 10, 7]);
+aea(process.toFormula(["C", "E",  "G",  "D"]),  [4, 3, 7, 10]);
+aea(process.toFormula(["C", "Eb", "G",  "D"]),  [3, 4, 7, 10]);
+
+aea(process.toFormula(["C", "D", "E", "F", "G", "A", "B"]), [2, 2, 1, 2, 2, 2, 1]);
+
+
+// =========================================================================
+//                         identify.chord() 
+// =========================================================================
+
+aea(identify.chord(CEG),  ['C maj' ]);
+aea(identify.chord(CGE),  ['C maj' ]);
+aea(identify.chord(EGC),  ['C maj' ]);
+aea(identify.chord(ECG),  ['C maj' ]);
+aea(identify.chord(GEC),  ['C maj' ]);
+aea(identify.chord(GCE),  ['C maj' ]);
+aea(identify.chord(CEAb), ['C aug', 'E aug', 'Ab aug']);
+aea(identify.chord(CDG),  ['C sus2', 'G sus4']);
+aea(identify.chord(CFG),  ['C sus4', 'F sus2']);
+aea(identify.chord(ACE),  ['A min', 'C maj6 no 5th' ]);
+aea(identify.chord(ACEb), ['A dim', 'C dim7 no 5th', 'C min6 no 5th' ]);
 
 
 
