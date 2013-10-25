@@ -199,12 +199,6 @@ ae(process.stepCount(D, Db) === 11);
 ae(process.scalize(C, formulas.MAJOR).getNotesAsString() === "C D E F G A B ");
 ae(process.scalize(C, formulas.MINOR).getNotesAsString() === "C D Eb F G Ab Bb ");
 
-// harmony.harmonize
-ae(harmony.harmonize(CM, 3).getChordsNotesAsString() ===
-    "< C E G > < D F A > < E G B > < F A C > < G B D > < A C E > < B D F > ");
-ae(harmony.harmonize(CM, 3, 1), [['C maj' ], ['D min' ], ['E min' ], ['F maj' ],
-                                            [ 'G maj' ], ['A min' ],['B dim' ]]);
-
 // Process buildInversions
 var CEGinvs  = process.buildInversions(CEG);
 var CEGinvs2 = [];
@@ -256,7 +250,7 @@ aea(process.toFormula(["C", "D", "E", "F", "G", "A", "B"]), [2, 2, 1, 2, 2, 2, 1
 
 
 // =========================================================================
-//                         identify.chord() 
+//                          identify.chord() 
 // =========================================================================
 
 aea(identify.chord(CEG),  ['C maj' ]);
@@ -287,6 +281,14 @@ aea(identify.chord(new sounds.Chord([D, G, E, C])),    ['C maj add2' ]);
 aea(identify.chord(new sounds.Chord([C, E, G, F])),    ['C maj add4' ]);
 aea(identify.chord(new sounds.Chord([C, Eb, G, D])),   ['C min9 no 7th' ]);
 
+// =========================================================================
+//                         harmony.harmonize() 
+// =========================================================================
+
+ae(harmony.harmonize(CM, 3).getChordsNotesAsString() ===
+    "< C E G > < D F A > < E G B > < F A C > < G B D > < A C E > < B D F > ");
+aea(harmony.harmonize(CM, 3, 1), [ 'C maj', 'D min', 'E min', 'F maj', 'G maj', 'A min', 'B dim' ]);
+aea(harmony.harmonize(CM, 4, 1), [ 'C maj7', 'D min7', 'E min7', 'F maj7', 'G 7', 'A min7', 'B min7b5' ]);
 
 
 
