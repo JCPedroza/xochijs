@@ -231,6 +231,23 @@ console.assert(buildPermutations1Str === "C E G  C G E  E C G  E G C  G C E  G E
 
 // process.toFormula()
 console.assert(equals(process.toFormula(["C", "D", "E", "F", "G", "A", "B"]), [2, 2, 1, 2, 2, 2, 1]));
+console.assert(equals(process.toFormula(["C", "E", "G", "B"]),   [4, 3, 4, 1]));
+console.assert(equals(process.toFormula(["C", "Eb", "G", "Bb"]), [3, 4, 3, 2]));
+console.assert(equals(process.toFormula(["C", "E", "G", "Bb"]),  [4, 3, 3, 2]));
+console.assert(equals(process.toFormula(["C", "Eb", "Gb", "Bb"]),[3, 3, 4, 2]));
+console.assert(equals(process.toFormula(["C", "Eb", "Gb", "A"]), [3, 3, 3, 3]));
+console.assert(equals(process.toFormula(["C", "Eb", "G", "B"]),  [3, 4, 4, 1]));
+console.assert(equals(process.toFormula(["C", "E", "Ab", "B"]),  [4, 4, 3, 1]));
+console.assert(equals(process.toFormula(["C", "E", "Gb", "Bb"]), [4, 2, 4, 2]));
+console.assert(equals(process.toFormula(["C", "E", "Ab", "Bb"]), [4, 4, 2, 2]));
+console.assert(equals(process.toFormula(["C", "E", "G", "A"]),   [4, 3, 2, 3]));
+console.assert(equals(process.toFormula(["C", "Eb", "G", "A"]),  [3, 4, 2, 3]));
+console.assert(equals(process.toFormula(["C", "E", "G", "F"]),   [4, 3, 10, 7]));
+console.assert(equals(process.toFormula(["C", "E", "G", "D"]),   [4, 3, 7, 10]));
+console.assert(equals(process.toFormula(["C", "Eb", "G", "D"]),  [3, 4, 7, 10]));
+
+
+
 
 
 
