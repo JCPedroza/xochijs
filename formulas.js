@@ -73,21 +73,21 @@ var threeNoteChords = {
 
 var fourNoteChords = {
     // 7th chords:
-    "maj7"       : [4, 3, 4],   // Major seventh
-    "min7"       : [3, 4, 3],   // Minor seventh 
-    "7"          : [4, 3, 3],   // Dominant seventh
-    "min7b5"     : [3, 3, 4],   // Half-diminished seventh
-    "dim7"       : [3, 3, 3],   // Diminished seventh
-    "minmaj7"    : [3, 4, 4],   // Minor-major seventh
-    "maj7#5"     : [4, 4, 3],   // Augmented-major seventh
-    "7b5"        : [4, 2, 4],   // Augmented seventh
-    "7#5"        : [4, 4, 2],   // Dominant seventh flat five
+    "maj7"        : [4, 3, 4],   // Major seventh
+    "min7"        : [3, 4, 3],   // Minor seventh 
+    "7"           : [4, 3, 3],   // Dominant seventh
+    "min7b5"      : [3, 3, 4],   // Half-diminished seventh
+    "dim7"        : [3, 3, 3],   // Diminished seventh
+    "minmaj7"     : [3, 4, 4],   // Minor-major seventh
+    "maj7#5"      : [4, 4, 3],   // Augmented-major seventh
+    "7b5"         : [4, 2, 4],   // Augmented seventh
+    "7#5"         : [4, 4, 2],   // Dominant seventh flat five
     // 6th chords:
-    "maj6"       : [4, 3, 2],   // Major sixth
-    "min6"       : [3, 4, 2],   // Minor sixth 
+    "maj6"        : [4, 3, 2],   // Major sixth
+    "min6"        : [3, 4, 2],   // Minor sixth 
     // Add chords:
-    "maj add2"   : [4, 3, 7,],  // Major added-second
-    "maj add4"   : [4, 3, 10],  // Major added-fourth
+    "maj add2"    : [4, 3, 7,],  // Major added-second
+    "maj add4"    : [4, 3, 10],  // Major added-fourth
     // No 7th chords:
     "min9 no 7th" : [3, 4, 7]    // Minor ninth no seventh
 };
