@@ -35,7 +35,7 @@ var harmonize1 = function(scale, depth, chordArray, notes, scaleSize){
     var chlength    = chords.length;
     var returnArray = [];
     for (var i = 0; i < chlength; i++)
-        returnArray.push(identify.chord(chords[i]));
+        returnArray.push(identify.chord(chords[i])[0]);
     return returnArray;
 };
 
