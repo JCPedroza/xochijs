@@ -13,7 +13,7 @@ var chord = function(chord){
     var formula      = getFormulas(chordSize);                   // Determine a formula object to use.
     var returnArray  = [];                                       // Array that will be populated with possible names.
     for (var i = 0; i < permutations.length; i++){
-        var current = permutations[i].toFormula().slice(0, -1);  // Last value in formula is not relevant.
+        var current = permutations[i].toFormula().slice(0, -1);  // Last value in formula is not relevant. (1)
         var lowest  = permutations[i].getNotes()[0].getName();   // Lowest note, to determine root.
         for (var key in formula){                                // Loop through chord formulas.
             if (formula.hasOwnProperty(key)){                    // Checks property doesn't come from prototype.
@@ -45,5 +45,17 @@ var identifyChordFormula = function(formula){
     Array.prototype.slice.call(arguments);  // Cast to array.
 };
 
-// Node exports:
+// ===========================================
+//                Node Exports
+// ===========================================
+
 exports.chord = chord;
+
+// ===========================================
+//                   Notes
+// ===========================================
+
+/*
+* (1) Last value is not relevant because it's the number of half steps that connect the last note with
+* the first note; that value is not used to determine the chord's quality.
+*/
