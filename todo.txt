@@ -1,7 +1,5 @@
 = IMPORTANT: should the inversions be handled in the recognition algorithm, or stored as formulas?
 
-- toFormula in process that can handle arrays of string
-
 - chord identification algorithm (on it)
 
 - interval : from step to name "minor second", "perfect fifth", etc.
