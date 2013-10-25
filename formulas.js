@@ -50,13 +50,25 @@ exports.IONIAN_AUGMENTED = [2, 2, 1, 3, 1, 2, 1]; // ionian augmented
 // !!! 7th chords with no 5th or no root?
 var threeNoteChords = {
     // Triads:
-    "maj" : [4, 3],  // Major triad
-    "min" : [3, 4],  // Minor triad
-    "aug" : [4, 4],  // Augmented triad
-    "dim" : [3, 3],  // Diminished triad
+    "maj"             : [4, 3],  // Major triad
+    "min"             : [3, 4],  // Minor triad
+    "aug"             : [4, 4],  // Augmented triad
+    "dim"             : [3, 3],  // Diminished triad
     // Sus trichords:
-    "sus4": [5, 2],  // Suspended fourth trichord
-    "sus2": [2, 5]   // Suspended second trichord
+    "sus4"            : [5, 2],  // Suspended fourth trichord
+    "sus2"            : [2, 5],  // Suspended second trichord
+    // 7th no 5th trichords:
+    "maj7 no 5th"     : [4, 7],
+    "min7 no 5th"     : [3, 7],
+    "7 no 5th"        : [4, 6],
+    "dim7 no 5th"     : [3, 6],
+    "minmaj7 no 5th"  : [3, 8],
+    // 6th no 5th trichords:
+    "maj6 no 5th"     : [4, 5],
+    "min6 no 5th"     : [3, 6],
+    // Add no 5th trichords:
+    "maj add2 no 5th" : [4, 10],
+    "maj add4 no 5th" : [4, 1]
 };
 
 var fourNoteChords = {
@@ -77,8 +89,7 @@ var fourNoteChords = {
     "maj add2"   : [4, 3, 7,],  // Major added-second
     "maj add4"   : [4, 3, 10],  // Major added-fourth
     // No 7th chords:
-    "min9 no7th" : [3, 4, 7]    // Minor ninth no seventh
-
+    "min9 no 7th" : [3, 4, 7]    // Minor ninth no seventh
 };
 
 
