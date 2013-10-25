@@ -44,33 +44,44 @@ exports.IONIAN_AUGMENTED = [2, 2, 1, 3, 1, 2, 1]; // ionian augmented
 // ===========================================
 //               Chord Formulas
 // ===========================================
+// http://music.stackexchange.com/questions/11659/what-determines-a-chords-name/
+// !!! https://en.wikipedia.org/wiki/Chord_names_and_symbols_%28jazz_and_pop_music%29#Seventh_chords
 
+// !!! 7th chords with no 5th or no root?
 var threeNoteChords = {
+    // Triads:
     "maj" : [4, 3],  // Major triad
     "min" : [3, 4],  // Minor triad
     "aug" : [4, 4],  // Augmented triad
     "dim" : [3, 3],  // Diminished triad
+    // Sus trichords:
     "sus4": [5, 2],  // Suspended fourth trichord
     "sus2": [2, 5]   // Suspended second trichord
 };
 
-// !!! https://en.wikipedia.org/wiki/Chord_names_and_symbols_%28jazz_and_pop_music%29#Seventh_chords
 var fourNoteChords = {
     // 7th chords:
-    "maj7"   : [],  // Major seventh
-    "min7"   : [],  // Minor seventh 
-    "7"      : [],  // Dominant seventh
-    "min7b5" : [],  // Half-diminished seventh
-    "dim7"   : [],  // Diminished seventh
-    "minmaj7": [],  // Minor-major seventh
-    "maj7#5" : [],  // Augmented-major seventh
-    "7b5"    : [],  // Augmented seventh
-    "7#5"    : [],  // Dominant seventh flat five
-    // 6th chords
-    "maj6"   : [],  // Major sixth
-    "min6"   : []   // Minor sixth 
+    "maj7"       : [4, 3, 4],   // Major seventh
+    "min7"       : [3, 4, 3],   // Minor seventh 
+    "7"          : [4, 3, 3],   // Dominant seventh
+    "min7b5"     : [3, 3, 4],   // Half-diminished seventh
+    "dim7"       : [3, 3, 3],   // Diminished seventh
+    "minmaj7"    : [3, 4, 4],   // Minor-major seventh
+    "maj7#5"     : [4, 4, 3],   // Augmented-major seventh
+    "7b5"        : [4, 2, 4],   // Augmented seventh
+    "7#5"        : [4, 4, 2],   // Dominant seventh flat five
+    // 6th chords:
+    "maj6"       : [4, 3, 2],   // Major sixth
+    "min6"       : [3, 4, 2],   // Minor sixth 
+    // Add chords:
+    "maj add2"   : [4, 3, 7,],  // Major added-second
+    "maj add4"   : [4, 3, 10],  // Major added-fourth
+    // No 7th chords:
+    "min9 no7th" : [3, 4, 7]    // Minor ninth no seventh
+
 };
 
 
 // Node exports:
 exports.threeNoteChords = threeNoteChords;
+exports.fourNoteChords  = fourNoteChords;
