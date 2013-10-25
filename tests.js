@@ -289,6 +289,10 @@ ae(harmony.harmonize(CM, 3).getChordsNotesAsString() ===
     "< C E G > < D F A > < E G B > < F A C > < G B D > < A C E > < B D F > ");
 aea(harmony.harmonize(CM, 3, 1), [ 'C maj', 'D min', 'E min', 'F maj', 'G maj', 'A min', 'B dim' ]);
 aea(harmony.harmonize(CM, 4, 1), [ 'C maj7', 'D min7', 'E min7', 'F maj7', 'G 7', 'A min7', 'B min7b5' ]);
+aea(harmony.harmonize(new sounds.Scale([C, D, Eb, F, G, Ab, B]), 4, 1),
+                     [ 'C minmaj7', 'D min7b5', 'Eb maj7#5', 'F min7', 'G 7', 'Ab maj7', 'B dim7' ]);
+aea(harmony.harmonize(new sounds.Scale([C, D, Eb, F, G, A, B]), 4, 1),
+                     [ 'C minmaj7', 'D min7', 'Eb maj7#5', 'F 7', 'G 7', 'A min7b5', 'B min7b5' ]);
 
 
 
