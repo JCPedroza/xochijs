@@ -47,7 +47,6 @@ exports.IONIAN_AUGMENTED = [2, 2, 1, 3, 1, 2, 1]; // ionian augmented
 // http://music.stackexchange.com/questions/11659/what-determines-a-chords-name/
 // !!! https://en.wikipedia.org/wiki/Chord_names_and_symbols_%28jazz_and_pop_music%29#Seventh_chords
 
-// !!! 7th chords with no 5th or no root?
 var threeNoteChords = {
     // Triads:
     "maj"             : [4, 3],   // Major triad

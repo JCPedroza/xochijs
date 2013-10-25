@@ -10,7 +10,7 @@
 var chord = function(chord){
     var chordSize    = chord.getSize();
     var permutations = process.buildPermutations(chord);         // Array with all the permutations of the chord.
-    var formula      = getFormulas(chordSize);                   // Determine which formula object will be used.
+    var formula      = getFormulas(chordSize);                   // Determine a formula object to use.
     var returnArray  = [];                                       // Array that will be populated with possible names.
     for (var i = 0; i < permutations.length; i++){
         var current = permutations[i].toFormula().slice(0, -1);  // Last value in formula is not relevant.
