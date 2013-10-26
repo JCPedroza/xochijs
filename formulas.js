@@ -45,7 +45,8 @@ exports.IONIAN_AUGMENTED = [2, 2, 1, 3, 1, 2, 1]; // ionian augmented
 //               Chord Formulas
 // ===========================================
 // http://music.stackexchange.com/questions/11659/what-determines-a-chords-name/
-// !!! https://en.wikipedia.org/wiki/Chord_names_and_symbols_%28jazz_and_pop_music%29#Seventh_chords
+//  https://en.wikipedia.org/wiki/Chord_names_and_symbols_%28jazz_and_pop_music%29#Seventh_chords
+// https://en.wikibooks.org/wiki/Music_Theory/Complete_List_of_Chord_Patterns
 
 var threeNoteChords = {
     // Triads:
@@ -79,8 +80,8 @@ var fourNoteChords = {
     "dim7"        : [3, 3, 3],   // Diminished seventh
     "minmaj7"     : [3, 4, 4],   // Minor-major seventh
     "maj7#5"      : [4, 4, 3],   // Augmented-major seventh
-    "7b5"         : [4, 2, 4],   // Augmented seventh
-    "7#5"         : [4, 4, 2],   // Dominant seventh flat five
+    "7b5"         : [4, 2, 4],   // Dominant seventh flat five
+    "7#5"         : [4, 4, 2],   // Dominant seventh sharp five
     // 6th chords:
     "maj6"        : [4, 3, 2],   // Major sixth
     "min6"        : [3, 4, 2],   // Minor sixth 
