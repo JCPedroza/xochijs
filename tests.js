@@ -245,9 +245,9 @@ aea(process.toFormula(["C", "Eb", "G",  "A"]),  [3, 4, 2, 3]);
 aea(process.toFormula(["C", "E",  "G",  "F"]),  [4, 3, 10, 7]);
 aea(process.toFormula(["C", "E",  "G",  "D"]),  [4, 3, 7, 10]);
 aea(process.toFormula(["C", "Eb", "G",  "D"]),  [3, 4, 7, 10]);
+aea(process.toFormula(["C", "E", "B",   "D"]),  [4, 7, 3, 10 ]);
 
 aea(process.toFormula(["C", "D", "E", "F", "G", "A", "B"]), [2, 2, 1, 2, 2, 2, 1]);
-
 
 // =========================================================================
 //                          identify.chord() 
@@ -265,21 +265,22 @@ aea(identify.chord(CFG),  ['C sus4', 'F sus2']);
 aea(identify.chord(ACE),  ['A min', 'C maj6 no 5th' ]);
 aea(identify.chord(ACEb), ['A dim', 'C dim7 no 5th', 'C min6 no 5th' ]);
 
-aea(identify.chord(new sounds.Chord([C, E, G, B])),    ['C maj7' ]);
-aea(identify.chord(new sounds.Chord([C, Eb, G, Bb])),  ['C min7', 'Eb maj6' ] );
-aea(identify.chord(new sounds.Chord([C, E, G, Bb])),   ['C 7' ]);
+aea(identify.chord(new sounds.Chord([C, E,  G,  B])),  ['C maj7' ]);
+aea(identify.chord(new sounds.Chord([C, Eb, G,  Bb])), ['C min7', 'Eb maj6' ] );
+aea(identify.chord(new sounds.Chord([C, E,  G,  Bb])), ['C 7' ]);
 aea(identify.chord(new sounds.Chord([C, Eb, Gb, Bb])), ['C min7b5', 'Eb min6' ] );
 aea(identify.chord(new sounds.Chord([C, Eb, Gb, A])),  ['C dim7', 'Eb dim7', 'Gb dim7', 'A dim7' ]);
-aea(identify.chord(new sounds.Chord([C, Eb, G, B])),   ['C minmaj7' ]);
-aea(identify.chord(new sounds.Chord([F, A, C, D])),    ['F maj6', 'D min7' ]);
-aea(identify.chord(new sounds.Chord([F, Ab, C, D])),   ['F min6', 'D min7b5' ]);
-aea(identify.chord(new sounds.Chord([G, B, Eb, Gb])),  ['G maj7#5' ]);
-aea(identify.chord(new sounds.Chord([G, B, Db, F])),   ['G 7b5', 'Db 7b5' ]);
-aea(identify.chord(new sounds.Chord([G, B, Eb, F])),   ['G 7#5' ]);
-aea(identify.chord(new sounds.Chord([C, E, G, D])),    ['C maj add2' ]);
-aea(identify.chord(new sounds.Chord([D, G, E, C])),    ['C maj add2' ]);
-aea(identify.chord(new sounds.Chord([C, E, G, F])),    ['C maj add4' ]);
-aea(identify.chord(new sounds.Chord([C, Eb, G, D])),   ['C min9 no 7th' ]);
+aea(identify.chord(new sounds.Chord([C, Eb, G,  B])),  ['C minmaj7' ]);
+aea(identify.chord(new sounds.Chord([F, A,  C,  D])),  ['F maj6', 'D min7' ]);
+aea(identify.chord(new sounds.Chord([F, Ab, C,  D])),  ['F min6', 'D min7b5' ]);
+aea(identify.chord(new sounds.Chord([G, B,  Eb, Gb])), ['G maj7#5' ]);
+aea(identify.chord(new sounds.Chord([G, B,  Db, F])),  ['G 7b5', 'Db 7b5' ]);
+aea(identify.chord(new sounds.Chord([G, B,  Eb, F])),  ['G 7#5' ]);
+aea(identify.chord(new sounds.Chord([C, E,  G,  D])),  ['C maj add2' ]);
+aea(identify.chord(new sounds.Chord([D, G,  E,  C])),  ['C maj add2' ]);
+aea(identify.chord(new sounds.Chord([C, E,  G,  F])),  ['C maj add4' ]);
+aea(identify.chord(new sounds.Chord([C, Eb, G,  D])),  ['C min9 no 7th' ]);
+aea(identify.chord(new sounds.Chord([C, E,  Bb, D])),  ['C 9 no 5th']);
 
 // =========================================================================
 //                         harmony.harmonize() 

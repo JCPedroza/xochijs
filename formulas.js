@@ -88,8 +88,12 @@ var fourNoteChords = {
     // Add chords:
     "maj add2"    : [4, 3, 7,],  // Major added-second
     "maj add4"    : [4, 3, 10],  // Major added-fourth
+    // No 5th chords:
+    "maj9 no 5th" : [4, 7, 3],   // Major ninth no fifth
+    "9 no 5th"    : [4, 6, 4],   // Dominant ninth no fifth
     // No 7th chords:
     "min9 no 7th" : [3, 4, 7]    // Minor ninth no seventh
+
 };
 
 
