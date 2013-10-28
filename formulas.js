@@ -47,6 +47,8 @@ exports.IONIAN_AUGMENTED = [2, 2, 1, 3, 1, 2, 1]; // ionian augmented
 // http://music.stackexchange.com/questions/11659/what-determines-a-chords-name/
 //  https://en.wikipedia.org/wiki/Chord_names_and_symbols_%28jazz_and_pop_music%29#Seventh_chords
 // https://en.wikibooks.org/wiki/Music_Theory/Complete_List_of_Chord_Patterns
+// http://music.stackexchange.com/questions/3732/what-notes-are-optional-in-jazz-chords
+// http://www.smithfowler.org/music/Chord_Formulas.htm
 
 var threeNoteChords = {
     // Triads:
