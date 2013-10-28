@@ -93,9 +93,6 @@ var fourNoteChords = {
     // No 5th chords:
     "maj9 no 5th" : [4, 7, 3],   // Major ninth no fifth
     "9 no 5th"    : [4, 6, 4],   // Dominant ninth no fifth
-    // No 7th chords:
-    "min9 no 7th" : [3, 4, 7]    // Minor ninth no seventh
-
 };
 
 
