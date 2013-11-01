@@ -13,4 +13,6 @@
 - datatype that ties formula number with note name for chord recognition
     
 - in unit test: use custom equality function rather than stringify
+
+- creation of chord objects and similar must accept variable arguments as input
 .
