@@ -62,7 +62,7 @@ exports.IONIAN_AUGMENTED = [2, 2, 1, 3, 1, 2, 1]; // ionian augmented
 
 var twoNoteChords = {
     // Indeterminate triad (no 3rd):
-    "ind"                    : [[7], 0],   // Indeterminate triad
+    "5"                      : [[7], 0],   // Indeterminate triad, power chord, 5 no 3rd
     "b5 no 3rd"              : [[6], 0],   // Flat five no third
     // No 5th:
     "maj no 5th"             : [[4], 0],   // Major no 5th
@@ -102,29 +102,35 @@ var threeNoteChords = {
 
 var fourNoteChords = {
     // 7th chords:
-    "maj7"        : [[4, 3, 4], 0],   // Major seventh
-    "min7"        : [[3, 4, 3], 0],   // Minor seventh 
-    "7"           : [[4, 3, 3], 0],   // Dominant seventh
-    "min7b5"      : [[3, 3, 4], 0],   // Half-diminished seventh
-    "dim7"        : [[3, 3, 3], 0],   // Diminished seventh
-    "minmaj7"     : [[3, 4, 4], 0],   // Minor-major seventh
-    "maj7#5"      : [[4, 4, 3], 0],   // Augmented-major seventh
-    "7b5"         : [[4, 2, 4], 0],   // Dominant seventh flat five
-    "7#5"         : [[4, 4, 2], 0],   // Dominant seventh sharp five
+    "maj7"           : [[4, 3, 4], 0],   // Major seventh
+    "min7"           : [[3, 4, 3], 0],   // Minor seventh 
+    "7"              : [[4, 3, 3], 0],   // Dominant seventh
+    "min7b5"         : [[3, 3, 4], 0],   // Half-diminished seventh
+    "dim7"           : [[3, 3, 3], 0],   // Diminished seventh
+    "minmaj7"        : [[3, 4, 4], 0],   // Minor-major seventh
+    "maj7#5"         : [[4, 4, 3], 0],   // Augmented-major seventh
+    "7b5"            : [[4, 2, 4], 0],   // Dominant seventh flat five
+    "7#5"            : [[4, 4, 2], 0],   // Dominant seventh sharp five
     // 6th chords:
-    "maj6"        : [[4, 3, 2], 0],   // Major sixth
-    "min6"        : [[3, 4, 2], 0],   // Minor sixth 
+    "maj6"           : [[4, 3, 2], 0],   // Major sixth
+    "min6"           : [[3, 4, 2], 0],   // Minor sixth 
     // Add chords:
-    "maj add2"    : [[4, 3, 7,], 0],  // Major added-second
-    "maj add4"    : [[4, 3, 10], 0],  // Major added-fourth
+    "maj add2"       : [[4, 3, 7,], 0],  // Major added-second
+    "maj add4"       : [[4, 3, 10], 0],  // Major added-fourth
     // No 5th chords:
-    "maj9 no 5th" : [[4, 7, 3], 0],   // Major ninth no fifth
-    "9 no 5th"    : [[4, 6, 4], 0],   // Dominant ninth no fifth
-    "6/9 no 5th"  : [[4, 5, 5], 0]    // Six Nine no fifth
+    "maj9 no 5th"    : [[4, 7, 3], 0],   // Major ninth no fifth
+    "min9 no 5th"    : [[3, 7, 4], 0],   // Minor ninth no fifth
+    "9 no 5th"       : [[4, 6, 4], 0],   // Dominant ninth no fifth
+    "6/9 no 5th"     : [[4, 5, 5], 0],   // Six Nine no fifth
+    // No root chords:
+    "maj9 no root"   : [[3, 4, 3], -4],  // Major ninth no root
+    "9 sus4 no root" : [[3, 4, 3], -7]   // Dominant ninth suspended fourth no root
 };
 
 var fiveNoteChords = {
-    "6/9"          : [[4, 3, 2, 5], 0]  // Six nine
+    // Ninth chords:
+    "min9"         : [[3, 4, 3, 4], 0],  // Minor ninth
+    "6/9"          : [[4, 3, 2, 5], 0]   // Six nine
 };
 
 // Node exports:

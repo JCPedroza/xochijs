@@ -280,11 +280,11 @@ aea(process.toFormula(["C", "D", "E", "F", "G", "A", "B"]), [2, 2, 1, 2, 2, 2, 1
 //                          identify.chord() 
 // =========================================================================
 function testIdentify(){
-    aea(identify.chord(new sounds.Chord([F, C])),  ['F ind', 'C sus4 no 5th' ]);
+    aea(identify.chord(new sounds.Chord([F, C])),  ['F 5', 'C sus4 no 5th' ]);
     aea(identify.chord(new sounds.Chord([C, E])),  ['C maj no 5th', 'A min no root' ]);
     aea(identify.chord(new sounds.Chord([C, Eb])), ['C min no 5th', 'Ab maj no root' ]);
     aea(identify.chord(new sounds.Chord([B, D])),  ['B min no 5th', 'G maj no root' ]);
-    aea(identify.chord(new sounds.Chord([G, C])),  ['G sus4 no 5th', 'C ind' ]);
+    aea(identify.chord(new sounds.Chord([G, C])),  ['G sus4 no 5th', 'C 5' ]);
     aea(identify.chord(new sounds.Chord([E, Gb])), ['E sus2 no 5th', 'Gb 7 no(3rd, 5th)' ]);
     aea(identify.chord(new sounds.Chord([Db, C])), ['Db maj7 no(3rd, 5th)']);
     aea(identify.chord(new sounds.Chord([F, Eb])), ['F 7 no(3rd, 5th)', 'Eb sus2 no 5th' ]);
@@ -303,12 +303,13 @@ function testIdentify(){
     aea(identify.chord(ACEb), ['A dim', 'C dim7 no 5th', 'C min6 no 5th' ]);
 
     aea(identify.chord(new sounds.Chord([C, E,  G,  B])),  ['C maj7' ]);
-    aea(identify.chord(new sounds.Chord([C, Eb, G,  Bb])), ['C min7', 'Eb maj6' ] );
+    aea(identify.chord(new sounds.Chord([A, C,  E,  G])),  ['A min7', 'F maj9 no root', 'D 9 sus4 no root', 'C maj6' ]);
+    aea(identify.chord(new sounds.Chord([C, Eb, G,  Bb])), ['C min7', 'Ab maj9 no root', 'F 9 sus4 no root', 'Eb maj6' ] );
     aea(identify.chord(new sounds.Chord([C, E,  G,  Bb])), ['C 7' ]);
     aea(identify.chord(new sounds.Chord([C, Eb, Gb, Bb])), ['C min7b5', 'Eb min6' ] );
     aea(identify.chord(new sounds.Chord([C, Eb, Gb, A])),  ['C dim7', 'Eb dim7', 'Gb dim7', 'A dim7' ]);
     aea(identify.chord(new sounds.Chord([C, Eb, G,  B])),  ['C minmaj7' ]);
-    aea(identify.chord(new sounds.Chord([F, A,  C,  D])),  ['F maj6', 'D min7' ]);
+    aea(identify.chord(new sounds.Chord([F, A,  C,  D])),  ['F maj6', 'D min7', 'Bb maj9 no root', 'G 9 sus4 no root' ]);
     aea(identify.chord(new sounds.Chord([F, Ab, C,  D])),  ['F min6', 'D min7b5' ]);
     aea(identify.chord(new sounds.Chord([G, B,  Eb, Gb])), ['G maj7#5' ]);
     aea(identify.chord(new sounds.Chord([G, B,  Db, F])),  ['G 7b5', 'Db 7b5' ]);
@@ -317,9 +318,11 @@ function testIdentify(){
     aea(identify.chord(new sounds.Chord([D, G,  E,  C])),  ['C maj add2' ]);
     aea(identify.chord(new sounds.Chord([C, E,  G,  F])),  ['C maj add4' ]);
     aea(identify.chord(new sounds.Chord([C, E,  Bb, D])),  ['C 9 no 5th']);
+    aea(identify.chord(new sounds.Chord([D, F,  C,  E])),  ['D min9 no 5th']);
     aea(identify.chord(new sounds.Chord([C, E,  A,  D])),  ['C 6/9 no 5th']);
 
     aea(identify.chord(new sounds.Chord([C,  E,  G,  A,  D])),  ['C 6/9']);
+    aea(identify.chord(new sounds.Chord([D,  F,  A,  C,  E])),  ['D min9']);
 }
 
 // =========================================================================
