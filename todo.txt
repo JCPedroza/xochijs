@@ -17,4 +17,6 @@
 - creation of chord objects and similar must accept variable arguments as input
 
 - "deconstructor" iterates through all permutations of different sizes (max the original size), to see what chords are 
-    inside a collection of notes
+    inside a collection of notesg
+
+- constants like formula object names to upper case
