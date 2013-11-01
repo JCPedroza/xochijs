@@ -281,11 +281,14 @@ aea(process.toFormula(["C", "D", "E", "F", "G", "A", "B"]), [2, 2, 1, 2, 2, 2, 1
 // =========================================================================
 function testIdentify(){
     aea(identify.chord(new sounds.Chord([F, C])),  ['F ind', 'C sus4 no 5th' ]);
-    aea(identify.chord(new sounds.Chord([C, E])),  ['C maj no 5th']);
+    aea(identify.chord(new sounds.Chord([C, E])),  ['C maj no 5th', 'A min no root' ]);
     aea(identify.chord(new sounds.Chord([C, Eb])), ['C min no 5th', 'Ab maj no root' ]);
     aea(identify.chord(new sounds.Chord([B, D])),  ['B min no 5th', 'G maj no root' ]);
     aea(identify.chord(new sounds.Chord([G, C])),  ['G sus4 no 5th', 'C ind' ]);
-    aea(identify.chord(new sounds.Chord([E, Gb])), ['E sus2 no 5th']);
+    aea(identify.chord(new sounds.Chord([E, Gb])), ['E sus2 no 5th', 'Gb 7 no(3rd, 5th)' ]);
+    aea(identify.chord(new sounds.Chord([Db, C])), ['Db maj7 no(3rd, 5th)']);
+    aea(identify.chord(new sounds.Chord([F, Eb])), ['F 7 no(3rd, 5th)', 'Eb sus2 no 5th' ]);
+    aea(identify.chord(new sounds.Chord([Gb, C])), ['Gb b5 no 3rd', 'C b5 no 3rd' ]);
 
     aea(identify.chord(CEG),  ['C maj' ]);
     aea(identify.chord(CGE),  ['C maj' ]);

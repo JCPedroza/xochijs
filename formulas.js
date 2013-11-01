@@ -63,6 +63,7 @@ exports.IONIAN_AUGMENTED = [2, 2, 1, 3, 1, 2, 1]; // ionian augmented
 var twoNoteChords = {
     // Indeterminate triad (no 3rd):
     "ind"                    : [[7], 0],   // Indeterminate triad
+    "b5 no 3rd"              : [[6], 0],   // Flat five no third
     // No 5th:
     "maj no 5th"             : [[4], 0],   // Major no 5th
     "min no 5th"             : [[3], 0],   // Minor no 5th
@@ -70,6 +71,10 @@ var twoNoteChords = {
     "sus2 no 5th"            : [[2], 0],   // Suspended second no 5th
     // No root:
     "maj no root"            : [[3], -4],  // Major no root
+    "min no root"            : [[4], -3],  // Minor no root
+    // No 3rd no 5th
+    "maj7 no(3rd, 5th)"      : [[11], 0],  // Major seventh no 3rd no 5th
+    "7 no(3rd, 5th)"         : [[10], 0]   // Dominant seventh no 3rd no 5th
 };
 
 var threeNoteChords = {
