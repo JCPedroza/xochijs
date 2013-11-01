@@ -17,7 +17,7 @@ var chord = function(chord){
         for (var key in formula){                                   // Loop through chord formulas.
             if (formula.hasOwnProperty(key)){                       // Checks property doesn't come from prototype.
                 if (process.arraysEqual(current, formula[key][0]))  // Checks for a match.
-                    returnArray.push(lowest + " " + key);           // Add lowest note and key if there is a match.
+                    returnArray.push(determineRoot(lowest, formula[key][1]) + " " + key);           // Add lowest note and key if there is a match.
             }
         }
     }
@@ -26,12 +26,23 @@ var chord = function(chord){
 
 // Helper for chord(). Determines formula object based on chord size.
 var getFormulas = function(chordSize){
-    if      (chordSize === 2) return formulas.twoNoteChords;
+    if      (chordSize  <  2) throw new Error("chordSize must be bigger than 1");
+    else if (chordSize === 2) return formulas.twoNoteChords;
     else if (chordSize === 3) return formulas.threeNoteChords;
     else if (chordSize === 4) return formulas.fourNoteChords;
     else if (chordSize === 5) return formulas.fiveNoteChords;
 };
 
+// Helper for chords(). Determines a root note for the formula.
+var determineRoot = function(lowest, offset){
+    if (offset === 0) return lowest;
+    var pool          = formulas.ET12POOL;
+    var indexOfLowest = pool.indexOf(lowest);
+    var indexOfRoot   = indexOfLowest + offset;
+    if (indexOfRoot < 0) indexOfRoot += pool.length;
+    var root          = pool[indexOfRoot];
+    return root;
+};
 
 // ===========================================
 //          Chord Formula Recognition
