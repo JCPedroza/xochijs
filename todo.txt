@@ -15,4 +15,6 @@
 - in unit test: use custom equality function rather than stringify
 
 - creation of chord objects and similar must accept variable arguments as input
-.
+
+- "deconstructor" iterates through all permutations of different sizes (max the original size), to see what chords are 
+    inside a collection of notes
