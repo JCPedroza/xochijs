@@ -20,3 +20,5 @@
     inside a collection of notesg
 
 - constants like formula object names to upper case
+
+- scale notation fixer: use sharp and flats correctly in a scale
