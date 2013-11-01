@@ -8,16 +8,16 @@
 /** Identifies the name of a Chord object, returns an array of possible names. */
 var chord = function(chord){
     var chordSize    = chord.getSize();
-    var permutations = process.buildPermutations(chord);            // Array with all the permutations of the chord.
-    var formula      = getFormulas(chordSize);                      // Determine a formula object to use.
-    var returnArray  = [];                                          // Array that will be populated with possible names.
+    var permutations = process.buildPermutations(chord);                                   // Array with all the permutations of the chord.
+    var formula      = getFormulas(chordSize);                                             // Determine a formula object to use.
+    var returnArray  = [];                                                                 // Array that will be populated with possible names.
     for (var i = 0; i < permutations.length; i++){
-        var current = permutations[i].toFormula().slice(0, -1);     // Last value in formula is not relevant. (1)
-        var lowest  = permutations[i].getNotes()[0].getName();      // Lowest note, to determine root.
-        for (var key in formula){                                   // Loop through chord formulas.
-            if (formula.hasOwnProperty(key)){                       // Checks property doesn't come from prototype.
-                if (process.arraysEqual(current, formula[key][0]))  // Checks for a match.
-                    returnArray.push(determineRoot(lowest, formula[key][1]) + " " + key);           // Add lowest note and key if there is a match.
+        var current = permutations[i].toFormula().slice(0, -1);                            // Last value in formula is not relevant. (1)
+        var lowest  = permutations[i].getNotes()[0].getName();                             // Lowest note, to determine root.
+        for (var key in formula){                                                          // Loop through chord formulas.
+            if (formula.hasOwnProperty(key)){                                              // Checks property doesn't come from prototype.
+                if (process.arraysEqual(current, formula[key][0]))                         // Checks for a match.
+                    returnArray.push(determineRoot(lowest, formula[key][1]) + " " + key);  // Add lowest note and key if there is a match.
             }
         }
     }
