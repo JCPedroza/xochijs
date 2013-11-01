@@ -26,7 +26,8 @@ var chord = function(chord){
 
 // Helper for chord(). Determines formula object based on chord size.
 var getFormulas = function(chordSize){
-    if      (chordSize === 3) return formulas.threeNoteChords;
+    if      (chordSize === 2) return formulas.twoNoteChords;
+    else if (chordSize === 3) return formulas.threeNoteChords;
     else if (chordSize === 4) return formulas.fourNoteChords;
     else if (chordSize === 5) return formulas.fiveNoteChords;
 };

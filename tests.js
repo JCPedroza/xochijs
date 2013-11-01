@@ -249,10 +249,13 @@ aea(process.toFormula(["C", "E", "B",   "D"]),  [4, 7, 3, 10 ]);
 
 aea(process.toFormula(["C", "D", "E", "F", "G", "A", "B"]), [2, 2, 1, 2, 2, 2, 1]);
 
-function identify_harmonize(){
-    // =========================================================================
-    //                          identify.chord() 
-    // =========================================================================
+// =========================================================================
+//                          identify.chord() 
+// =========================================================================
+function testIdentify(){
+    aea(identify.chord(new sounds.Chord([C, E])),  ['C maj no 5th']);
+    aea(identify.chord(new sounds.Chord([C, Eb])), ['C min no 5th']);
+    aea(identify.chord(new sounds.Chord([B, D])),  ['B min no 5th']);
 
     aea(identify.chord(CEG),  ['C maj' ]);
     aea(identify.chord(CGE),  ['C maj' ]);
@@ -284,11 +287,11 @@ function identify_harmonize(){
     aea(identify.chord(new sounds.Chord([C, E,  A,  D])),  ['C 6/9 no 5th']);
 
     aea(identify.chord(new sounds.Chord([C,  E,  G,  A,  D])),  ['C 6/9']);
-
-    // =========================================================================
-    //                         harmony.harmonize() 
-    // =========================================================================
-
+}
+// =========================================================================
+//                         harmony.harmonize() 
+// =========================================================================
+function testHarmonize(){
     ae(harmony.harmonize(CM, 3).getChordsNotesAsString() ===
         "< C E G > < D F A > < E G B > < F A C > < G B D > < A C E > < B D F > ");
     aea(harmony.harmonize(CM, 3, 1), [ 'C maj', 'D min', 'E min', 'F maj', 'G maj', 'A min', 'B dim' ]);
@@ -300,7 +303,11 @@ function identify_harmonize(){
 }
 
 // Perform tests:
-identify_harmonize();
+testIdentify();
+testHarmonize();
+
+// All tests passed
+console.log("All tests passed :D");
 
 
 
