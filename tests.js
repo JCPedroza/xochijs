@@ -10,10 +10,21 @@ var identify = require("./identify");
 
 var equals = process.arraysEqual;  // checks equality for arrays
 var aea = function(a, b){          // assert equals for arrays
-    console.assert(equals(a, b));
+     try{
+        ae(equals(a, b));
+    }
+    catch(Error){
+        console.log();
+        console.log(Error.name);                  // name of the error
+        console.log(a);                           // value a
+        console.log(b);                           // value b
+        console.log(Error.stack.split("\n")[4]);  // line number of the caller
+        console.log();
+    }
 };
+
 var ae = function(a){              // console.assert alias
-    console.assert(a);
+        console.assert(a);
 };
 
 // ===== declarations =====
@@ -253,6 +264,7 @@ aea(process.toFormula(["C", "D", "E", "F", "G", "A", "B"]), [2, 2, 1, 2, 2, 2, 1
 //                          identify.chord() 
 // =========================================================================
 function testIdentify(){
+    aea(identify.chord(new sounds.Chord([F, C])),  ['F ind']);
     aea(identify.chord(new sounds.Chord([C, E])),  ['C maj no 5th']);
     aea(identify.chord(new sounds.Chord([C, Eb])), ['C min no 5th']);
     aea(identify.chord(new sounds.Chord([B, D])),  ['B min no 5th']);
@@ -288,6 +300,7 @@ function testIdentify(){
 
     aea(identify.chord(new sounds.Chord([C,  E,  G,  A,  D])),  ['C 6/9']);
 }
+
 // =========================================================================
 //                         harmony.harmonize() 
 // =========================================================================
@@ -306,8 +319,9 @@ function testHarmonize(){
 testIdentify();
 testHarmonize();
 
-// All tests passed
-console.log("All tests passed :D");
+aea([1], [2]);
+
+
 
 
 
