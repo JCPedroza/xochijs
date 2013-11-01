@@ -1,4 +1,9 @@
 // ===========================================
+//      Equal Temperament 12 semi-tones pool
+// ===========================================
+var ET12POOL = ["Ab", "A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G"];
+
+// ===========================================
 //              Scale Formulas
 // ===========================================
 
@@ -53,12 +58,18 @@ exports.IONIAN_AUGMENTED = [2, 2, 1, 3, 1, 2, 1]; // ionian augmented
 
 // Array indexes: 
 // 0: formula
-// 1: root offset (for no root chords)
+// 1: root offset for no root chords, distance from the lowest note to the root
 
 var twoNoteChords = {
-    // No 5th trichords:
-    "maj no 5th"             : [[4], 0],   // Major triad no 5th
-    "min no 5th"             : [[3], 0]    // Minor triad no 5th
+    // Indeterminate triad (no 3rd):
+    "ind"                    : [[7], 0],   // Indeterminate triad
+    // No 5th:
+    "maj no 5th"             : [[4], 0],   // Major no 5th
+    "min no 5th"             : [[3], 0],   // Minor no 5th
+    "sus4 no 5th"            : [[5], 0],   // Suspended fourth no 5th
+    "sus2 no 5th"            : [[2], 0],   // Suspended second no 5th
+    // No root:
+    "maj no root"            : [[3], -4],  // Major no root
 };
 
 var threeNoteChords = {
@@ -108,7 +119,7 @@ var fourNoteChords = {
 };
 
 var fiveNoteChords = {
-    "6/9"          : [[4, 3, 2, 5]]  // Six nine
+    "6/9"          : [[4, 3, 2, 5], 0]  // Six nine
 };
 
 // Node exports:
@@ -116,3 +127,4 @@ exports.twoNoteChords   = twoNoteChords;
 exports.threeNoteChords = threeNoteChords;
 exports.fourNoteChords  = fourNoteChords;
 exports.fiveNoteChords  = fiveNoteChords;
+exports.ET12POOL        = ET12POOL;

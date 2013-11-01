@@ -8,23 +8,39 @@ var identify = require("./identify");
 
 // ==== compare and assert functions ===
 
+var numberOfErrors = 0;            // to keep track of the number of errors
 var equals = process.arraysEqual;  // checks equality for arrays
-var aea = function(a, b){          // assert equals for arrays
-     try{
-        ae(equals(a, b));
+
+/** Assert equals for two arrays. */
+var aea = function(a, b){
+    try{
+        console.assert(equals(a, b));
     }
     catch(Error){
+        numberOfErrors++;
         console.log();
-        console.log(Error.name);                  // name of the error
-        console.log(a);                           // value a
-        console.log(b);                           // value b
-        console.log(Error.stack.split("\n")[4]);  // line number of the caller
+        console.log(Error.name);               // name of the error
+        console.log(a);                        // value a
+        console.log(b);                        // value b
+        console.log(Error.stack.split("\n"));  // line number of the caller
         console.log();
     }
 };
 
-var ae = function(a){              // console.assert alias
+/** console.assert alias */
+var ae = function(a){
+    try{
         console.assert(a);
+    }
+    catch(Error){
+        numberOfErrors++;
+        console.log();
+        console.log(Error.name);               // name of the error
+        console.log(a);                        // value a
+        console.log(Error.stack.split("\n"));  // line number of the caller
+        console.log();
+    }
+    
 };
 
 // ===== declarations =====
@@ -264,10 +280,12 @@ aea(process.toFormula(["C", "D", "E", "F", "G", "A", "B"]), [2, 2, 1, 2, 2, 2, 1
 //                          identify.chord() 
 // =========================================================================
 function testIdentify(){
-    aea(identify.chord(new sounds.Chord([F, C])),  ['F ind']);
+    aea(identify.chord(new sounds.Chord([F, C])),  ['F ind', 'C sus4 no 5th' ]);
     aea(identify.chord(new sounds.Chord([C, E])),  ['C maj no 5th']);
-    aea(identify.chord(new sounds.Chord([C, Eb])), ['C min no 5th']);
-    aea(identify.chord(new sounds.Chord([B, D])),  ['B min no 5th']);
+    aea(identify.chord(new sounds.Chord([C, Eb])), ['C min no 5th', 'Ab maj no root' ]);
+    aea(identify.chord(new sounds.Chord([B, D])),  ['B min no 5th', 'G maj no root' ]);
+    aea(identify.chord(new sounds.Chord([G, C])),  ['G sus4 no 5th', 'C ind' ]);
+    aea(identify.chord(new sounds.Chord([E, Gb])), ['E sus2 no 5th']);
 
     aea(identify.chord(CEG),  ['C maj' ]);
     aea(identify.chord(CGE),  ['C maj' ]);
@@ -319,7 +337,16 @@ function testHarmonize(){
 testIdentify();
 testHarmonize();
 
-aea([1], [2]);
+// Print results to console:
+console.log();
+if (numberOfErrors === 0)
+    console.log("All tests passed :D");
+else
+    console.log("Number of errors: " + numberOfErrors);
+console.log();
+
+
+
 
 
 
