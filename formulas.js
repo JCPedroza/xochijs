@@ -94,9 +94,14 @@ var fourNoteChords = {
     // No 5th chords:
     "maj9 no 5th" : [[4, 7, 3]],   // Major ninth no fifth
     "9 no 5th"    : [[4, 6, 4]],   // Dominant ninth no fifth
+    "6/9 no 5th"  : [[4, 5, 5]]    // Six Nine no fifth
 };
 
+var fiveNoteChords = {
+    "6/9"          : [[4, 3, 2, 5]]  // Six nine
+};
 
 // Node exports:
 exports.threeNoteChords = threeNoteChords;
 exports.fourNoteChords  = fourNoteChords;
+exports.fiveNoteChords  = fiveNoteChords;

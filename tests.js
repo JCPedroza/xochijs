@@ -281,6 +281,9 @@ function identify_harmonize(){
     aea(identify.chord(new sounds.Chord([D, G,  E,  C])),  ['C maj add2' ]);
     aea(identify.chord(new sounds.Chord([C, E,  G,  F])),  ['C maj add4' ]);
     aea(identify.chord(new sounds.Chord([C, E,  Bb, D])),  ['C 9 no 5th']);
+    aea(identify.chord(new sounds.Chord([C, E,  A,  D])),  ['C 6/9 no 5th']);
+
+    aea(identify.chord(new sounds.Chord([C,  E,  G,  A,  D])),  ['C 6/9']);
 
     // =========================================================================
     //                         harmony.harmonize() 

@@ -5,7 +5,6 @@
 //              Chord Recognition
 // ===========================================
 
-// !!! needs datatype that ties formula number and note name maybe?
 /** Identifies the name of a Chord object, returns an array of possible names. */
 var chord = function(chord){
     var chordSize    = chord.getSize();
@@ -27,8 +26,9 @@ var chord = function(chord){
 
 // Helper for chord(). Determines formula object based on chord size.
 var getFormulas = function(chordSize){
-    if (chordSize === 3) return formulas.threeNoteChords;
-    if (chordSize === 4) return formulas.fourNoteChords;
+    if      (chordSize === 3) return formulas.threeNoteChords;
+    else if (chordSize === 4) return formulas.fourNoteChords;
+    else if (chordSize === 5) return formulas.fiveNoteChords;
 };
 
 
