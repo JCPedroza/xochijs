@@ -1,4 +1,3 @@
-= IMPORTANT: should the inversions be handled in the recognition algorithm, or stored as formulas?
 
 - chord identification algorithm (on it)
 
@@ -6,15 +5,7 @@
 
 - another toFormula but with formula taking always the root as reference.
 
-- chord possibilities: name all the chords that can be done with a set of notes that are not in order
-
-- chord identification: iterate through all permutations, insead of only inversions?
-
-- datatype that ties formula number with note name for chord recognition
-    
-- in unit test: use custom equality function rather than stringify
-
-- creation of chord objects and similar must accept variable arguments as input
+    - creation of chord objects and similar must accept variable arguments as input
 
 - "deconstructor" iterates through all permutations of different sizes (max the original size), to see what chords are 
     inside a collection of notesg
