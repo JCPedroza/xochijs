@@ -1,5 +1,6 @@
 
 - chord identification algorithm (on it)
+    - alt chords
 
 - interval : from step to name "minor second", "perfect fifth", etc.
 
