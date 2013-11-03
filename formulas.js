@@ -62,7 +62,7 @@ exports.IONIAN_AUGMENTED = [2, 2, 1, 3, 1, 2, 1]; // ionian augmented
 
 var twoNoteChords = {
     // Indeterminate triad (no 3rd):
-    "5"                      : [[7], 0],   // Indeterminate triad, power chord, 5 no 3rd
+    "5"                      : [[7], 0],   // Indeterminate triad, power chord, five no 3rd
     "b5 no 3rd"              : [[6], 0],   // Flat five no third
     // No 5th:
     "maj no 5th"             : [[4], 0],   // Major no 5th
@@ -117,14 +117,15 @@ var fourNoteChords = {
     // Add chords:
     "maj add2"       : [[4, 3, 7,], 0],  // Major added-second
     "maj add4"       : [[4, 3, 10], 0],  // Major added-fourth
-    // No 5th chords:
+    // 9th no 5th chords:
     "maj9 no 5th"    : [[4, 7, 3], 0],   // Major ninth no fifth
     "min9 no 5th"    : [[3, 7, 4], 0],   // Minor ninth no fifth
     "9 no 5th"       : [[4, 6, 4], 0],   // Dominant ninth no fifth
     "6/9 no 5th"     : [[4, 5, 5], 0],   // Six Nine no fifth
-    // No root chords:
+    // 9th No root chords:
     "maj9 no root"   : [[3, 4, 3], -4],  // Major ninth no root
-    "9 sus4 no root" : [[3, 4, 3], -7]   // Dominant ninth suspended fourth no root
+    "9 sus4 no root" : [[3, 4, 3], -7],  // Dominant ninth suspended fourth no root
+    "9 no root"      : [[3, 3, 4], -4]   // Dominant ninth no root
 };
 
 var fiveNoteChords = {

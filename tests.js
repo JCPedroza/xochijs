@@ -247,34 +247,35 @@ ae(buildPermutations1Str === "C E G  C G E  E C G  E G C  G C E  G E C  ");
 // =========================================================================
 //                         process.toFormula() 
 // =========================================================================
+function testToFormula(){
+    aea(process.toFormula(["C", "E",  "B"]),        [4, 7, 1 ]);
+    aea(process.toFormula(["C", "Eb", "Bb"]),       [3, 7, 2 ]);
+    aea(process.toFormula(["C", "E",  "Bb"]),       [4, 6, 2 ]);
+    aea(process.toFormula(["C", "Eb", "A"]),        [3, 6, 3 ]);
+    aea(process.toFormula(["C", "Eb", "B"]),        [3, 8, 1 ]);
+    aea(process.toFormula(["C", "E",  "A"]),        [4, 5, 3 ]);
+    aea(process.toFormula(["C", "Eb", "A"]),        [3, 6, 3 ]);
+    aea(process.toFormula(["C", "E",  "D"]),        [4, 10, 10 ]);
+    aea(process.toFormula(["C", "E",  "F"]),        [4, 1, 7 ]);
 
-aea(process.toFormula(["C", "E",  "B"]),        [4, 7, 1 ]);
-aea(process.toFormula(["C", "Eb", "Bb"]),       [3, 7, 2 ]);
-aea(process.toFormula(["C", "E",  "Bb"]),       [4, 6, 2 ]);
-aea(process.toFormula(["C", "Eb", "A"]),        [3, 6, 3 ]);
-aea(process.toFormula(["C", "Eb", "B"]),        [3, 8, 1 ]);
-aea(process.toFormula(["C", "E",  "A"]),        [4, 5, 3 ]);
-aea(process.toFormula(["C", "Eb", "A"]),        [3, 6, 3 ]);
-aea(process.toFormula(["C", "E",  "D"]),        [4, 10, 10 ]);
-aea(process.toFormula(["C", "E",  "F"]),        [4, 1, 7 ]);
+    aea(process.toFormula(["C", "E",  "G",  "B"]),  [4, 3, 4, 1]);
+    aea(process.toFormula(["C", "Eb", "G",  "Bb"]), [3, 4, 3, 2]);
+    aea(process.toFormula(["C", "E",  "G",  "Bb"]), [4, 3, 3, 2]);
+    aea(process.toFormula(["C", "Eb", "Gb", "Bb"]), [3, 3, 4, 2]);
+    aea(process.toFormula(["C", "Eb", "Gb", "A"]),  [3, 3, 3, 3]);
+    aea(process.toFormula(["C", "Eb", "G",  "B"]),  [3, 4, 4, 1]);
+    aea(process.toFormula(["C", "E",  "Ab", "B"]),  [4, 4, 3, 1]);
+    aea(process.toFormula(["C", "E",  "Gb", "Bb"]), [4, 2, 4, 2]);
+    aea(process.toFormula(["C", "E",  "Ab", "Bb"]), [4, 4, 2, 2]);
+    aea(process.toFormula(["C", "E",  "G",  "A"]),  [4, 3, 2, 3]);
+    aea(process.toFormula(["C", "Eb", "G",  "A"]),  [3, 4, 2, 3]);
+    aea(process.toFormula(["C", "E",  "G",  "F"]),  [4, 3, 10, 7]);
+    aea(process.toFormula(["C", "E",  "G",  "D"]),  [4, 3, 7, 10]);
+    aea(process.toFormula(["C", "Eb", "G",  "D"]),  [3, 4, 7, 10]);
+    aea(process.toFormula(["C", "E", "B",   "D"]),  [4, 7, 3, 10 ]);
 
-aea(process.toFormula(["C", "E",  "G",  "B"]),  [4, 3, 4, 1]);
-aea(process.toFormula(["C", "Eb", "G",  "Bb"]), [3, 4, 3, 2]);
-aea(process.toFormula(["C", "E",  "G",  "Bb"]), [4, 3, 3, 2]);
-aea(process.toFormula(["C", "Eb", "Gb", "Bb"]), [3, 3, 4, 2]);
-aea(process.toFormula(["C", "Eb", "Gb", "A"]),  [3, 3, 3, 3]);
-aea(process.toFormula(["C", "Eb", "G",  "B"]),  [3, 4, 4, 1]);
-aea(process.toFormula(["C", "E",  "Ab", "B"]),  [4, 4, 3, 1]);
-aea(process.toFormula(["C", "E",  "Gb", "Bb"]), [4, 2, 4, 2]);
-aea(process.toFormula(["C", "E",  "Ab", "Bb"]), [4, 4, 2, 2]);
-aea(process.toFormula(["C", "E",  "G",  "A"]),  [4, 3, 2, 3]);
-aea(process.toFormula(["C", "Eb", "G",  "A"]),  [3, 4, 2, 3]);
-aea(process.toFormula(["C", "E",  "G",  "F"]),  [4, 3, 10, 7]);
-aea(process.toFormula(["C", "E",  "G",  "D"]),  [4, 3, 7, 10]);
-aea(process.toFormula(["C", "Eb", "G",  "D"]),  [3, 4, 7, 10]);
-aea(process.toFormula(["C", "E", "B",   "D"]),  [4, 7, 3, 10 ]);
-
-aea(process.toFormula(["C", "D", "E", "F", "G", "A", "B"]), [2, 2, 1, 2, 2, 2, 1]);
+    aea(process.toFormula(["C", "D", "E", "F", "G", "A", "B"]), [2, 2, 1, 2, 2, 2, 1]);
+}
 
 // =========================================================================
 //                          identify.chord() 
@@ -304,13 +305,14 @@ function testIdentify(){
 
     aea(identify.chord(new sounds.Chord([C, E,  G,  B])),  ['C maj7' ]);
     aea(identify.chord(new sounds.Chord([A, C,  E,  G])),  ['A min7', 'F maj9 no root', 'D 9 sus4 no root', 'C maj6' ]);
+    aea(identify.chord(new sounds.Chord([A, C,  Eb, G])),  ['A min7b5', 'F 9 no root', 'C min6']);
     aea(identify.chord(new sounds.Chord([C, Eb, G,  Bb])), ['C min7', 'Ab maj9 no root', 'F 9 sus4 no root', 'Eb maj6' ] );
     aea(identify.chord(new sounds.Chord([C, E,  G,  Bb])), ['C 7' ]);
-    aea(identify.chord(new sounds.Chord([C, Eb, Gb, Bb])), ['C min7b5', 'Eb min6' ] );
+    aea(identify.chord(new sounds.Chord([C, Eb, Gb, Bb])), ['C min7b5', 'Ab 9 no root', 'Eb min6']);
     aea(identify.chord(new sounds.Chord([C, Eb, Gb, A])),  ['C dim7', 'Eb dim7', 'Gb dim7', 'A dim7' ]);
     aea(identify.chord(new sounds.Chord([C, Eb, G,  B])),  ['C minmaj7' ]);
     aea(identify.chord(new sounds.Chord([F, A,  C,  D])),  ['F maj6', 'D min7', 'Bb maj9 no root', 'G 9 sus4 no root' ]);
-    aea(identify.chord(new sounds.Chord([F, Ab, C,  D])),  ['F min6', 'D min7b5' ]);
+    aea(identify.chord(new sounds.Chord([F, Ab, C,  D])),  ['F min6', 'D min7b5', 'Bb 9 no root']);
     aea(identify.chord(new sounds.Chord([G, B,  Eb, Gb])), ['G maj7#5' ]);
     aea(identify.chord(new sounds.Chord([G, B,  Db, F])),  ['G 7b5', 'Db 7b5' ]);
     aea(identify.chord(new sounds.Chord([G, B,  Eb, F])),  ['G 7#5' ]);
@@ -340,6 +342,7 @@ function testHarmonize(){
 }
 
 // Perform tests:
+testToFormula();
 testIdentify();
 testHarmonize();
 
