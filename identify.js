@@ -14,7 +14,7 @@ var chord = function(chord){
     }
 };
 
-// Helper for chord(), deals with an array of strings
+// Helper for chord() and _chordObject, deals with an array of strings
 var _chordStringArray = function(chord){
     var chordSize    = chord.length;
     var permutations = process.permute(chord);                                              // Array with all the permutations of the chord.
