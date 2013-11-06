@@ -11,15 +11,29 @@
 
 /** Identifies the name of a Chord object, returns an array of possible names. */
 var chord = function(chord){
-    if (typeof arguments[0] === "string")                                    // Case for variable arguments of type string.
-        return _chordStringArray(Array.prototype.slice.call(arguments));
-    if      (chord instanceof sounds.Chord) return _chordObject(chord);      // Case for a chord represented as a Chord object.
-    else if (chord instanceof Array){
-        if (typeof chord[0] === "string") return _chordStringArray(chord);   // Case for a chord represented as an array of string.
+    if (typeof arguments[0] === "string")                                 // Case for variable arguments of type string.
+        return _chordStringArray(Array.prototype.slice.call(arguments));  // Cast arguments object to array.
+    else if (arguments[0] instanceof sounds.Note)
+        return _chordNoteArray(Array.prototype.slice.call(arguments));
+    else if (chord instanceof sounds.Chord)                               // Case for a chord represented as a Chord object.
+        return _chordObject(chord);
+    else if (chord instanceof Array){                                     // Cases for array argument:
+        if (typeof chord[0] === "string")                                 // Case for a chord represented as an array of string.
+            return _chordStringArray(chord);
+        else if (chord[0] instanceof sounds.Note)                         // Case for a chord represented as an array of Note objects.
+            return _chordNoteArray(chord);
     }
 };
 
-// Helper for chord() and _chordObject, deals with an array of strings
+// Helper for chord(), deals with an array of Note objects.
+var _chordNoteArray = function(chord){
+    var nameArray = [];
+    for (var i = 0; i < chord.length; i++)
+        nameArray[i] = chord[i].getName();
+    return _chordStringArray(nameArray);
+};
+
+// Helper for chord(), _chordObject, and _chordNoteArray. Deals with an array of strings.
 var _chordStringArray = function(chord){
     var chordSize    = chord.length;
     var permutations = process.permute(chord);                                              // Array with all the permutations of the chord.
@@ -37,7 +51,7 @@ var _chordStringArray = function(chord){
     return returnArray;
 };
 
-// Helper for chord(), deals with Chord object
+// Helper for chord(), deals with Chord object.
 var _chordObject = function(chord){
     chordNotes = chord.getNotes();                 // Get the notes from the Chord object.
     for (var i = 0; i < chordNotes.length; i++)
