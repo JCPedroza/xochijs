@@ -14,3 +14,5 @@
 - constants like formula object names to upper case
 
 - scale notation fixer: use sharp and flats correctly in a scale
+
+- option to change sharps to flats and the other way around
