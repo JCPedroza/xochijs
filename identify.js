@@ -1,3 +1,6 @@
+// ===========================================
+//                 Imports
+// ===========================================
  var process  = require("./process");
  var formulas = require("./formulas");
  var sounds   = require("./sounds");
@@ -8,9 +11,9 @@
 
 /** Identifies the name of a Chord object, returns an array of possible names. */
 var chord = function(chord){
-    if      (chord instanceof sounds.Chord) return _chordObject(chord);
+    if      (chord instanceof sounds.Chord) return _chordObject(chord);      // Case for a chord represented as a Chord object.
     else if (chord instanceof Array){
-        if (typeof chord[0] === "string") return _chordStringArray(chord);
+        if (typeof chord[0] === "string") return _chordStringArray(chord);   // Case for a chord represented as an array of string.
     }
 };
 
@@ -34,10 +37,10 @@ var _chordStringArray = function(chord){
 
 // Helper for chord(), deals with Chord object
 var _chordObject = function(chord){
-    chordNotes = chord.getNotes();
+    chordNotes = chord.getNotes();                 // Get the notes from the Chord object.
     for (var i = 0; i < chordNotes.length; i++)
-        chordNotes[i] = chordNotes[i].getName();
-    return _chordStringArray(chordNotes);
+        chordNotes[i] = chordNotes[i].getName();   // Build an array with the name of the notes.
+    return _chordStringArray(chordNotes);          // Call _chordStringArray with that array as argument.
 };
 
 // Helper for chord(). Determines formula object based on chord size.
@@ -51,12 +54,12 @@ var _getFormulas = function(chordSize){
 
 // Helper for chords(). Determines a root note of the formula. It is used for no root chords.
 var _determineRoot = function(lowest, offset){
-    if (offset === 0) return lowest;
-    var pool          = formulas.ET12POOL;
-    var indexOfLowest = pool.indexOf(lowest);
-    var indexOfRoot   = indexOfLowest + offset;
-    if (indexOfRoot < 0) indexOfRoot += pool.length;
-    var root          = pool[indexOfRoot];
+    if (offset === 0) return lowest;                  // Is the chord rootless?
+    var pool          = formulas.ET12POOL;            // The root is inside formulas.ET12POOL.
+    var indexOfLowest = pool.indexOf(lowest);         // Search for the index of the lowest note in the chords.
+    var indexOfRoot   = indexOfLowest + offset;       // Calculate the index of the root based on the offset.
+    if (indexOfRoot < 0) indexOfRoot += pool.length;  // Correct the index if it's negative.
+    var root          = pool[indexOfRoot];            // The root of the chord.
     return root;
 };
 
