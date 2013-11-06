@@ -1,5 +1,6 @@
  var process  = require("./process");
  var formulas = require("./formulas");
+ var sounds   = require("./sounds");
 
 // ===========================================
 //              Chord Recognition
@@ -7,16 +8,42 @@
 
 /** Identifies the name of a Chord object, returns an array of possible names. */
 var chord = function(chord){
-    var chordSize    = chord.getSize();
-    var permutations = process.buildPermutations(chord);                                   // Array with all the permutations of the chord.
+    if      (chord instanceof sounds.Chord) return _chordObject(chord);
+    else if (chord instanceof Array){
+        if (typeof chord[0] === "string") return _chordStringArray(chord);
+    }
+};
+
+// Helper for chord(), deals with an array of strings
+var _chordStringArray = function(chord){
+    var chordSize    = chord.length;
+    var permutations = process.permute(chord);                                              // Array with all the permutations of the chord.
     var formula      = _getFormulas(chordSize);                                             // Determine a formula object to use.
-    var returnArray  = [];                                                                 // Array that will be populated with possible names.
+    var returnArray  = [];                                                                  // Array that will be populated with possible names.
     for (var i = 0; i < permutations.length; i++){
-        var current = permutations[i].toFormula().slice(0, -1);                            // Last value in formula is not relevant. (1)
-        var lowest  = permutations[i].getNotes()[0].getName();                             // Lowest note, to determine root.
-        for (var key in formula){                                                          // Loop through chord formulas.
-            if (formula.hasOwnProperty(key)){                                              // Checks property doesn't come from prototype.
-                if (process.arraysEqual(current, formula[key][0]))                         // Checks for a match.
+        var current = process.toFormula(permutations[i]).slice(0, -1);                      // Last value in formula is not relevant. (1)
+        var lowest  = permutations[i][0];                                                   // Lowest note, to determine root.
+        for (var key in formula){                                                           // Loop through chord formulas.
+            if (formula.hasOwnProperty(key))                                                // Checks property doesn't come from prototype.
+                if (process.arraysEqual(current, formula[key][0]))                          // Checks for a match.
+                    returnArray.push(_determineRoot(lowest, formula[key][1]) + " " + key);  // Add the name of the chord if a match is found.
+        }
+    }
+    return returnArray;
+};
+
+// Helper for chord(), deals with Chord object
+var _chordObject = function(chord){
+    var chordSize    = chord.getSize();
+    var permutations = process.buildPermutations(chord);                                    // Array with all the permutations of the chord.
+    var formula      = _getFormulas(chordSize);                                             // Determine a formula object to use.
+    var returnArray  = [];                                                                  // Array that will be populated with possible names.
+    for (var i = 0; i < permutations.length; i++){
+        var current = permutations[i].toFormula().slice(0, -1);                             // Last value in formula is not relevant. (1)
+        var lowest  = permutations[i].getNotes()[0].getName();                              // Lowest note, to determine root.
+        for (var key in formula){                                                           // Loop through chord formulas.
+            if (formula.hasOwnProperty(key)){                                               // Checks property doesn't come from prototype.
+                if (process.arraysEqual(current, formula[key][0]))                          // Checks for a match.
                     returnArray.push(_determineRoot(lowest, formula[key][1]) + " " + key);  // Add lowest note and key if there is a match.
             }
         }
