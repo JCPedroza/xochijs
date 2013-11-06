@@ -323,8 +323,11 @@ function testIdentify(){
     aea(identify.chord(new sounds.Chord([D, F,  C,  E])),  ['D min9 no 5th']);
     aea(identify.chord(new sounds.Chord([C, E,  A,  D])),  ['C 6/9 no 5th']);
 
-    aea(identify.chord(new sounds.Chord([C,  E,  G,  A,  D])),  ['C 6/9']);
+    aea(identify.chord(new sounds.Chord([C,  E,  G,  A,  D])),  ['C 6/9', 'D 9 sus4']);
     aea(identify.chord(new sounds.Chord([D,  F,  A,  C,  E])),  ['D min9']);
+    aea(identify.chord(new sounds.Chord([D,  Gb, A,  C,  E])),  ['D 9']);
+    aea(identify.chord(new sounds.Chord([F,  A,  C,  E,  G])),  ['F maj9']);
+    aea(identify.chord(new sounds.Chord([C,  F,  G,  Bb, D])),  ['C 9 sus4', 'Bb 6/9']);
 }
 
 // =========================================================================

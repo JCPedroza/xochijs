@@ -131,7 +131,12 @@ var fourNoteChords = {
 var fiveNoteChords = {
     // Ninth chords:
     "min9"         : [[3, 4, 3, 4], 0],  // Minor ninth
-    "6/9"          : [[4, 3, 2, 5], 0]   // Six nine
+    "9"            : [[4, 3, 3, 4], 0],  // Dominant ninth
+    "maj9"         : [[4, 3, 4, 3], 0],  // Major ninth
+    "6/9"          : [[4, 3, 2, 5], 0],  // Six nine
+    // Ninth sus chords:
+    "9 sus4"       : [[5, 2, 3, 4], 0]   // Dominant ninth suspended fourth
+
 };
 
 // Node exports:
