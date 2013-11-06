@@ -1,9 +1,6 @@
 var sounds   = require("./sounds");
 var formulas = require("./formulas");
 
-/** Used as default pool (equal temperament 12 semi-tones). */
-var ET12POOL = ["Ab", "A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G"];
-
 /** Checks equality between two arrays. */  // needs to handle nested arrays
 var arraysEqual = function(a, b) {
   if (a === b)                  return true;
@@ -37,7 +34,7 @@ var permute = function(input) {
 
 /** Counts the steps between two notes. */
 var stepCount = function(note1, note2, pool){
-    var thePool = pool || ET12POOL;
+    var thePool = pool || formulas.ET12POOL;
     var result  = thePool.indexOf(note2.getName()) - thePool.indexOf(note1.getName());
     if (result < 0) result += thePool.length;
     return result;
@@ -45,7 +42,7 @@ var stepCount = function(note1, note2, pool){
 
 /** Builds a Scale object, based on a formula. */
 var scalize = function(note, formula, pool){
-    var thePool      = pool || ET12POOL;
+    var thePool      = pool || formulas.ET12POOL;
     var noteArray    = [];
     var currentIndex = thePool.indexOf(note.getName());
     var poolSize     = thePool.length;
@@ -81,16 +78,16 @@ var buildPermutations = function (chord){
 // !!! handle other data types
 /** Returns the formula of the provided sequence of notes */
 var toFormula = function(notes, pool){
-    var thePool       = pool || ET12POOL;
+    var thePool       = pool || formulas.ET12POOL;
     var returnArray   = [];
     var notesLength   = notes.length;
     var thePoolLength = thePool.length;
-    if (typeof notes[0] === "string") return toFormula0(notes, thePool, [], notesLength, thePoolLength);
+    if (typeof notes[0] === "string") return _toFormula0(notes, thePool, [], notesLength, thePoolLength);
     else throw new Error("notes format not supported");
 };
 
 // Helper for toFormula, handles array of strings 
-var toFormula0 = function(notes, thePool, returnArray, notesLength, thePoolLength){
+var _toFormula0 = function(notes, thePool, returnArray, notesLength, thePoolLength){
     for (var i = 0; i < notesLength; i++){
         if (thePool.indexOf(notes[i]) === -1){    // Checks that the note is in the pool.
             throw new Error(notes[i] + " is not in the pool.");}
