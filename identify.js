@@ -34,21 +34,10 @@ var _chordStringArray = function(chord){
 
 // Helper for chord(), deals with Chord object
 var _chordObject = function(chord){
-    var chordSize    = chord.getSize();
-    var permutations = process.buildPermutations(chord);                                    // Array with all the permutations of the chord.
-    var formula      = _getFormulas(chordSize);                                             // Determine a formula object to use.
-    var returnArray  = [];                                                                  // Array that will be populated with possible names.
-    for (var i = 0; i < permutations.length; i++){
-        var current = permutations[i].toFormula().slice(0, -1);                             // Last value in formula is not relevant. (1)
-        var lowest  = permutations[i].getNotes()[0].getName();                              // Lowest note, to determine root.
-        for (var key in formula){                                                           // Loop through chord formulas.
-            if (formula.hasOwnProperty(key)){                                               // Checks property doesn't come from prototype.
-                if (process.arraysEqual(current, formula[key][0]))                          // Checks for a match.
-                    returnArray.push(_determineRoot(lowest, formula[key][1]) + " " + key);  // Add lowest note and key if there is a match.
-            }
-        }
-    }
-    return returnArray;
+    chordNotes = chord.getNotes();
+    for (var i = 0; i < chordNotes.length; i++)
+        chordNotes[i] = chordNotes[i].getName();
+    return _chordStringArray(chordNotes);
 };
 
 // Helper for chord(). Determines formula object based on chord size.
