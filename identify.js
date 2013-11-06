@@ -11,6 +11,8 @@
 
 /** Identifies the name of a Chord object, returns an array of possible names. */
 var chord = function(chord){
+    if (typeof arguments[0] === "string")                                    // Case for variable arguments of type string.
+        return _chordStringArray(Array.prototype.slice.call(arguments));
     if      (chord instanceof sounds.Chord) return _chordObject(chord);      // Case for a chord represented as a Chord object.
     else if (chord instanceof Array){
         if (typeof chord[0] === "string") return _chordStringArray(chord);   // Case for a chord represented as an array of string.
