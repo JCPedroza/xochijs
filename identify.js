@@ -23,6 +23,7 @@ var chord = function(chord){
         else if (chord[0] instanceof sounds.Note)                         // Case for a chord represented as an array of Note objects.
             return _chordNoteArray(chord);
     }
+    else throw new Error("datatype is not supported");
 };
 
 // Helper for chord(), _chordObject, and _chordNoteArray. Deals with an array of strings.
