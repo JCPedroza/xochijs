@@ -47,17 +47,15 @@ var _chordStringArray = function(chord){
 // Helper for chord(), deals with an array of Note objects.
 var _chordNoteArray = function(chord){
     var nameArray = [];
-    for (var i = 0; i < chord.length; i++)   // Polulate nameArray with the name property of the Note objects.
+    for (var i = 0; i < chord.length; i++)   // Populate nameArray with the name property of the Note objects.
         nameArray[i] = chord[i].getName();
     return _chordStringArray(nameArray);
 };
 
 // Helper for chord(), deals with Chord object.
 var _chordObject = function(chord){
-    chordNotes = chord.getNotes();                 // Get the notes from the Chord object.
-    for (var i = 0; i < chordNotes.length; i++)
-        chordNotes[i] = chordNotes[i].getName();   // Build an array with the name property of the Note objects.
-    return _chordStringArray(chordNotes);          // Call _chordStringArray with that array as argument.
+    chordNotes = chord.getNotes();        // Get the notes from the Chord object.
+    return _chordNoteArray(chordNotes);   // Call _chordNoteArray with that array of Note objects.         
 };
 
 // Helper for chord(). Determines formula object based on chord size.
