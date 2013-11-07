@@ -1,3 +1,5 @@
+/** @module identify */
+
 // ===========================================
 //                 Imports
 // ===========================================
@@ -9,12 +11,19 @@
 //              Chord Recognition
 // ===========================================
 
-/** Identifies the name of a Chord object, returns an array of possible names. */
+/** 
+* Chord name identification. 
+* @param chord A representation of a group of notes, datatypes supported are:
+* variable arguments of type string or Note, Chord objects, arrays of string
+* or Note objects.
+* @returns An array of possible names for the chord.
+* @throws Will throw an error if the type of the argument is not supported.
+*/
 var chord = function(chord){
     if (typeof arguments[0] === "string")                                 // Case for variable arguments of type string.
         return _chordStringArray(Array.prototype.slice.call(arguments));  // Cast arguments object to array.
-    else if (arguments[0] instanceof sounds.Note)
-        return _chordNoteArray(Array.prototype.slice.call(arguments));
+    else if (arguments[0] instanceof sounds.Note)                         // Case for variable arguments of type Note.
+        return _chordNoteArray(Array.prototype.slice.call(arguments));    // Cast arguments object to array.
     else if (chord instanceof sounds.Chord)                               // Case for a chord represented as a Chord object.
         return _chordObject(chord);
     else if (chord instanceof Array){                                     // Cases for array argument:
@@ -47,7 +56,7 @@ var _chordStringArray = function(chord){
 // Helper for chord(), deals with an array of Note objects.
 var _chordNoteArray = function(chord){
     var nameArray = [];
-    for (var i = 0; i < chord.length; i++)   // Populate nameArray with the name property of the Note objects.
+    for (var i = 0; i < chord.length; i++)   // Populate nameArray with the name property of each Note object.
         nameArray[i] = chord[i].getName();
     return _chordStringArray(nameArray);
 };
