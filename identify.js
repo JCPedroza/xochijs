@@ -13,9 +13,8 @@
 
 /** 
 * Chord name identification. 
-* @param chord A representation of a group of notes, datatypes supported are:
-* variable arguments of type string or Note, Chord objects, arrays of string
-* or Note objects.
+* @param {...string|...Note|string[]|Note[]|Chord} chord A representation of a group of notes, datatypes supported are:
+* variable arguments of type string or Note, Chord objects, arrays of string or arrays of Note objects.
 * @returns An array of possible names for the chord.
 * @throws Will throw an error if the type of the argument is not supported.
 */
