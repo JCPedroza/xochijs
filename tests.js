@@ -298,8 +298,8 @@ function testIdentify(){
     aea(identify.chord(GEC),             ['C maj', 'A min7 no root', 'Ab maj7#5 no root']);
     aea(identify.chord(GCE),             ['C maj', 'A min7 no root', 'Ab maj7#5 no root']);
     aea(identify.chord(CEAb),            ['C aug','A minmaj7 no root', 'E aug', 'Db minmaj7 no root', 'Ab aug', 'F minmaj7 no root' ]);
-    aea(identify.chord(CDG),             ['C sus2', 'G sus4']);
-    aea(identify.chord(CFG),             ['C sus4', 'F sus2']);
+    aea(identify.chord(CDG),             ['C sus2', 'Ab maj7b5 no root', 'G sus4', 'E min7#5 no root']);
+    aea(identify.chord(CFG),             ['C sus4', 'A min7#5 no root', 'F sus2', 'Db maj7b5 no root']);
     aea(identify.chord(ACE),             ['A min', 'F maj7 no root', 'Gb min7b5 no root', 'C maj6 no 5th']);
     aea(identify.chord(ACEb),            ['A dim', 'F 7 no root', 'Gb dim7 no root', 'C dim7 no 5th', 'C min6 no 5th' ]);
     aea(identify.chord(E, Gb, Bb),       ['C 7b5 no root', 'Gb 7 no 5th']);
@@ -318,12 +318,13 @@ function testIdentify(){
     aea(identify.chord(new sounds.Chord([G, B,  Eb, Gb])), ['G maj7#5' ]);
     aea(identify.chord(new sounds.Chord([G, B,  Db, F])),  ['G 7b5', 'Db 7b5' ]);
     aea(identify.chord(new sounds.Chord([G, B,  Eb, F])),  ['G 7#5' ]);
-    aea(identify.chord(new sounds.Chord([C, E,  G,  D])),  ['C maj add2' ]);
-    aea(identify.chord(new sounds.Chord([D, G,  E,  C])),  ['C maj add2' ]);
+    aea(identify.chord(new sounds.Chord([C, E,  G,  D])),  ['C maj add2', 'E min7#5' ]);
+    aea(identify.chord(new sounds.Chord([D, G,  E,  C])),  ['E min7#5', 'C maj add2' ]);
     aea(identify.chord(new sounds.Chord([C, E,  G,  F])),  ['C maj add4' ]);
     aea(identify.chord(new sounds.Chord([C, E,  Bb, D])),  ['C 9 no 5th']);
     aea(identify.chord(new sounds.Chord([D, F,  C,  E])),  ['D min9 no 5th']);
     aea(identify.chord(new sounds.Chord([C, E,  A,  D])),  ['C 6/9 no 5th']);
+    aea(identify.chord("C", "E", "Gb", "B"),               ['C maj7b5']);
 
     aea(identify.chord(new sounds.Chord([C,  E,  G,  A,  D])),  ['C 6/9', 'D 9 sus4']);
     aea(identify.chord(new sounds.Chord([D,  F,  A,  C,  E])),  ['D min9']);

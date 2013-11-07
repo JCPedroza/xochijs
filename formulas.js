@@ -107,7 +107,9 @@ var threeNoteChords = {
     "minmaj7 no root" : [[4, 4], -3],  // Minor-major seventh no root
     "maj7#5 no root"  : [[4, 3], -4],  // Major seventh sharp fifth no root
     "7b5 no root"     : [[2, 4], -4],  // Dominant seventh flat fifth no root
-    "7#5 no root"     : [[4, 2], -4]   // Dominant seventh sharp fifth no root
+    "7#5 no root"     : [[4, 2], -4],  // Dominant seventh sharp fifth no root
+    "maj7b5 no root"  : [[2, 5], -4],  // Major seventh flat fifth
+    "min7#5 no root"  : [[5, 2], -3]   // Minor seventh sharp fifth
 };
 
 var fourNoteChords = {
@@ -121,6 +123,8 @@ var fourNoteChords = {
     "maj7#5"         : [[4, 4, 3], 0],   // Augmented-major seventh
     "7b5"            : [[4, 2, 4], 0],   // Dominant seventh flat five
     "7#5"            : [[4, 4, 2], 0],   // Dominant seventh sharp five
+    "maj7b5"         : [[4, 2, 5], 0],   // Major seventh flat fifth
+    "min7#5"         : [[3, 5, 2], 0],   // Minor seventh sharp fifth
     // 6th chords:
     "maj6"           : [[4, 3, 2], 0],   // Major sixth
     "min6"           : [[3, 4, 2], 0],   // Minor sixth 
