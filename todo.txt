@@ -16,3 +16,5 @@
 - scale notation fixer: use sharp and flats correctly in a scale
 
 - option to change sharps to flats and the other way around
+
+- sharp to standard mode (flat) transformer to deal internally only with flats
