@@ -19,19 +19,22 @@
 * @throws Will throw an error if the type of the argument is not supported.
 */
 var chord = function(chord){
+    var returnArray = [];
     if (typeof arguments[0] === "string")                                 // Case for variable arguments of type string.
-        return _chordStringArray(Array.prototype.slice.call(arguments));  // Cast arguments object to array.
+        returnArray = _chordStringArray(Array.prototype.slice.call(arguments));  // Cast arguments object to array.
     else if (arguments[0] instanceof sounds.Note)                         // Case for variable arguments of type Note.
-        return _chordNoteArray(Array.prototype.slice.call(arguments));    // Cast arguments object to array.
+        returnArray = _chordNoteArray(Array.prototype.slice.call(arguments));    // Cast arguments object to array.
     else if (chord instanceof sounds.Chord)                               // Case for a chord represented as a Chord object.
-        return _chordObject(chord);
+        returnArray = _chordObject(chord);
     else if (chord instanceof Array){                                     // Cases for array argument:
         if (typeof chord[0] === "string")                                 // Case for a chord represented as an array of string.
-            return _chordStringArray(chord);
+            returnArray = _chordStringArray(chord);
         else if (chord[0] instanceof sounds.Note)                         // Case for a chord represented as an array of Note objects.
-            return _chordNoteArray(chord);
+            returnArray = _chordNoteArray(chord);
     }
     else throw new Error("datatype is not supported");
+    if (returnArray.length === 0) returnArray = process.toFormula(chord);
+    return returnArray;
 };
 
 // Helper for chord(), _chordObject, and _chordNoteArray. Deals with an array of strings.
