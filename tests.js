@@ -245,6 +245,15 @@ for (var i = 0; i < buildPermutations1.length; i++)
 ae(buildPermutations1Str === "C E G  C G E  E C G  E G C  G C E  G E C  ");
 
 // =========================================================================
+//                      process.fromFormulaToNotes
+// =========================================================================
+function testFromFormulaToNotes(){
+    aea(process.fromFormulaToNotes([4, 3, 4]), ['C', 'E', 'G', 'B' ]);
+    aea(process.fromFormulaToNotes([3, 4, 3]), ['C', 'Eb', 'G', 'Bb' ]);
+    aea(process.fromFormulaToNotes([4, 3, 4], "F"), ['F', 'A', 'C', 'E' ]);
+}
+
+// =========================================================================
 //                         process.toFormula() 
 // =========================================================================
 function testToFormula(){
@@ -351,6 +360,7 @@ function testHarmonize(){
 testToFormula();
 testIdentify();
 testHarmonize();
+testFromFormulaToNotes();
 
 // Print results to console:
 console.log();

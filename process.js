@@ -98,11 +98,28 @@ var _toFormula0 = function(notes, thePool, returnArray, notesLength, thePoolLeng
     return returnArray;
 };
 
+// !!! needs to handle var args, and in that case firstNote and pool are the default values.
+/** Returns the note representaiton of a formula. */
+var fromFormulaToNotes = function(formula, firstNote, pool){
+    pool              = pool || formulas.ET12POOL;  // A pool of notes.
+    firstNote         = firstNote || pool[0];       // The note group will be buildt with this note as reference.
+    var currentIndex  = pool.indexOf(firstNote);    // To keep track of the position in the pool.
+    var steps         = formula.length + 1;         // Number of steps needed to complete.
+    var poolLength    = pool.length;                // Length of the pool.
+    var returnArray  = [];                          // Will be populated with the results.
+    for (var i = 0; i < steps; i++){                // Iterate through the pool and formula, collecting the results.
+        returnArray.push(pool[currentIndex]);
+        currentIndex = (currentIndex + formula[i]) % poolLength;
+    }
+    return returnArray;                             // Return the results as an array.
+};
+
 // Node exports:
-exports.arraysEqual       = arraysEqual;
-exports.permute           = permute;
-exports.stepCount         = stepCount;
-exports.scalize           = scalize;
-exports.buildInversions   = buildInversions;
-exports.buildPermutations = buildPermutations;
-exports.toFormula         = toFormula;
+exports.arraysEqual        = arraysEqual;
+exports.permute            = permute;
+exports.stepCount          = stepCount;
+exports.scalize            = scalize;
+exports.buildInversions    = buildInversions;
+exports.buildPermutations  = buildPermutations;
+exports.toFormula          = toFormula;
+exports.fromFormulaToNotes = fromFormulaToNotes;
