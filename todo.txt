@@ -18,3 +18,5 @@
 - option to change sharps to flats and the other way around
 
 - sharp to standard mode (flat) transformer to deal internally only with flats
+
+- implement valueOf and toString to all your classes and objects
