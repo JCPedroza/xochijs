@@ -1,7 +1,7 @@
 // ===========================================
 //      Equal Temperament 12 semi-tones pool
 // ===========================================
-var ET12POOL = ["Ab", "A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G"];
+var ET12POOL = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
 
 // ===========================================
 //              Scale Formulas
@@ -55,6 +55,11 @@ exports.IONIAN_AUGMENTED = [2, 2, 1, 3, 1, 2, 1]; // ionian augmented
 // https://en.wikibooks.org/wiki/Music_Theory/Complete_List_of_Chord_Patterns
 // http://music.stackexchange.com/questions/3732/what-notes-are-optional-in-jazz-chords
 // http://www.smithfowler.org/music/Chord_Formulas.htm
+
+// Ted green's v-system:
+// http://www.tedgreene.com/teaching/v_system.asp
+// http://tedgreene.com/images/lessons/v_system/14_The_43_Four-Note_Qualities.pdf
+// http://www.tedgreene.com/images/lessons/v_system/15_The_Mathematics_of_Four-Note_Chords-and-Beyond.pdf
 
 // Array indexes: 
 // 0: formula
