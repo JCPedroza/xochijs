@@ -22,3 +22,6 @@
 - implement valueOf and toString to all your classes and objects
 
 - process.toFormula needs to handle other data types
+
+- (IDEA): give more than 12 possible chord recognition results, analyze the chord with every step of the formula as the root, 
+    and every note that is not in the formula as a no root
