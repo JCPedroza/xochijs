@@ -25,3 +25,6 @@
 
 - (IDEA): give more than 12 possible chord recognition results, analyze the chord with every step of the formula as the root, 
     and every note that is not in the formula as a no root
+
+- Data structure for chord name and formulas that only saves one permutation of the formula and links all names associated with the permutations of 
+    that formula, maybe? Associate the names with where the formula is started, something similar to the paper on 4 note chord qualities.
