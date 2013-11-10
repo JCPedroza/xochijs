@@ -32,3 +32,5 @@
 - Pool data structure: should it be also an array of Note? And itself be an object?
 
 - Change your OOP to one that uses the prototype; and one that can recognize inheritance chain using instanceof
+
+- Classes in sounds that use typechecking in the constructor need to be able to handle prototype inheritance (the calling of the constructor without arguments)
