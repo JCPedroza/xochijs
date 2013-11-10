@@ -91,16 +91,22 @@ var toFormula = function(notes, pool){
         return _toFormulaVarArgs(arguments, "string");
     if (arguments[0] instanceof sounds.Note)            // Case for var args of type note.
         return _toFormulaVarArgs(arguments, "Note");
-    if (notes instanceof Array){                        // Cases for array of Note or array of string.
-        if (typeof notes[0] === "string")
+    if (notes instanceof Array){                        // Cases for arrays.
+        if (typeof notes[0] === "string")               // Case for array of string.
             return _toFormulaStringArray(notes, pool);
-        if (arguments[0] instanceof sounds.Note)
+        if (notes[0] instanceof sounds.Note)            // Case for array of Note.
             return _toFormulaNoteArray(notes, pool);
     }
     if (notes instanceof sounds.NoteCollection)         // Case for NoteCollection types.
-        return notes.toFormula();
+        // return _toFormulaNC(notes, pool);
+        return notes.toFormula(pool);
     else throw new TypeError("datatype is not supported");
 };
+
+// Helper for toFormula, handles NOteCollection types.
+// var _toFormulaNC = function(notes, pool){
+//     var thePool = pool || formulas.ET12POOL;
+// };
 
 // Helper for toFormula, handles variable arguments of type string.
 var _toFormulaVarArgs = function(){
