@@ -102,8 +102,8 @@ ae(ABC.size  === 3);
 ae(ABC.name  === "ABC");
 ae(ABC.name2 === "");
 ae(JSON.stringify(ABC.getNotes())   === JSON.stringify([A, B, C]));
-ae(JSON.stringify(ABC.toIndexes())  === JSON.stringify([1, 3, 4]));
-ae(JSON.stringify(GAbC.toIndexes()) === JSON.stringify([11, 0, 4]));
+aea(ABC.toIndexes(),  [9, 11, 0]);
+aea(GAbC.toIndexes(), [7, 8, 0]);
 ae(ABC.toFormula().toString() === [2, 1, 9].toString());
 
 // NoteCollection mutation
@@ -170,7 +170,7 @@ ae(BCD.getSize() === 2, "45");
 ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([A, G]));
 
 // Chord access and mutation
-ae(JSON.stringify(CEG.toIndexes()) === JSON.stringify([4, 8, 11]));
+aea(CEG.toIndexes(), [0, 4, 7]);
 ae(CEG.getNotesAsString() === "C E G ");
 CEG.invert(1);
 ae(CEG.getNotesAsString() === "E G C ");
@@ -257,15 +257,21 @@ function testFromFormulaToNotes(){
 //                         process.toFormula() 
 // =========================================================================
 function testToFormula(){
-    aea(process.toFormula(["C", "E",  "B"]),        [4, 7, 1 ]);
-    aea(process.toFormula(["C", "Eb", "Bb"]),       [3, 7, 2 ]);
-    aea(process.toFormula(["C", "E",  "Bb"]),       [4, 6, 2 ]);
-    aea(process.toFormula(["C", "Eb", "A"]),        [3, 6, 3 ]);
-    aea(process.toFormula(["C", "Eb", "B"]),        [3, 8, 1 ]);
-    aea(process.toFormula(["C", "E",  "A"]),        [4, 5, 3 ]);
-    aea(process.toFormula(["C", "Eb", "A"]),        [3, 6, 3 ]);
-    aea(process.toFormula(["C", "E",  "D"]),        [4, 10, 10 ]);
-    aea(process.toFormula(["C", "E",  "F"]),        [4, 1, 7 ]);
+    aea(process.toFormula(["C", "E",  "B"]),  [4, 7, 1 ]);
+    aea(process.toFormula(["C", "Eb", "Bb"]), [3, 7, 2 ]);
+    aea(process.toFormula(["C", "E",  "Bb"]), [4, 6, 2 ]);
+    aea(process.toFormula(["C", "Eb", "A"]),  [3, 6, 3 ]);
+    aea(process.toFormula(["C", "Eb", "B"]),  [3, 8, 1 ]);
+    aea(process.toFormula(["C", "E",  "A"]),  [4, 5, 3 ]);
+    aea(process.toFormula(["C", "Eb", "A"]),  [3, 6, 3 ]);
+    aea(process.toFormula(["C", "E",  "D"]),  [4, 10, 10 ]);
+    aea(process.toFormula("A", "C",  "E"),    [3, 4, 5 ]);
+    aea(process.toFormula(F, A, C),           [4, 3, 5]);
+    aea(process.toFormula([C, Eb, Gb]),       [3, 3, 6 ]);
+    aea(process.toFormula(CEAb),              [4, 4, 4]);
+    aea(process.toFormula(CEAb, ["C", "E", "Ab"]),             [1, 1, 1]);
+    aea(process.toFormula("C", "D", "E", formulas.ET12POOL),   [2, 2, 8]);
+    aea(process.toFormula(C, F, G, ["C", "F", "J", "G", "H"]), [1, 2, 2]);
 
     aea(process.toFormula(["C", "E",  "G",  "B"]),  [4, 3, 4, 1]);
     aea(process.toFormula(["C", "Eb", "G",  "Bb"]), [3, 4, 3, 2]);
