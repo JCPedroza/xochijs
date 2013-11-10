@@ -31,4 +31,4 @@
 
 - Pool data structure: should it be also an array of Note? And itself be an object?
 
-- Change your OOP to one that uses the prototype.
+- Change your OOP to one that uses the prototype; and one that can recognize inheritance chain using instanceof
