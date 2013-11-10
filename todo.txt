@@ -28,3 +28,7 @@
 
 - Data structure for chord name and formulas that only saves one permutation of the formula and links all names associated with the permutations of 
     that formula, maybe? Associate the names with where the formula is started, something similar to the paper on 4 note chord qualities.
+
+- Pool data structure: should it be also an array of Note? And itself be an object?
+
+- Change your OOP to one that uses the prototype.
