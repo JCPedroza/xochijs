@@ -290,7 +290,7 @@ function NoteCollection(notes, name, name2){
 * @param name2 Secondary name for the NoteCollection (optional).
 */
 function Chord(notes, name, name2){
-    NoteCollection.call(this, notes, name, name2);  // inherits from NoteCollection
+    NoteCollection.apply(this, arguments);  // inherits from NoteCollection
 
     // ==============================================
     //                   Mutators
@@ -324,7 +324,7 @@ function Chord(notes, name, name2){
 * @constructor
 */
 function Scale(notes, name, name2){
-    NoteCollection.call(this, notes, name, name2);  // inherits from NoteCollection
+    NoteCollection.apply(this, arguments);  // inherits from NoteCollection
 }
 
 /** 
@@ -387,7 +387,7 @@ function ChordCollection(chords, name, name2){
 * @constructor
 */
 function Harmony(chords, name, name2){
-    ChordCollection.call(this, chords, name, name2);
+    ChordCollection.apply(this, arguments);
 }
 
 
