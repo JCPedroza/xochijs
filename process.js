@@ -87,17 +87,19 @@ var buildPermutations = function (chord){
 * If variable arguments, the last argument must be the pool.
 */
 var toFormula = function(notes, pool){
-    if (typeof arguments[0] === "string")                            // Case for var args of type string.
+    if (typeof arguments[0] === "string")               // Case for var args of type string.
         return _toFormulaVarArgs(arguments, "string");
-    if (arguments[0] instanceof sounds.Note)                         // Case for var args of type note.
+    if (arguments[0] instanceof sounds.Note)            // Case for var args of type note.
         return _toFormulaVarArgs(arguments, "Note");
-    if (notes instanceof Array){                                     // Cases for array of Note or array of string.
+    if (notes instanceof Array){                        // Cases for array of Note or array of string.
         if (typeof notes[0] === "string")
             return _toFormulaStringArray(notes, pool);
         if (arguments[0] instanceof sounds.Note)
             return _toFormulaNoteArray(notes, pool);
     }
-    else throw new Error("datatype is not supported");
+    if (notes instanceof sounds.NoteCollection)         // Case for NoteCollection types.
+        return notes.toFormula();
+    else throw new TypeError("datatype is not supported");
 };
 
 // Helper for toFormula, handles variable arguments of type string.
@@ -153,6 +155,7 @@ var fromFormulaToNotes = function(formula, firstNote, pool){
     }
     return returnArray;                             // Return the results as an array.
 };
+
 
 // Node exports:
 exports.arraysEqual        = arraysEqual;
