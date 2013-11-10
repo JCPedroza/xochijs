@@ -1,5 +1,7 @@
-/** Used as default pool (equal temperament 12 semi-tones). */
-var ET12POOL = ["Ab", "A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G"];
+// ===========================================
+//                 Imports
+// ===========================================
+var formulas = require("./formulas");
 
 /**
 * Represents a musical note.
@@ -257,7 +259,7 @@ function NoteCollection(notes, name, name2){
 
     /** Builds an array of the indexes the notes have in a pool. */
     this.toIndexes = function(pool){
-        var thePool = pool || ET12POOL;
+        var thePool = pool || formulas.ET12POOL;
         var returnArray = [];
         for (var i in this.notes)
             returnArray.push(thePool.indexOf(this.notes[i].name));
@@ -266,8 +268,8 @@ function NoteCollection(notes, name, name2){
 
     /** Builds a formula based on the indexes the notes have in a pool. */ // !!! this can be more efficient
     this.toFormula = function(pool){
-        var thePool       = pool || ET12POOL;
-        var indexArray    = this.toIndexes();
+        var thePool       = pool || formulas.ET12POOL;
+        var indexArray    = this.toIndexes(pool);
         var returnArray   = [];
         var formulaLength = indexArray.length;
         var poolLength    = thePool.length;
