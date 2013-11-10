@@ -44,6 +44,11 @@ function Note(name, freq, octave, name2){
     // ==============================================
     //                  Accessors
     // ==============================================
+    
+    /** Returns the primitive value of the object, used by the + operator. */
+    this.valueOf = function(){
+        return this.freq;
+    };
 
     /** Returns name. */
     this.getName = function(){
