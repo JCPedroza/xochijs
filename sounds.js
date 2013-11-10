@@ -12,7 +12,7 @@ var ET12POOL = ["Ab", "A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G"]
 * @returns A Note object.
 */
 function Note(name, freq, octave, name2){
-    this.name   = name;
+    this.name   = name   || "";
     this.octave = octave || 0;
     this.freq   = freq   || 0;
     this.name2  = name2  || "";
@@ -84,12 +84,12 @@ function Note(name, freq, octave, name2){
 * @param name2 Secondary name for the NoteCollection (optional).
 */
 function NoteCollection(notes, name, name2){
-    if (!(notes instanceof Array)) throw new Error("notes must be an array of Note");
-    this.notes  = notes;           // array of notes
-    this.notes2 = notes.slice(0);  // original notes (clone)
+    // if (!(notes instanceof Array)) throw new Error("notes must be an array of Note");
+    this.notes  = notes;                           // array of notes
+    this.notes2 = notes ? notes.slice(0) : notes;  // original notes (clone)
     this.name   = name  || "";
     this.name2  = name2 || "";
-    this.size   = notes.length;
+    this.size   = notes ? notes.length : 0;
     
     // ==============================================
     //                   Mutators
@@ -317,6 +317,8 @@ function Chord(notes, name, name2){
         this.invert(n);
     };
 }
+Chord.prototype = new NoteCollection();
+Chord.prototype.constructor = Chord;
 
 /** 
 * Group of Note objects with melodic dynamics (like a succession of notes).
