@@ -1,3 +1,6 @@
+// ===========================================
+//                 Imports
+// ===========================================
 var sounds   = require("./sounds");
 var formulas = require("./formulas");
 
@@ -11,7 +14,7 @@ var arraysEqual = function(a, b) {
   return true;
 };
 
-/** Generates an array that contains the permutations of the input array */
+/** Generates an array that contains the permutations of the input array. */
 var permute = function(input) {
     var permArr = [],
     usedChars = [];
@@ -75,29 +78,66 @@ var buildPermutations = function (chord){
     return returnArray;                             // Return the array of Chord objects.
 };
 
-// !!! handle other data types
-/** Returns the formula of the provided sequence of notes */
+// ===========================================
+//                 toFormula
+// ===========================================
+// !!! needs to handle NoteCOllection objects (you need to take a different OOP approach)
+/** 
+* Returns the formula of the provided sequence of notes. 
+* If variable arguments, the last argument must be the pool.
+*/
 var toFormula = function(notes, pool){
-    var thePool       = pool || formulas.ET12POOL;
-    var returnArray   = [];
-    var notesLength   = notes.length;
-    var thePoolLength = thePool.length;
-    if (typeof notes[0] === "string") return _toFormula0(notes, thePool, [], notesLength, thePoolLength);
-    else throw new Error("notes format not supported");
+    if (typeof arguments[0] === "string")                            // Case for var args of type string.
+        return _toFormulaVarArgs(arguments, "string");
+    if (arguments[0] instanceof sounds.Note)                         // Case for var args of type note.
+        return _toFormulaVarArgs(arguments, "Note");
+    if (notes instanceof Array){                                     // Cases for array of Note or array of string.
+        if (typeof notes[0] === "string")
+            return _toFormulaStringArray(notes, pool);
+        if (arguments[0] instanceof sounds.Note)
+            return _toFormulaNoteArray(notes, pool);
+    }
+    else throw new Error("datatype is not supported");
 };
 
-// Helper for toFormula, handles array of strings 
-var _toFormula0 = function(notes, thePool, returnArray, notesLength, thePoolLength){
+// Helper for toFormula, handles variable arguments of type string.
+var _toFormulaVarArgs = function(){
+    var type         = arguments[1];
+    var theArguments = Array.prototype.slice.call(arguments[0]);                 // Cast arguments to array.
+    var hasPool      = theArguments[theArguments.length - 1] instanceof Array;   // Is the last index a pool?
+    var pool         = hasPool ? theArguments.pop() : formulas.ET12POOL;         // Assign a pool.
+    if (type === "string")                                                       // Case for string array.
+        return _toFormulaStringArray(theArguments, pool);
+    if (type === "Note")                                                         // Case for Note array.
+        return _toFormulaNoteArray(theArguments, pool);
+};
+
+// Helper for _toFormulaVarArgs, deals with variable arguments of type Note.
+var _toFormulaNoteArray = function(notes, pool){
+    for (var i = 0; i < notes.length; i++)       // From array of Note to array of Note.name.
+        notes[i] = notes[i].getName();
+    return _toFormulaStringArray(notes, pool);   // Call _toFormulaStringArray with the new array.
+};
+
+// Helper for toFormula, _toFormulaNoteArray, and _toFormulaVarArgsString; handles array of strings. 
+var _toFormulaStringArray = function(notes, pool){
+    var thePool     = pool || formulas.ET12POOL;
+    var returnArray = [];
+    var notesLength = notes.length;
+    var poolLength  = thePool.length;
     for (var i = 0; i < notesLength; i++){
-        if (thePool.indexOf(notes[i]) === -1){    // Checks that the note is in the pool.
-            throw new Error(notes[i] + " is not in the pool.");}
+        if (thePool.indexOf(notes[i]) === -1)      // Checks that the note is in the pool.
+            throw new Error(notes[i] + " is not in the pool.");
         var value = thePool.indexOf(notes[i]) - thePool.indexOf(notes[(i + 1) % notesLength]);
-        if (value > 0) value -= thePoolLength;
+        if (value > 0) value -= poolLength;
         returnArray.push(Math.abs(value));
     }
     return returnArray;
 };
 
+// ===========================================
+//             fromFormulaToNotes
+// ===========================================
 // !!! needs to handle var args, and in that case firstNote and pool are the default values.
 /** Returns the note representaiton of a formula. */
 var fromFormulaToNotes = function(formula, firstNote, pool){
