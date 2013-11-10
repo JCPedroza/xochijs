@@ -15,21 +15,21 @@
 * Chord name identification. 
 * @param {...string|...Note|string[]|Note[]|Chord} chord A representation of a group of notes, datatypes supported are:
 * variable arguments of type string or Note, Chord objects, arrays of string or arrays of Note objects.
-* @returns An array of possible names for the chord.
+* @returns An array of possible names for the chord, or the chord's formula if no names are found.
 * @throws Will throw an error if the type of the argument is not supported.
 */
 var chord = function(chord){
     var returnArray = [];
-    if (typeof arguments[0] === "string")                                 // Case for variable arguments of type string.
+    if (typeof arguments[0] === "string")                              // Case for variable arguments of type string.
         returnArray = _chordStringArray(Array.prototype.slice.call(arguments));  // Cast arguments object to array.
-    else if (arguments[0] instanceof sounds.Note)                         // Case for variable arguments of type Note.
+    else if (arguments[0] instanceof sounds.Note)                      // Case for variable arguments of type Note.
         returnArray = _chordNoteArray(Array.prototype.slice.call(arguments));    // Cast arguments object to array.
-    else if (chord instanceof sounds.Chord)                               // Case for a chord represented as a Chord object.
+    else if (chord instanceof sounds.Chord)                            // Case for a chord represented as a Chord object.
         returnArray = _chordObject(chord);
-    else if (chord instanceof Array){                                     // Cases for array argument:
-        if (typeof chord[0] === "string")                                 // Case for a chord represented as an array of string.
+    else if (chord instanceof Array){                                  // Cases for array argument:
+        if (typeof chord[0] === "string")                              // Case for a chord represented as an array of string.
             returnArray = _chordStringArray(chord);
-        else if (chord[0] instanceof sounds.Note)                         // Case for a chord represented as an array of Note objects.
+        else if (chord[0] instanceof sounds.Note)                      // Case for a chord represented as an array of Note objects.
             returnArray = _chordNoteArray(chord);
     }
     else throw new Error("datatype is not supported");
