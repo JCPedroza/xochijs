@@ -328,17 +328,19 @@ Chord.prototype.constructor = Chord;
 function Scale(notes, name, name2){
     NoteCollection.apply(this, arguments);  // inherits from NoteCollection
 }
+Scale.prototype = new NoteCollection();
+Scale.prototype.constructor = Scale;
 
 /** 
 * Represents a group of chords 
 * @constructor
 */
 function ChordCollection(chords, name, name2){
-    if (!(chords instanceof Array)) throw new Error("chords must be an array of Chord");
+    // if (!(chords instanceof Array)) throw new Error("chords must be an array of Chord"); !!! this needs to work with prototype inheritance!!!!
     this.name   = name  || "";
     this.name2  = name2 || "";
     this.chords = chords;
-    this.size   = chords.length;
+    this.size   = chords ? chords.length : 0;
 
     // ==============================================
     //                   Mutators
@@ -391,6 +393,8 @@ function ChordCollection(chords, name, name2){
 function Harmony(chords, name, name2){
     ChordCollection.apply(this, arguments);
 }
+Harmony.prototype = new ChordCollection();
+Harmony.prototype.constructor = Harmony;
 
 
 
