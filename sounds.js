@@ -86,7 +86,7 @@ function Note(name, freq, octave, name2){
 * @param name2 Secondary name for the NoteCollection (optional).
 */
 function NoteCollection(notes, name, name2){
-    // if (!(notes instanceof Array)) throw new Error("notes must be an array of Note");
+    // if (!(notes instanceof Array)) throw new Error("notes must be an array of Note"); needs to handle prototype inheritance
     this.notes  = notes;                           // array of notes
     this.notes2 = notes ? notes.slice(0) : notes;  // original notes (clone)
     this.name   = name  || "";
@@ -319,7 +319,7 @@ function Chord(notes, name, name2){
         this.invert(n);
     };
 }
-Chord.prototype = new NoteCollection();
+Chord.prototype = Object.create(NoteCollection.prototype);
 Chord.prototype.constructor = Chord;
 
 /** 
@@ -330,7 +330,7 @@ Chord.prototype.constructor = Chord;
 function Scale(notes, name, name2){
     NoteCollection.apply(this, arguments);  // inherits from NoteCollection
 }
-Scale.prototype = new NoteCollection();
+Scale.prototype = Object.create(NoteCollection.prototype);
 Scale.prototype.constructor = Scale;
 
 /** 
@@ -395,7 +395,7 @@ function ChordCollection(chords, name, name2){
 function Harmony(chords, name, name2){
     ChordCollection.apply(this, arguments);
 }
-Harmony.prototype = new ChordCollection();
+Harmony.prototype = Object.create(ChordCollection.prototype);
 Harmony.prototype.constructor = Harmony;
 
 
