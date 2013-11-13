@@ -3,6 +3,9 @@
 // ===========================================
 var formulas = require("./formulas");
 
+// ==============================================
+//                     Note
+// ==============================================
 /**
 * Represents a musical note.
 *
@@ -18,65 +21,67 @@ function Note(name, freq, octave, name2){
     this.octave = octave || 0;
     this.freq   = freq   || 0;
     this.name2  = name2  || "";
-    
-    // ==============================================
-    //                   Mutators
-    // ==============================================
-
-    /** Sets name. */
-    this.setName = function(newName){
-        this.name = newName;
-    };
-
-    /** Sets octave. */
-    this.setOctave = function(newOctave){
-        this.octave = newOctave;
-    };
-
-    /** Sets freq. */
-    this.setFreq = function(newFreq){
-        this.freq = newFreq;
-    };
-
-    /** Sets the secondary name (name2). */
-    this.setName2 = function(newName2){
-        this.name2 = newName2;
-    };
-
-    // ==============================================
-    //                  Accessors
-    // ==============================================
-    
-    /** Returns the primitive value of the object, used by the + operator. */
-    this.valueOf = function(){
-        return this.freq;
-    };
-
-    /** Returns name. */
-    this.getName = function(){
-        return this.name;
-    };
-
-    /** Returns octave. */
-    this.getOctave = function(){
-        return this.octave;
-    };
-
-    /** Returns freq. */
-    this.getFreq = function(){
-        return this.freq;
-    };
-
-    /** Returns secondary name (name2). */
-    this.getName2 = function(){
-        return this.name2;
-    };
-
-    /** Returns the object state as a string. */
-    this.toString = function(){
-        return "name=" + this.name + " name2=" + this.name2 + " freq=" + this.freq + " octave=" + this.octave;
-    };
 }
+    
+// ------------------------
+//         Mutators
+// ------------------------
+
+/** Sets name. */
+Note.prototype.setName = function(newName){
+    this.name = newName;
+};
+
+/** Sets octave. */
+Note.prototype.setOctave = function(newOctave){
+    this.octave = newOctave;
+};
+
+/** Sets freq. */
+Note.prototype.setFreq = function(newFreq){
+    this.freq = newFreq;
+};
+
+/** Sets the secondary name (name2). */
+Note.prototype.setName2 = function(newName2){
+    this.name2 = newName2;
+};
+
+// ------------------------
+//        Accessors
+// ------------------------
+
+/** Returns the primitive value of the object, used by the + operator. */
+Note.prototype.valueOf = function(){
+    return this.freq;
+};
+
+/** Returns name. */
+Note.prototype.getName = function(){
+    return this.name;
+};
+
+/** Returns octave. */
+Note.prototype.getOctave = function(){
+    return this.octave;
+};
+
+/** Returns freq. */
+Note.prototype.getFreq = function(){
+    return this.freq;
+};
+
+/** Returns secondary name (name2). */
+Note.prototype.getName2 = function(){
+    return this.name2;
+};
+
+/** Returns the object state as a string. */
+Note.prototype.toString = function(){
+    return "name=" + this.name + " name2=" + this.name2 + " freq=" + this.freq +
+           " octave=" + this.octave;
+};
+
 
 /**
 * Represents a group of notes. Parent constructor for Chord and Scale.
@@ -154,7 +159,7 @@ function NoteCollection(notes, name, name2){
     this.removeNotesWithName = function(name){
         this.notes = this.notes.filter(
             function(element){
-                return element.name !== name;
+                return element.getName() !== name;
             });
         this.size = this.notes.length;
     };
@@ -163,7 +168,7 @@ function NoteCollection(notes, name, name2){
     this.removeNotesWithName2 = function(name){
         this.notes = this.notes.filter(
             function(element){
-                return element.name2 !== name;
+                return element.getName2() !== name;
             });
         this.size = this.notes.length;
     };
@@ -172,7 +177,7 @@ function NoteCollection(notes, name, name2){
     this.removeNotesWithFreq = function(freq){
         this.notes = this.notes.filter(
             function(element){
-                return element.freq !== freq;
+                return element.getFreq() !== freq;
             });
         this.size = this.notes.length;
     };
@@ -181,7 +186,8 @@ function NoteCollection(notes, name, name2){
     this.removeNotesWithFreqRange = function(fromFreq, toFreq){
         this.notes = this.notes.filter(
             function(element){
-                return element.freq < fromFreq || element.freq > toFreq;
+                var theFreq = element.getFreq();
+                return theFreq < fromFreq || theFreq > toFreq;
             });
         this.size = this.notes.length;
     };
@@ -237,7 +243,7 @@ function NoteCollection(notes, name, name2){
     this.getNotesAsString = function(){
         var returnString = "";
         for (var i in this.notes)
-            returnString += this.notes[i].name + " ";
+            returnString += this.notes[i].getName() + " ";
         return returnString;
     };
 
@@ -245,7 +251,7 @@ function NoteCollection(notes, name, name2){
     this.getOriginalNotesAsString = function(){
         var returnString = "";
         for (var i in this.notes2)
-            returnString += this.notes2[i].name + " ";
+            returnString += this.notes2[i].getName() + " ";
         return returnString;
     };
 
@@ -253,7 +259,7 @@ function NoteCollection(notes, name, name2){
     this.getFreqsAsString = function(){
         var returnString = "";
         for (var i in this.notes)
-            returnString += this.notes[i].freq + " ";
+            returnString += this.notes[i].getFreq() + " ";
         return returnString;
     };
 
@@ -262,7 +268,7 @@ function NoteCollection(notes, name, name2){
         var thePool = pool || formulas.ET12POOL;
         var returnArray = [];
         for (var i in this.notes)
-            returnArray.push(thePool.indexOf(this.notes[i].name));
+            returnArray.push(thePool.indexOf(this.notes[i].getName()));
         return returnArray;
     };
 
