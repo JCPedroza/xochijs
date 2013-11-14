@@ -98,7 +98,7 @@ function NoteCollection(notes, name, name2){
     this.notes2 = notes ? notes.slice(0) : notes;  // original notes (clone)
     this.name   = name  || "";
     this.name2  = name2 || "";
-    this.size   = notes ? notes.length : 0;
+    // this.size   = notes ? notes.length : 0;
 }
 
 // ------------------------
@@ -109,14 +109,14 @@ function NoteCollection(notes, name, name2){
 NoteCollection.prototype.setNotes = function(notes){
     if (!(notes instanceof Array)) throw new Error("notes must be an array of Note");
     this.notes = notes;
-    this.size  = this.notes.length;
+    // this.size  = this.notes.length;
 };
 
 /** Adds one note. */
 NoteCollection.prototype.addNote = function(note){
     if (!(note instanceof Note)) throw new Error("note must be a Note object");
     this.notes.push(note);
-    this.size++;
+    // this.size++;
 };
 
 /** Changes the name of the NoteCollection object. */
@@ -132,7 +132,7 @@ NoteCollection.prototype.setName2 = function(newName){
 /** Resets notes to its original state (notes2). */
 NoteCollection.prototype.reset = function(){
     this.notes = this.notes2.slice(0);
-    this.size  = this.notes.length;
+    // this.size  = this.notes.length;
 };
 
 /** Sends the first note to the last index. */  // !!! Can this be more efficient?
@@ -154,7 +154,7 @@ NoteCollection.prototype.reverse = function(){
 NoteCollection.prototype.removeNoteAt = function(index){
     if (index < 0) throw new Error("index must be greater than 0");
     this.notes.splice(index, 1);
-    this.size--;
+    // this.size--;
 };
 
 /** Removes all the notes with given name. */
@@ -163,7 +163,7 @@ NoteCollection.prototype.removeNotesWithName = function(name){
         function(element){
             return element.getName() !== name;
         });
-    this.size = this.notes.length;
+    // this.size = this.notes.length;
 };
 
 /** Removes all the notes with given secondary name (name2). */
@@ -172,7 +172,7 @@ NoteCollection.prototype.removeNotesWithName2 = function(name){
         function(element){
             return element.getName2() !== name;
         });
-    this.size = this.notes.length;
+    // this.size = this.notes.length;
 };
 
 /** Removes all the notes with given frequency. */
@@ -181,7 +181,7 @@ NoteCollection.prototype.removeNotesWithFreq = function(freq){
         function(element){
             return element.getFreq() !== freq;
         });
-    this.size = this.notes.length;
+    // this.size = this.notes.length;
 };
 
 /** Removes all the notes within a frequency range, inclusive. */
@@ -191,7 +191,7 @@ NoteCollection.prototype.removeNotesWithFreqRange = function(fromFreq, toFreq){
             var theFreq = element.getFreq();
             return theFreq < fromFreq || theFreq > toFreq;
         });
-    this.size = this.notes.length;
+    // this.size = this.notes.length;
 };
 
 // ------------------------
@@ -200,7 +200,7 @@ NoteCollection.prototype.removeNotesWithFreqRange = function(fromFreq, toFreq){
 
 /** Returns the object state as a string. */
 NoteCollection.prototype.toString = function(){
-    var returnString = "name=" + this.name + "\nname2=" + this.name2 + "\nsize=" + this.size;
+    var returnString = "name=" + this.name + "\nname2=" + this.name2 + "\nsize=" + this.getSize();
     returnString += "\nnotes=\n";
     for (var i in this.notes){
         returnString += "<";
@@ -218,7 +218,7 @@ NoteCollection.prototype.toString = function(){
 
 /** Retunrs the size of the string NoteCollection. */
 NoteCollection.prototype.getSize = function(){
-    return this.size;
+    return this.notes.length;
 };
 
 /** Returns the notes. */
