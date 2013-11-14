@@ -98,7 +98,6 @@ function NoteCollection(notes, name, name2){
     this.notes2 = notes ? notes.slice(0) : notes;  // original notes (clone)
     this.name   = name  || "";
     this.name2  = name2 || "";
-    // this.size   = notes ? notes.length : 0;
 }
 
 // ------------------------
@@ -109,14 +108,12 @@ function NoteCollection(notes, name, name2){
 NoteCollection.prototype.setNotes = function(notes){
     if (!(notes instanceof Array)) throw new Error("notes must be an array of Note");
     this.notes = notes;
-    // this.size  = this.notes.length;
 };
 
 /** Adds one note. */
 NoteCollection.prototype.addNote = function(note){
     if (!(note instanceof Note)) throw new Error("note must be a Note object");
     this.notes.push(note);
-    // this.size++;
 };
 
 /** Changes the name of the NoteCollection object. */
@@ -132,7 +129,6 @@ NoteCollection.prototype.setName2 = function(newName){
 /** Resets notes to its original state (notes2). */
 NoteCollection.prototype.reset = function(){
     this.notes = this.notes2.slice(0);
-    // this.size  = this.notes.length;
 };
 
 /** Sends the first note to the last index. */  // !!! Can this be more efficient?
@@ -154,7 +150,6 @@ NoteCollection.prototype.reverse = function(){
 NoteCollection.prototype.removeNoteAt = function(index){
     if (index < 0) throw new Error("index must be greater than 0");
     this.notes.splice(index, 1);
-    // this.size--;
 };
 
 /** Removes all the notes with given name. */
@@ -163,7 +158,6 @@ NoteCollection.prototype.removeNotesWithName = function(name){
         function(element){
             return element.getName() !== name;
         });
-    // this.size = this.notes.length;
 };
 
 /** Removes all the notes with given secondary name (name2). */
@@ -172,7 +166,6 @@ NoteCollection.prototype.removeNotesWithName2 = function(name){
         function(element){
             return element.getName2() !== name;
         });
-    // this.size = this.notes.length;
 };
 
 /** Removes all the notes with given frequency. */
@@ -181,7 +174,6 @@ NoteCollection.prototype.removeNotesWithFreq = function(freq){
         function(element){
             return element.getFreq() !== freq;
         });
-    // this.size = this.notes.length;
 };
 
 /** Removes all the notes within a frequency range, inclusive. */
@@ -191,7 +183,6 @@ NoteCollection.prototype.removeNotesWithFreqRange = function(fromFreq, toFreq){
             var theFreq = element.getFreq();
             return theFreq < fromFreq || theFreq > toFreq;
         });
-    // this.size = this.notes.length;
 };
 
 // ------------------------
@@ -289,8 +280,9 @@ NoteCollection.prototype.toFormula = function(pool){
     return returnArray;
 };
 
-
-
+// ==============================================
+//                    Chord
+// ==============================================
 /**
 * Represents a group of notes as a Chord. 
 * Inherits fron NoteCollection.
@@ -301,34 +293,39 @@ NoteCollection.prototype.toFormula = function(pool){
 */
 function Chord(notes, name, name2){
     NoteCollection.apply(this, arguments);  // inherits from NoteCollection
-
-    // ==============================================
-    //                   Mutators
-    // ==============================================
-
-    /** Sets notes to nth inversion. Sets to previous inversions if n is negative. */ // !!! can this be done more efficiently?
-    this.invert = function(n){
-        if (typeof(n) !== "number") throw new Error("n must be of type number");
-        if (n > 0)
-            for (var i = 0; i < n; i++)
-                this.notes.push(this.notes.shift());
-        if (n < 0)
-            for (var j = 0; j > n; j--)
-                this.notes.unshift(this.notes.pop());
-    };
-
-    /** 
-    * Sets notes to nth inversion, using the original notes (notes2) as reference. 
-    * Sets to previous inversions if n is negative.
-    */
-    this.invertOriginal = function(n){
-        if (typeof(n) !== "number") throw new Error("n must be of type number");
-        this.reset();
-        this.invert(n);
-    };
 }
+
+// ------------------------
+//       Inheritance
+// ------------------------
+
 Chord.prototype = Object.create(NoteCollection.prototype);
 Chord.prototype.constructor = Chord;
+
+// ------------------------
+//         Mutators
+// ------------------------
+
+/** Sets notes to nth inversion. Sets to previous inversions if n is negative. */ // !!! can this be done more efficiently?
+Chord.prototype.invert = function(n){
+    if (typeof(n) !== "number") throw new Error("n must be of type number");
+    if (n > 0)
+        for (var i = 0; i < n; i++)
+            this.notes.push(this.notes.shift());
+    if (n < 0)
+        for (var j = 0; j > n; j--)
+            this.notes.unshift(this.notes.pop());
+};
+
+/** 
+* Sets notes to nth inversion, using the original notes (notes2) as reference. 
+* Sets to previous inversions if n is negative.
+*/
+Chord.prototype.invertOriginal = function(n){
+    if (typeof(n) !== "number") throw new Error("n must be of type number");
+    this.reset();
+    this.invert(n);
+};
 
 /** 
 * Group of Note objects with melodic dynamics (like a succession of notes).
