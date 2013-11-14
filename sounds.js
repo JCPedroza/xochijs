@@ -30,21 +30,25 @@ function Note(name, freq, octave, name2){
 /** Sets name. */
 Note.prototype.setName = function(newName){
     this.name = newName;
+    return this;
 };
 
 /** Sets octave. */
 Note.prototype.setOctave = function(newOctave){
     this.octave = newOctave;
+    return this;
 };
 
 /** Sets freq. */
 Note.prototype.setFreq = function(newFreq){
     this.freq = newFreq;
+    return this;
 };
 
 /** Sets the secondary name (name2). */
 Note.prototype.setName2 = function(newName2){
     this.name2 = newName2;
+    return this;
 };
 
 // ------------------------
@@ -108,48 +112,57 @@ function NoteCollection(notes, name, name2){
 NoteCollection.prototype.setNotes = function(notes){
     if (!(notes instanceof Array)) throw new Error("notes must be an array of Note");
     this.notes = notes;
+    return this;
 };
 
 /** Adds one note. */
 NoteCollection.prototype.addNote = function(note){
     if (!(note instanceof Note)) throw new Error("note must be a Note object");
     this.notes.push(note);
+    return this;
 };
 
 /** Changes the name of the NoteCollection object. */
 NoteCollection.prototype.setName = function(newName){
     this.name = newName;
+    return this;
 };
 
 /** Changes the secondary name of the NoteCollection object. */
 NoteCollection.prototype.setName2 = function(newName){
     this.name2 = newName;
+    return this;
 };
 
 /** Resets notes to its original state (notes2). */
 NoteCollection.prototype.reset = function(){
     this.notes = this.notes2.slice(0);
+    return this;
 };
 
 /** Sends the first note to the last index. */  // !!! Can this be more efficient?
 NoteCollection.prototype.rotate = function(){
     this.notes.push(this.notes.shift());
+    return this;
 };
 
 /** Sends the last note to the first index. */  // !!! Can this be more efficient?
 NoteCollection.prototype.rotateBack = function(){
     this.notes.unshift(this.notes.pop());
+    return this;
 };
 
 /** Reverses the order of the notes. */
 NoteCollection.prototype.reverse = function(){
     this.notes.reverse();
+    return this;
 };
 
 /** Removes the note at given index. */
 NoteCollection.prototype.removeNoteAt = function(index){
     if (index < 0) throw new Error("index must be greater than 0");
     this.notes.splice(index, 1);
+    return this;
 };
 
 /** Removes all the notes with given name. */
@@ -158,6 +171,7 @@ NoteCollection.prototype.removeNotesWithName = function(name){
         function(element){
             return element.getName() !== name;
         });
+    return this;
 };
 
 /** Removes all the notes with given secondary name (name2). */
@@ -166,6 +180,7 @@ NoteCollection.prototype.removeNotesWithName2 = function(name){
         function(element){
             return element.getName2() !== name;
         });
+    return this;
 };
 
 /** Removes all the notes with given frequency. */
@@ -174,6 +189,7 @@ NoteCollection.prototype.removeNotesWithFreq = function(freq){
         function(element){
             return element.getFreq() !== freq;
         });
+    return this;
 };
 
 /** Removes all the notes within a frequency range, inclusive. */
@@ -183,6 +199,7 @@ NoteCollection.prototype.removeNotesWithFreqRange = function(fromFreq, toFreq){
             var theFreq = element.getFreq();
             return theFreq < fromFreq || theFreq > toFreq;
         });
+    return this;
 };
 
 // ------------------------
@@ -308,13 +325,14 @@ Chord.prototype.constructor = Chord;
 
 /** Sets notes to nth inversion. Sets to previous inversions if n is negative. */ // !!! can this be done more efficiently?
 Chord.prototype.invert = function(n){
-    if (typeof(n) !== "number") throw new Error("n must be of type number");
+    if (typeof(n) !== "number") throw new Error("n must be a number");
     if (n > 0)
         for (var i = 0; i < n; i++)
             this.rotate();
     if (n < 0)
         for (var j = 0; j > n; j--)
             this.rotateBack();
+    return this;
 };
 
 /** 
@@ -325,6 +343,7 @@ Chord.prototype.invertOriginal = function(n){
     if (typeof(n) !== "number") throw new Error("n must be of type number");
     this.reset();
     this.invert(n);
+    return this;
 };
 
 // ==============================================
@@ -367,6 +386,7 @@ function ChordCollection(chords, name, name2){
 ChordCollection.prototype.setChords = function(newChords){
     if (!(chords instanceof Array)) throw new Error("chords must be an array of Chord");
     this.chords = newChords;
+    return this;
 };
 
 // ------------------------
