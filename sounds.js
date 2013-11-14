@@ -358,7 +358,6 @@ function ChordCollection(chords, name, name2){
     this.name   = name  || "";
     this.name2  = name2 || "";
     this.chords = chords;
-    this.size   = chords ? chords.length : 0;
 }
 
 // ------------------------
@@ -368,12 +367,15 @@ function ChordCollection(chords, name, name2){
 ChordCollection.prototype.setChords = function(newChords){
     if (!(chords instanceof Array)) throw new Error("chords must be an array of Chord");
     this.chords = newChords;
-    this.size   = chords.length;
 };
 
 // ------------------------
 //        Accessors
 // ------------------------
+
+ChordCollection.prototype.getSize = function(){
+    return this.chords.length;
+};
 
 ChordCollection.prototype.getChords = function(){
     return this.chords;

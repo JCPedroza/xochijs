@@ -199,6 +199,7 @@ ae(CM.toFormula().toString() === [2,2,1,2,2,2,1].toString());
 
 // ChordCollection access and mutation
 ae(chc1.getChordsNames() === "C major A minor F major ");
+ae(chc1.getSize() === 3);
 
 // Harmony access and mutation
 ae(h1.getChordsNames() === "C major A minor F major ");
@@ -214,7 +215,6 @@ ae(ACEG.toFormula().toString() === [3, 4, 3, 2].toString());
 ae(DFAC.toFormula().toString() === [3, 4, 3, 2].toString());
 ae(CFG.toFormula().toString()  === [5, 2, 5].toString());
 ae(CDG.toFormula().toString()  === [2, 5, 5].toString());
-
 
 // Process stepCount
 ae(process.stepCount(A, Bb) === 1);
