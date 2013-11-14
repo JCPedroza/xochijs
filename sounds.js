@@ -396,7 +396,7 @@ ChordCollection.prototype.getChordsNotesAsString = function(){
 };
 
 ChordCollection.prototype.toString = function(){
-    var returnString = "name=" + this.name + "\nname2=" + this.name2 + "\nsize=" + this.size;
+    var returnString = "name=" + this.name + "\nname2=" + this.name2 + "\nsize=" + this.getSize();
     returnString += "\n\nchords= ";
     for (var i in this.chords){
         returnString += "\n<<<\n";
@@ -406,7 +406,9 @@ ChordCollection.prototype.toString = function(){
     return returnString;
 };
 
-
+// ==============================================
+//                   Harmony
+// ==============================================
 /**
 * Represents a group of chords.
 * @constructor
