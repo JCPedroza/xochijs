@@ -99,8 +99,8 @@ ae(A.toString()  === "name=A name2=La freq=440 octave=4");
 
 // NoteCollection getters
 ae(ABC.getSize()  === 3);
-ae(ABC.name  === "ABC");
-ae(ABC.name2 === "");
+ae(ABC.getName()  === "ABC");
+ae(ABC.getName2() === "");
 ae(JSON.stringify(ABC.getNotes())   === JSON.stringify([A, B, C]));
 aea(ABC.toIndexes(),  [9, 11, 0]);
 aea(GAbC.toIndexes(), [7, 8, 0]);
