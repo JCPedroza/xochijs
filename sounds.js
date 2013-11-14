@@ -311,10 +311,10 @@ Chord.prototype.invert = function(n){
     if (typeof(n) !== "number") throw new Error("n must be of type number");
     if (n > 0)
         for (var i = 0; i < n; i++)
-            this.notes.push(this.notes.shift());
+            this.rotate();
     if (n < 0)
         for (var j = 0; j > n; j--)
-            this.notes.unshift(this.notes.pop());
+            this.rotateBack();
 };
 
 /** 
