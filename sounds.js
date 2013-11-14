@@ -1,6 +1,6 @@
-// ===========================================
+// ==============================================
 //                 Imports
-// ===========================================
+// ==============================================
 var formulas = require("./formulas");
 
 // ==============================================
@@ -82,7 +82,9 @@ Note.prototype.toString = function(){
            " octave=" + this.octave;
 };
 
-
+// ==============================================
+//                 NoteCollection
+// ==============================================
 /**
 * Represents a group of notes. Parent constructor for Chord and Scale.
 * @constructor
@@ -97,197 +99,197 @@ function NoteCollection(notes, name, name2){
     this.name   = name  || "";
     this.name2  = name2 || "";
     this.size   = notes ? notes.length : 0;
-    
-    // ==============================================
-    //                   Mutators
-    // ==============================================
-
-    /** Change the notes. */ // !!! Should this implement variable arguments?
-    this.setNotes = function(notes){
-        if (!(notes instanceof Array)) throw new Error("notes must be an array of Note");
-        this.notes = notes;
-        this.size  = this.notes.length;
-    };
-    
-    /** Adds one note. */
-    this.addNote = function(note){
-        if (!(note instanceof Note)) throw new Error("note must be a Note object");
-        this.notes.push(note);
-        this.size++;
-    };
-    
-    /** Changes the name of the NoteCollection object. */
-    this.setName = function(newName){
-        this.name = newName;
-    };
-
-    /** Changes the secondary name of the NoteCollection object. */
-    this.setName2 = function(newName){
-        this.name2 = newName;
-    };
-
-    /** Resets notes to its original state (notes2). */
-    this.reset = function(){
-        this.notes = this.notes2.slice(0);
-        this.size  = this.notes.length;
-    };
-
-    /** Sends the first note to the last index. */  // !!! Can this be more efficient?
-    this.rotate = function(){
-        this.notes.push(this.notes.shift());
-    };
-
-    /** Sends the last note to the first index. */  // !!! Can this be more efficient?
-    this.rotateBack = function(){
-        this.notes.unshift(this.notes.pop());
-    };
-
-
-    /** Reverses the order of the notes. */
-    this.reverse = function(){
-        this.notes.reverse();
-    };
-
-    /** Removes the note at given index. */
-    this.removeNoteAt = function(index){
-        if (index < 0) throw new Error("index must be > 0");
-        this.notes.splice(index, 1);
-        this.size--;
-    };
-
-    /** Removes all the notes with given name. */
-    this.removeNotesWithName = function(name){
-        this.notes = this.notes.filter(
-            function(element){
-                return element.getName() !== name;
-            });
-        this.size = this.notes.length;
-    };
-
-    /** Removes all the notes with given secondary name (name2). */
-    this.removeNotesWithName2 = function(name){
-        this.notes = this.notes.filter(
-            function(element){
-                return element.getName2() !== name;
-            });
-        this.size = this.notes.length;
-    };
-
-    /** Removes all the notes with given frequency. */
-    this.removeNotesWithFreq = function(freq){
-        this.notes = this.notes.filter(
-            function(element){
-                return element.getFreq() !== freq;
-            });
-        this.size = this.notes.length;
-    };
-
-    /** Removes all the notes within a frequency range, inclusive. */
-    this.removeNotesWithFreqRange = function(fromFreq, toFreq){
-        this.notes = this.notes.filter(
-            function(element){
-                var theFreq = element.getFreq();
-                return theFreq < fromFreq || theFreq > toFreq;
-            });
-        this.size = this.notes.length;
-    };
-
-    // ==============================================
-    //                  Accessors
-    // ==============================================
-    
-    /** Returns the object state as a string */
-    this.toString = function(){
-        var returnString = "name=" + this.name + "\nname2=" + this.name2 + "\nsize=" + this.size;
-        returnString += "\nnotes=\n";
-        for (var i in this.notes){
-            returnString += "<";
-            returnString += this.notes[i].toString();
-            returnString += ">";
-        }
-        returnString += "\nnotes2=\n";
-        for (var j in this.notes2){
-            returnString += "<";
-            returnString += this.notes2[j].toString();
-            returnString += ">";
-        }
-        return returnString;
-    };
-
-    /** Retunrs the size of the string NoteCollection. */
-    this.getSize = function(){
-        return this.size;
-    };
-
-    /** Returns the notes. */
-    this.getNotes = function(){
-        return this.notes;
-    };
-
-    /** Returns the original notes. */
-    this.getOriginalNotes = function(){
-        return this.notes2;
-    };
-
-    /** Returns name. */
-    this.getName = function(){
-        return this.name;
-    };
-
-    /** Returns secondary name (name2) */
-    this.getName2 = function(){
-        return this.name2;
-    };
-
-    /** Returns the name of the notes as a string. */
-    this.getNotesAsString = function(){
-        var returnString = "";
-        for (var i in this.notes)
-            returnString += this.notes[i].getName() + " ";
-        return returnString;
-    };
-
-    /** Returns the name of the original notes as a string. */
-    this.getOriginalNotesAsString = function(){
-        var returnString = "";
-        for (var i in this.notes2)
-            returnString += this.notes2[i].getName() + " ";
-        return returnString;
-    };
-
-    /** Returns the frequencies of the notes as a string. */
-    this.getFreqsAsString = function(){
-        var returnString = "";
-        for (var i in this.notes)
-            returnString += this.notes[i].getFreq() + " ";
-        return returnString;
-    };
-
-    /** Builds an array of the indexes the notes have in a pool. */
-    this.toIndexes = function(pool){
-        var thePool = pool || formulas.ET12POOL;
-        var returnArray = [];
-        for (var i in this.notes)
-            returnArray.push(thePool.indexOf(this.notes[i].getName()));
-        return returnArray;
-    };
-
-    /** Builds a formula based on the indexes the notes have in a pool. */ // !!! this can be more efficient
-    this.toFormula = function(pool){
-        var thePool       = pool || formulas.ET12POOL;
-        var indexArray    = this.toIndexes(pool);
-        var returnArray   = [];
-        var formulaLength = indexArray.length;
-        var poolLength    = thePool.length;
-        for (var i = 0; i < formulaLength; i++){
-            var sum = indexArray[i] - indexArray[(i + 1) % formulaLength];
-            if (sum > 0) sum -= poolLength;
-            returnArray.push(Math.abs(sum));
-        }
-        return returnArray;
-    };
-
 }
+
+// ------------------------
+//         Mutators
+// ------------------------
+
+/** Change the notes. */
+NoteCollection.prototype.setNotes = function(notes){
+    if (!(notes instanceof Array)) throw new Error("notes must be an array of Note");
+    this.notes = notes;
+    this.size  = this.notes.length;
+};
+
+/** Adds one note. */
+NoteCollection.prototype.addNote = function(note){
+    if (!(note instanceof Note)) throw new Error("note must be a Note object");
+    this.notes.push(note);
+    this.size++;
+};
+
+/** Changes the name of the NoteCollection object. */
+NoteCollection.prototype.setName = function(newName){
+    this.name = newName;
+};
+
+/** Changes the secondary name of the NoteCollection object. */
+NoteCollection.prototype.setName2 = function(newName){
+    this.name2 = newName;
+};
+
+/** Resets notes to its original state (notes2). */
+NoteCollection.prototype.reset = function(){
+    this.notes = this.notes2.slice(0);
+    this.size  = this.notes.length;
+};
+
+/** Sends the first note to the last index. */  // !!! Can this be more efficient?
+NoteCollection.prototype.rotate = function(){
+    this.notes.push(this.notes.shift());
+};
+
+/** Sends the last note to the first index. */  // !!! Can this be more efficient?
+NoteCollection.prototype.rotateBack = function(){
+    this.notes.unshift(this.notes.pop());
+};
+
+/** Reverses the order of the notes. */
+NoteCollection.prototype.reverse = function(){
+    this.notes.reverse();
+};
+
+/** Removes the note at given index. */
+NoteCollection.prototype.removeNoteAt = function(index){
+    if (index < 0) throw new Error("index must be greater than 0");
+    this.notes.splice(index, 1);
+    this.size--;
+};
+
+/** Removes all the notes with given name. */
+NoteCollection.prototype.removeNotesWithName = function(name){
+    this.notes = this.notes.filter(
+        function(element){
+            return element.getName() !== name;
+        });
+    this.size = this.notes.length;
+};
+
+/** Removes all the notes with given secondary name (name2). */
+NoteCollection.prototype.removeNotesWithName2 = function(name){
+    this.notes = this.notes.filter(
+        function(element){
+            return element.getName2() !== name;
+        });
+    this.size = this.notes.length;
+};
+
+/** Removes all the notes with given frequency. */
+NoteCollection.prototype.removeNotesWithFreq = function(freq){
+    this.notes = this.notes.filter(
+        function(element){
+            return element.getFreq() !== freq;
+        });
+    this.size = this.notes.length;
+};
+
+/** Removes all the notes within a frequency range, inclusive. */
+NoteCollection.prototype.removeNotesWithFreqRange = function(fromFreq, toFreq){
+    this.notes = this.notes.filter(
+        function(element){
+            var theFreq = element.getFreq();
+            return theFreq < fromFreq || theFreq > toFreq;
+        });
+    this.size = this.notes.length;
+};
+
+// ------------------------
+//        Accessors
+// ------------------------
+
+/** Returns the object state as a string. */
+NoteCollection.prototype.toString = function(){
+    var returnString = "name=" + this.name + "\nname2=" + this.name2 + "\nsize=" + this.size;
+    returnString += "\nnotes=\n";
+    for (var i in this.notes){
+        returnString += "<";
+        returnString += this.notes[i].toString();
+        returnString += ">";
+    }
+    returnString += "\nnotes2=\n";
+    for (var j in this.notes2){
+        returnString += "<";
+        returnString += this.notes2[j].toString();
+        returnString += ">";
+    }
+    return returnString;
+};
+
+/** Retunrs the size of the string NoteCollection. */
+NoteCollection.prototype.getSize = function(){
+    return this.size;
+};
+
+/** Returns the notes. */
+NoteCollection.prototype.getNotes = function(){
+    return this.notes;
+};
+
+/** Returns the original notes. */
+NoteCollection.prototype.getOriginalNotes = function(){
+    return this.notes2;
+};
+
+/** Returns name. */
+NoteCollection.prototype.getName = function(){
+    return this.name;
+};
+
+/** Returns secondary name (name2) */
+NoteCollection.prototype.getName2 = function(){
+    return this.name2;
+};
+
+/** Returns the name of the notes as a string. */
+NoteCollection.prototype.getNotesAsString = function(){
+    var returnString = "";
+    for (var i in this.notes)
+        returnString += this.notes[i].getName() + " ";
+    return returnString;
+};
+
+/** Returns the name of the original notes as a string. */
+NoteCollection.prototype.getOriginalNotesAsString = function(){
+    var returnString = "";
+    for (var i in this.notes2)
+        returnString += this.notes2[i].getName() + " ";
+    return returnString;
+};
+
+/** Returns the frequencies of the notes as a string. */
+NoteCollection.prototype.getFreqsAsString = function(){
+    var returnString = "";
+    for (var i in this.notes)
+        returnString += this.notes[i].getFreq() + " ";
+    return returnString;
+};
+
+/** Builds an array of the indexes the notes have in a pool. */
+NoteCollection.prototype.toIndexes = function(pool){
+    var thePool = pool || formulas.ET12POOL;
+    var returnArray = [];
+    for (var i in this.notes)
+        returnArray.push(thePool.indexOf(this.notes[i].getName()));
+    return returnArray;
+};
+
+/** Builds a formula based on the indexes the notes have in a pool. */ // !!! this can be more efficient
+NoteCollection.prototype.toFormula = function(pool){
+    var thePool       = pool || formulas.ET12POOL;
+    var indexArray    = this.toIndexes(pool);
+    var returnArray   = [];
+    var formulaLength = indexArray.length;
+    var poolLength    = thePool.length;
+    for (var i = 0; i < formulaLength; i++){
+        var sum = indexArray[i] - indexArray[(i + 1) % formulaLength];
+        if (sum > 0) sum -= poolLength;
+        returnArray.push(Math.abs(sum));
+    }
+    return returnArray;
+};
+
+
 
 /**
 * Represents a group of notes as a Chord. 
