@@ -327,6 +327,9 @@ Chord.prototype.invertOriginal = function(n){
     this.invert(n);
 };
 
+// ==============================================
+//                    Scale
+// ==============================================
 /** 
 * Group of Note objects with melodic dynamics (like a succession of notes).
 *
@@ -335,9 +338,17 @@ Chord.prototype.invertOriginal = function(n){
 function Scale(notes, name, name2){
     NoteCollection.apply(this, arguments);  // inherits from NoteCollection
 }
+
+// ------------------------
+//       Inheritance
+// ------------------------
+
 Scale.prototype = Object.create(NoteCollection.prototype);
 Scale.prototype.constructor = Scale;
 
+// ==============================================
+//               ChordCollection
+// ==============================================
 /** 
 * Represents a group of chords 
 * @constructor
@@ -348,58 +359,64 @@ function ChordCollection(chords, name, name2){
     this.name2  = name2 || "";
     this.chords = chords;
     this.size   = chords ? chords.length : 0;
-
-    // ==============================================
-    //                   Mutators
-    // ==============================================
-
-    this.setChords = function(newChords){
-        if (!(chords instanceof Array)) throw new Error("chords must be an array of Chord");
-        this.chords = newChords;
-        this.size   = chords.length;
-    };
-
-    // ==============================================
-    //                  Accessors
-    // ==============================================
-
-    this.getChords = function(){
-        return this.chords;
-    };
-
-    this.getChordsNames = function(){
-        var returnString = "";
-        for (var i in this.chords)
-            returnString += this.chords[i].name + " ";
-        return returnString;
-    };
-
-    this.getChordsNotesAsString = function(){
-        var returnString = "";
-        for (var i in this.chords)
-            returnString += "< " + this.chords[i].getNotesAsString() + "> ";
-        return returnString;
-    };
-
-    this.toString = function(){
-        var returnString = "name=" + this.name + "\nname2=" + this.name2 + "\nsize=" + this.size;
-        returnString += "\n\nchords= ";
-        for (var i in this.chords){
-            returnString += "\n<<<\n";
-            returnString += this.chords[i].toString();
-            returnString += "\n>>>";
-        }
-        return returnString;
-    };
 }
+
+// ------------------------
+//         Mutators
+// ------------------------
+
+ChordCollection.prototype.setChords = function(newChords){
+    if (!(chords instanceof Array)) throw new Error("chords must be an array of Chord");
+    this.chords = newChords;
+    this.size   = chords.length;
+};
+
+// ------------------------
+//        Accessors
+// ------------------------
+
+ChordCollection.prototype.getChords = function(){
+    return this.chords;
+};
+
+ChordCollection.prototype.getChordsNames = function(){
+    var returnString = "";
+    for (var i in this.chords)
+        returnString += this.chords[i].name + " ";
+    return returnString;
+};
+
+ChordCollection.prototype.getChordsNotesAsString = function(){
+    var returnString = "";
+    for (var i in this.chords)
+        returnString += "< " + this.chords[i].getNotesAsString() + "> ";
+    return returnString;
+};
+
+ChordCollection.prototype.toString = function(){
+    var returnString = "name=" + this.name + "\nname2=" + this.name2 + "\nsize=" + this.size;
+    returnString += "\n\nchords= ";
+    for (var i in this.chords){
+        returnString += "\n<<<\n";
+        returnString += this.chords[i].toString();
+        returnString += "\n>>>";
+    }
+    return returnString;
+};
+
 
 /**
 * Represents a group of chords.
 * @constructor
 */
 function Harmony(chords, name, name2){
-    ChordCollection.apply(this, arguments);
+    ChordCollection.apply(this, arguments);  // Inherits from ChordCollection.
 }
+
+// ------------------------
+//       Inheritance
+// ------------------------
+
 Harmony.prototype = Object.create(ChordCollection.prototype);
 Harmony.prototype.constructor = Harmony;
 
