@@ -67,7 +67,7 @@ var _chordNoteArray = function(chord){
 
 // Helper for chord(), deals with Chord object.
 var _chordObject = function(chord){
-    chordNotes = chord.getNotes();        // Get the notes from the Chord object.
+    var chordNotes = chord.getNotes();        // Get the notes from the Chord object.
     return _chordNoteArray(chordNotes);   // Call _chordNoteArray with that array of Note objects.         
 };
 
