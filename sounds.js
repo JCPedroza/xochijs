@@ -1,3 +1,6 @@
+/*jslint node: true */
+"use strict";
+
 // ==============================================
 //                 Imports
 // ==============================================
@@ -99,7 +102,7 @@ Note.prototype.toString = function(){
 function NoteCollection(notes, name, name2){
     // if (!(notes instanceof Array)) throw new Error("notes must be an array of Note"); needs to handle prototype inheritance
     this._notes  = notes;                           // array of notes
-    this._notes2 = notes ? notes.slice(0) : notes;  // original notes (clone)
+    this._notes2 = notes ? notes.slice(0) : notes;  // original notes (swallow copy)!!! should it be deep copy?
     this._name   = name  || "";
     this._name2  = name2 || "";
 }

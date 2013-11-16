@@ -1,3 +1,6 @@
+/*jslint node: true */
+"use strict";
+
 // ===== imports =====
 
 var sounds   = require("./sounds");

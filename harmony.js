@@ -1,3 +1,6 @@
+/*jslint node: true */
+"use strict";
+
 var sounds   = require("./sounds");
 var identify = require("./identify");
 

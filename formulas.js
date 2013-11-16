@@ -1,3 +1,6 @@
+/*jslint node: true */
+"use strict";
+
 // ===========================================
 //      Equal Temperament 12 semi-tones pool
 // ===========================================

@@ -1,4 +1,6 @@
 /** @module identify */
+/*jslint node: true */
+"use strict";
 
 // ===========================================
 //                 Imports
