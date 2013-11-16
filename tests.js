@@ -3,16 +3,16 @@
 
 // ===== imports =====
 
-var sounds   = require("./sounds");
-var process  = require("./process");
-var formulas = require("./formulas");
-var harmony  = require("./harmony");
-var identify = require("./identify");
+var sounds      = require("./sounds");
+var processing  = require("./processing");
+var formulas    = require("./formulas");
+var harmony     = require("./harmony");
+var identify    = require("./identify");
 
 // ==== compare and assert functions ===
 
 var numberOfErrors = 0;            // to keep track of the number of errors
-var equals = process.arraysEqual;  // checks equality for arrays
+var equals = processing.arraysEqual;  // checks equality for arrays
 
 /** Assert equals for two arrays. */
 var aea = function(a, b){
@@ -219,80 +219,80 @@ ae(DFAC.toFormula().toString() === [3, 4, 3, 2].toString());
 ae(CFG.toFormula().toString()  === [5, 2, 5].toString());
 ae(CDG.toFormula().toString()  === [2, 5, 5].toString());
 
-// Process stepCount
-ae(process.stepCount(A, Bb) === 1);
-ae(process.stepCount(A, B)  === 2);
-ae(process.stepCount(G, Ab) === 1);
-ae(process.stepCount(D, Db) === 11);
+// processing stepCount
+ae(processing.stepCount(A, Bb) === 1);
+ae(processing.stepCount(A, B)  === 2);
+ae(processing.stepCount(G, Ab) === 1);
+ae(processing.stepCount(D, Db) === 11);
 
-// Process scalize
-ae(process.scalize(C, formulas.MAJOR).getNotesAsString() === "C D E F G A B ");
-ae(process.scalize(C, formulas.MINOR).getNotesAsString() === "C D Eb F G Ab Bb ");
+// processing scalize
+ae(processing.scalize(C, formulas.MAJOR).getNotesAsString() === "C D E F G A B ");
+ae(processing.scalize(C, formulas.MINOR).getNotesAsString() === "C D Eb F G Ab Bb ");
 
-// Process buildInversions
-var CEGinvs  = process.buildInversions(CEG);
+// processing buildInversions
+var CEGinvs  = processing.buildInversions(CEG);
 var CEGinvs2 = [];
 for (var i = 0; i < CEGinvs.length; i++)
     CEGinvs2[i] = CEGinvs[i].getNotesAsString();
 ae(equals(CEGinvs2, ['C E G ', 'E G C ', 'G C E ']));
 
-// Process arraysEqual
+// processing arraysEqual
 ae(equals([1, 2], [1, 2])    === true);
 ae(equals([1, 3, 4], [1, 2]) === false);
 
-// process.buildPermutations()
-var buildPermutations1    = process.buildPermutations(CEG);
+// processing.buildPermutations()
+var buildPermutations1    = processing.buildPermutations(CEG);
 var buildPermutations1Str = "";
 for (var i = 0; i < buildPermutations1.length; i++)
     buildPermutations1Str += buildPermutations1[i].getNotesAsString() + " ";
 ae(buildPermutations1Str === "C E G  C G E  E C G  E G C  G C E  G E C  ");
 
 // =========================================================================
-//                      process.fromFormulaToNotes
+//                      processing.fromFormulaToNotes
 // =========================================================================
 function testFromFormulaToNotes(){
-    aea(process.fromFormulaToNotes([4, 3, 4]), ['C', 'E', 'G', 'B' ]);
-    aea(process.fromFormulaToNotes([3, 4, 3]), ['C', 'Eb', 'G', 'Bb' ]);
-    aea(process.fromFormulaToNotes([4, 3, 4], "F"), ['F', 'A', 'C', 'E' ]);
+    aea(processing.fromFormulaToNotes([4, 3, 4]), ['C', 'E', 'G', 'B' ]);
+    aea(processing.fromFormulaToNotes([3, 4, 3]), ['C', 'Eb', 'G', 'Bb' ]);
+    aea(processing.fromFormulaToNotes([4, 3, 4], "F"), ['F', 'A', 'C', 'E' ]);
 }
 
 // =========================================================================
-//                         process.toFormula() 
+//                         processing.toFormula() 
 // =========================================================================
 function testToFormula(){
-    aea(process.toFormula(["C", "E",  "B"]),  [4, 7, 1 ]);
-    aea(process.toFormula(["C", "Eb", "Bb"]), [3, 7, 2 ]);
-    aea(process.toFormula(["C", "E",  "Bb"]), [4, 6, 2 ]);
-    aea(process.toFormula(["C", "Eb", "A"]),  [3, 6, 3 ]);
-    aea(process.toFormula(["C", "Eb", "B"]),  [3, 8, 1 ]);
-    aea(process.toFormula(["C", "E",  "A"]),  [4, 5, 3 ]);
-    aea(process.toFormula(["C", "Eb", "A"]),  [3, 6, 3 ]);
-    aea(process.toFormula(["C", "E",  "D"]),  [4, 10, 10 ]);
-    aea(process.toFormula("A", "C",  "E"),    [3, 4, 5 ]);
-    aea(process.toFormula(F, A, C),           [4, 3, 5]);
-    aea(process.toFormula([C, Eb, Gb]),       [3, 3, 6 ]);
-    aea(process.toFormula(CEAb),              [4, 4, 4]);
-    aea(process.toFormula(CEAb, ["C", "E", "Ab"]),             [1, 1, 1]);
-    aea(process.toFormula("C", "D", "E", formulas.ET12POOL),   [2, 2, 8]);
-    aea(process.toFormula(C, F, G, ["C", "F", "J", "G", "H"]), [1, 2, 2]);
+    aea(processing.toFormula(["C", "E",  "B"]),  [4, 7, 1 ]);
+    aea(processing.toFormula(["C", "Eb", "Bb"]), [3, 7, 2 ]);
+    aea(processing.toFormula(["C", "E",  "Bb"]), [4, 6, 2 ]);
+    aea(processing.toFormula(["C", "Eb", "A"]),  [3, 6, 3 ]);
+    aea(processing.toFormula(["C", "Eb", "B"]),  [3, 8, 1 ]);
+    aea(processing.toFormula(["C", "E",  "A"]),  [4, 5, 3 ]);
+    aea(processing.toFormula(["C", "Eb", "A"]),  [3, 6, 3 ]);
+    aea(processing.toFormula(["C", "E",  "D"]),  [4, 10, 10 ]);
+    aea(processing.toFormula("A", "C",  "E"),    [3, 4, 5 ]);
+    aea(processing.toFormula(F, A, C),           [4, 3, 5]);
+    aea(processing.toFormula([C, Eb, Gb]),       [3, 3, 6 ]);
+    aea(processing.toFormula(CEAb),              [4, 4, 4]);
+    aea(processing.toFormula(CEAb, ["C", "E", "Ab"]),             [1, 1, 1]);
+    aea(processing.toFormula("C", "D", "E", formulas.ET12POOL),   [2, 2, 8]);
+    aea(processing.toFormula(C, F, G, ["C", "F", "J", "G", "H"]), [1, 2, 2]);
 
-    aea(process.toFormula(["C", "E",  "G",  "B"]),  [4, 3, 4, 1]);
-    aea(process.toFormula(["C", "Eb", "G",  "Bb"]), [3, 4, 3, 2]);
-    aea(process.toFormula(["C", "E",  "G",  "Bb"]), [4, 3, 3, 2]);
-    aea(process.toFormula(["C", "Eb", "Gb", "Bb"]), [3, 3, 4, 2]);
-    aea(process.toFormula(["C", "Eb", "Gb", "A"]),  [3, 3, 3, 3]);
-    aea(process.toFormula(["C", "Eb", "G",  "B"]),  [3, 4, 4, 1]);
-    aea(process.toFormula(["C", "E",  "Ab", "B"]),  [4, 4, 3, 1]);
-    aea(process.toFormula(["C", "E",  "Gb", "Bb"]), [4, 2, 4, 2]);
-    aea(process.toFormula(["C", "E",  "Ab", "Bb"]), [4, 4, 2, 2]);
-    aea(process.toFormula(["C", "E",  "G",  "A"]),  [4, 3, 2, 3]);
-    aea(process.toFormula(["C", "Eb", "G",  "A"]),  [3, 4, 2, 3]);
-    aea(process.toFormula(["C", "E",  "G",  "F"]),  [4, 3, 10, 7]);
-    aea(process.toFormula(["C", "E",  "G",  "D"]),  [4, 3, 7, 10]);
-    aea(process.toFormula(["C", "Eb", "G",  "D"]),  [3, 4, 7, 10]);
-    aea(process.toFormula(["C", "E", "B",   "D"]),  [4, 7, 3, 10 ]);
+    aea(processing.toFormula(["C", "E",  "G",  "B"]),  [4, 3, 4, 1]);
+    aea(processing.toFormula(["C", "Eb", "G",  "Bb"]), [3, 4, 3, 2]);
+    aea(processing.toFormula(["C", "E",  "G",  "Bb"]), [4, 3, 3, 2]);
+    aea(processing.toFormula(["C", "Eb", "Gb", "Bb"]), [3, 3, 4, 2]);
+    aea(processing.toFormula(["C", "Eb", "Gb", "A"]),  [3, 3, 3, 3]);
+    aea(processing.toFormula(["C", "Eb", "G",  "B"]),  [3, 4, 4, 1]);
+    aea(processing.toFormula(["C", "E",  "Ab", "B"]),  [4, 4, 3, 1]);
+    aea(processing.toFormula(["C", "E",  "Gb", "Bb"]), [4, 2, 4, 2]);
+    aea(processing.toFormula(["C", "E",  "Ab", "Bb"]), [4, 4, 2, 2]);
+    aea(processing.toFormula(["C", "E",  "G",  "A"]),  [4, 3, 2, 3]);
+    aea(processing.toFormula(["C", "Eb", "G",  "A"]),  [3, 4, 2, 3]);
+    aea(processing.toFormula(["C", "E",  "G",  "F"]),  [4, 3, 10, 7]);
+    aea(processing.toFormula(["C", "E",  "G",  "D"]),  [4, 3, 7, 10]);
+    aea(processing.toFormula(["C", "Eb", "G",  "D"]),  [3, 4, 7, 10]);
+    aea(processing.toFormula(["C", "E", "B",   "D"]),  [4, 7, 3, 10 ]);
 
-    aea(process.toFormula(["C", "D", "E", "F", "G", "A", "B"]), [2, 2, 1, 2, 2, 2, 1]);
+    aea(processing.toFormula(["C", "D", "E", "F", "G", "A", "B"]), [2, 2, 1, 2, 2, 2, 1]);
 }
 
 // =========================================================================

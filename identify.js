@@ -5,7 +5,7 @@
 // ===========================================
 //                 Imports
 // ===========================================
- var process  = require("./process");
+ var processing  = require("./processing");
  var formulas = require("./formulas");
  var sounds   = require("./sounds");
 
@@ -35,22 +35,22 @@ var chord = function(chord){
             returnArray = _chordNoteArray(chord);
     }
     else throw new Error("datatype is not supported");
-    if (returnArray.length === 0) returnArray = process.toFormula(chord);
+    if (returnArray.length === 0) returnArray = processing.toFormula(chord);
     return returnArray;
 };
 
 // Helper for chord(), _chordObject, and _chordNoteArray. Deals with an array of strings.
 var _chordStringArray = function(chord){
     var chordSize    = chord.length;
-    var permutations = process.permute(chord);                                              // Array with all the permutations of the chord.
+    var permutations = processing.permute(chord);                                              // Array with all the permutations of the chord.
     var formula      = _getFormulas(chordSize);                                             // Determine a formula object to use.
     var returnArray  = [];                                                                  // Array that will be populated with possible names.
     for (var i = 0; i < permutations.length; i++){
-        var current = process.toFormula(permutations[i]).slice(0, -1);                      // Last value in formula is not relevant. (1)
+        var current = processing.toFormula(permutations[i]).slice(0, -1);                      // Last value in formula is not relevant. (1)
         var lowest  = permutations[i][0];                                                   // Lowest note, to determine root.
         for (var key in formula){                                                           // Loop through chord formulas.
             if (formula.hasOwnProperty(key))                                                // Checks property doesn't come from prototype.
-                if (process.arraysEqual(current, formula[key][0]))                          // Checks for a match.
+                if (processing.arraysEqual(current, formula[key][0]))                          // Checks for a match.
                     returnArray.push(_determineRoot(lowest, formula[key][1]) + " " + key);  // Add the name of the chord if a match is found.
         }
     }
