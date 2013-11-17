@@ -12,7 +12,7 @@ var formulas = require("./formulas");
 //                     Note
 // ==============================================
 /**
-* Represents a musical note.
+* Represents a musical note. Supports object specifier as argument.
 * @constructor
 * @param name   The name of the note (optional).
 * @param freq   Frequency of the note (optional).
@@ -102,8 +102,9 @@ Note.prototype.copy = function () {
 
 /** Checks equality between two Note objects. */
 Note.prototype.equals = function (that) {
-    if (typeof that !== "object" || that.constructor.name !== this.constructor.name)
+    if (typeof that !== "object" || that.constructor.name !== this.constructor.name){
         return false;
+    }
     return that.getName()   === this._name    || that.getFreq()  === this._freq ||
            that.getOctave() === this._octave  || that.getName2() === this._name2;
 };
@@ -134,16 +135,18 @@ var NoteCollection = function NoteCollection (notes, name, name2) {
 
 /** Change the notes. */
 NoteCollection.prototype.setNotes = function (notes) {
-    if (!(notes instanceof Array))
+    if (!(notes instanceof Array)){
         throw new Error("notes must be an array of Note");
+    }
     this._notes = notes;
     return this;
 };
 
 /** Adds one note. */
 NoteCollection.prototype.addNote = function (note) {
-    if (!(note instanceof Note))
+    if (!(note instanceof Note)){
         throw new Error("note must be a Note object");
+    }
     this._notes.push(note);
     return this;
 };
@@ -186,7 +189,9 @@ NoteCollection.prototype.reverse = function () {
 
 /** Removes the note at given index. */
 NoteCollection.prototype.removeNoteAt = function (index) {
-    if (index < 0) throw new Error("index must be greater than 0");
+    if (index < 0) {
+        throw new Error("index must be greater than 0");
+    }
     this._notes.splice(index, 1);
     return this;
 };
@@ -222,8 +227,8 @@ NoteCollection.prototype.removeNotesWithFreq = function (freq) {
 NoteCollection.prototype.removeNotesWithFreqRange = function (fromFreq, toFreq) {
     this._notes = this._notes.filter(
         function(element) {
-            var theFreq = element.getFreq();
-            return theFreq < fromFreq || theFreq > toFreq;
+            var thisFreq = element.getFreq();
+            return thisFreq < fromFreq || thisFreq > toFreq;
         });
     return this;
 };
@@ -234,18 +239,17 @@ NoteCollection.prototype.removeNotesWithFreqRange = function (fromFreq, toFreq) 
 
 /** Returns the object state as a string. */
 NoteCollection.prototype.toString = function () {
-    var returnString = "name=" + this._name + "\nname2=" + this._name2 + "\nsize=" + this.getSize();
+    var i,
+        j,
+        returnString = "name=" + this._name + "\nname2=" + this._name2 + "\nsize=" + this.getSize();
+
     returnString += "\nnotes=\n";
-    for (var i in this._notes) {
-        returnString += "<";
-        returnString += this._notes[i].toString();
-        returnString += ">";
+    for (i in this._notes) {
+        returnString += ("<" + this._notes[i].toString() + ">");
     }
     returnString += "\nnotes2=\n";
-    for (var j in this._notes2) {
-        returnString += "<";
-        returnString += this._notes2[j].toString();
-        returnString += ">";
+    for (j in this._notes2) {
+        returnString += ("<" + this._notes2[j].toString() + ">");
     }
     return returnString;
 };
@@ -277,51 +281,68 @@ NoteCollection.prototype.getName2 = function () {
 
 /** Returns the name of the notes as a string. */
 NoteCollection.prototype.getNotesAsString = function () {
-    var returnString = "";
-    for (var i in this._notes)
-        returnString += this._notes[i].getName() + " ";
+    var note,
+        returnString = "";
+    for (note in this._notes) {
+        returnString += this._notes[note].getName() + " ";
+    }
     return returnString;
 };
 
 /** Returns the name of the original notes as a string. */
 NoteCollection.prototype.getOriginalNotesAsString = function () {
-    var returnString = "";
-    for (var i in this._notes2)
-        returnString += this._notes2[i].getName() + " ";
+    var note,
+        returnString = "";
+    for (note in this._notes2) {
+        returnString += this._notes2[note].getName() + " ";
+    }
     return returnString;
 };
 
 /** Returns the frequencies of the notes as a string. */
 NoteCollection.prototype.getFreqsAsString = function () {
-    var returnString = "";
-    for (var i in this._notes)
-        returnString += this._notes[i].getFreq() + " ";
+    var note,
+        returnString = "";
+    for (note in this._notes) {
+        returnString += this._notes[note].getFreq() + " ";
+    }
     return returnString;
 };
 
 /** Builds an array of the indexes the notes have in a pool. */
 NoteCollection.prototype.toIndexes = function (pool) {
-    var thePool = pool || formulas.ET12POOL;
-    var returnArray = [];
-    for (var i in this._notes)
-        returnArray.push(thePool.indexOf(this._notes[i].getName()));
+    var note,
+        thePool = pool || formulas.ET12POOL,
+        returnArray = [];
+    for (note in this._notes) {
+        returnArray.push(thePool.indexOf(this._notes[note].getName()));
+    }
     return returnArray;
 };
 
 /** Builds a formula based on the indexes the notes have in a pool. */ // !!! this can be more efficient
 NoteCollection.prototype.toFormula = function (pool) {
-    var thePool       = pool || formulas.ET12POOL;
-    var indexArray    = this.toIndexes(pool);
-    var returnArray   = [];
-    var formulaLength = indexArray.length;
-    var poolLength    = thePool.length;
-    for (var i = 0; i < formulaLength; i++) {
-        var sum = indexArray[i] - indexArray[(i + 1) % formulaLength];
-        if (sum > 0) sum -= poolLength;
+    var i,
+        sum,
+        thePool       = pool || formulas.ET12POOL,
+        indexArray    = this.toIndexes(pool),
+        returnArray   = [],
+        formulaLength = indexArray.length,
+        poolLength    = thePool.length;
+    for (i = 0; i < formulaLength; i++) {
+        sum = indexArray[i] - indexArray[(i + 1) % formulaLength];
+        if (sum > 0) {
+            sum -= poolLength;
+        }
         returnArray.push(Math.abs(sum));
     }
     return returnArray;
 };
+
+
+// ------------------------
+//      Other Methods
+// ------------------------
 
 // ==============================================
 //                    Chord

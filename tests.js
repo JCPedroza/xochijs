@@ -11,7 +11,7 @@ var identify    = require("./identify");
 
 // ==== compare and assert functions ===
 
-var numberOfErrors = 0;            // to keep track of the number of errors
+var numberOfErrors = 0;               // to keep track of the number of errors
 var equals = processing.arraysEqual;  // checks equality for arrays
 
 /** Assert equals for two arrays. */
@@ -140,77 +140,85 @@ function testNote() {
     adiff(A1, A2);
 }
 
-// NoteCollection getters
-ae(ABC.getSize()  , 3);
-ae(ABC.getName()  , "ABC");
-ae(ABC.getName2() , "");
-ae(JSON.stringify(ABC.getNotes())   , JSON.stringify([A, B, C]));
-aea(ABC.toIndexes(),  [9, 11, 0]);
-aea(GAbC.toIndexes(), [7, 8, 0]);
-ae(ABC.toFormula().toString() , [2, 1, 9].toString());
+// =========================================================================
+//                            NoteCollection
+// =========================================================================
+function testNoteCollection() {
+    var ABC  = new sounds.NoteCollection([A, B, C], "ABC"),
+        GAbC = new sounds.NoteCollection([G, Ab, C], "GAbC"),
+        BCD  = new sounds.NoteCollection([B, C, D], "BCD");
 
-// NoteCollection mutation
-BCD.addNote(E);
-ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([B, C, D, E]));
-ae(BCD.getSize() , 4);
-BCD.reset();
-ae(BCD.getSize() , 3);
-ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([B, C, D]));
-BCD.setNotes([D, E]);
-ae(BCD.getSize() , 2);
-ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([D, E]));
-BCD.reset();
-ae(BCD.getSize() , 3);
-ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([B, C, D]));
-BCD.reverse();
-ae(BCD.getSize() , 3);
-ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([D, C, B]));
-BCD.rotate();
-ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([C, B, D]));
-BCD.removeNoteAt(1);
-ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([C, D]));
-ae(BCD.getSize() , 2);
-ae(BCD.getNotesAsString() , "C D ");
-ae(BCD.getOriginalNotesAsString() , "B C D ");
-ae(BCD.getFreqsAsString() , "523.251 587.33 ");
-BCD.setName("C D");
-BCD.setName2("secondary name");
-ae(BCD.getName() , "C D");
-ae(BCD.getName2() , "secondary name");
-BCD.setNotes([C, A, B, A2, A3, G, C, A2]);
-ae(BCD.getNotesAsString() , "C A B A A G C A ");
-ae(BCD.getSize() , 8);
-BCD.removeNotesWithName("A");
-ae(BCD.getNotesAsString() , "C B G C ");
-ae(BCD.getSize() , 4);
-BCD.setNotes([C, A, B, A2, A3, G, C, A2]);
-BCD.removeNotesWithFreq(440);
-ae(BCD.getNotesAsString() , "C B G C ");
-ae(BCD.getSize() , 4);
-BCD.removeNotesWithName2("Do");
-ae(BCD.getNotesAsString() , "B G ");
-ae(BCD.getSize() , 2);
-BCD.reset();
-ae(BCD.getSize() , 3);
-ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([B, C, D]));
-BCD.rotateBack();
-ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([D, B, C]));
-BCD.rotateBack();
-ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([C, D, B]));
-BCD.rotateBack();
-ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([B, C, D]));
-BCD.rotate();
-ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([C, D, B]));
-BCD.rotate();
-ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([D, B, C]));
-BCD.rotate();
-ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([B, C, D]));
-BCD.setNotes([A, B, C, D, E, F, G]);
-ae(BCD.getSize() , 7, "43");
-ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([A, B, C, D, E, F, G]));
-BCD.removeNotesWithFreqRange(490, 700);
-ae(BCD.getSize() , 2, "45");
-ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([A, G]));
+    ae(ABC.getSize()  , 3);
+    ae(ABC.getName()  , "ABC");
+    ae(ABC.getName2() , "");
+    ae(JSON.stringify(ABC.getNotes())   , JSON.stringify([A, B, C]));
+    aea(ABC.toIndexes(),  [9, 11, 0]);
+    aea(GAbC.toIndexes(), [7, 8, 0]);
+    ae(ABC.toFormula().toString() , [2, 1, 9].toString());
+
+
+    BCD.addNote(E);
+    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([B, C, D, E]));
+    ae(BCD.getSize() , 4);
+    BCD.reset();
+    ae(BCD.getSize() , 3);
+    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([B, C, D]));
+    BCD.setNotes([D, E]);
+    ae(BCD.getSize() , 2);
+    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([D, E]));
+    BCD.reset();
+    ae(BCD.getSize() , 3);
+    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([B, C, D]));
+    BCD.reverse();
+    ae(BCD.getSize() , 3);
+    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([D, C, B]));
+    BCD.rotate();
+    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([C, B, D]));
+    BCD.removeNoteAt(1);
+    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([C, D]));
+    ae(BCD.getSize() , 2);
+    ae(BCD.getNotesAsString() , "C D ");
+    ae(BCD.getOriginalNotesAsString() , "B C D ");
+    ae(BCD.getFreqsAsString() , "523.251 587.33 ");
+    BCD.setName("C D");
+    BCD.setName2("secondary name");
+    ae(BCD.getName() , "C D");
+    ae(BCD.getName2() , "secondary name");
+    BCD.setNotes([C, A, B, A2, A3, G, C, A2]);
+    ae(BCD.getNotesAsString() , "C A B A A G C A ");
+    ae(BCD.getSize() , 8);
+    BCD.removeNotesWithName("A");
+    ae(BCD.getNotesAsString() , "C B G C ");
+    ae(BCD.getSize() , 4);
+    BCD.setNotes([C, A, B, A2, A3, G, C, A2]);
+    BCD.removeNotesWithFreq(440);
+    ae(BCD.getNotesAsString() , "C B G C ");
+    ae(BCD.getSize() , 4);
+    BCD.removeNotesWithName2("Do");
+    ae(BCD.getNotesAsString() , "B G ");
+    ae(BCD.getSize() , 2);
+    BCD.reset();
+    ae(BCD.getSize() , 3);
+    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([B, C, D]));
+    BCD.rotateBack();
+    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([D, B, C]));
+    BCD.rotateBack();
+    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([C, D, B]));
+    BCD.rotateBack();
+    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([B, C, D]));
+    BCD.rotate();
+    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([C, D, B]));
+    BCD.rotate();
+    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([D, B, C]));
+    BCD.rotate();
+    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([B, C, D]));
+    BCD.setNotes([A, B, C, D, E, F, G]);
+    ae(BCD.getSize() , 7, "43");
+    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([A, B, C, D, E, F, G]));
+    BCD.removeNotesWithFreqRange(490, 700);
+    ae(BCD.getSize() , 2, "45");
+    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([A, G]));
+}
 
 // Chord access and mutation
 aea(CEG.toIndexes(), [0, 4, 7]);
@@ -407,6 +415,7 @@ function testHarmonize(){
 
 // Perform tests:
 testNote();
+testNoteCollection();
 testToFormula();
 testIdentify();
 testHarmonize();
