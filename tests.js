@@ -118,6 +118,7 @@ function testNote() {
         H1 = new sounds.Note("H", 500.011, 8, ":D" ),
         J1 = new sounds.Note({freq: 1000, octave: 1}),
         F1 = new sounds.Note({name: "F1", name2: "1F"}),
+        A3 = new sounds.Note("A", 440.000, 3, "Lo");
         A2 = A1.copy();
     
     ae(F1.getName()     , "F1");
@@ -137,6 +138,7 @@ function testNote() {
     ae(A1.equals(1)     , false);
     ae(A1.equals(false) , false);
     ae(A1.equals("foo") , false);
+    ae(A3.equals(A1)    , false);
     adiff(A1, A2);
 }
 
@@ -144,38 +146,61 @@ function testNote() {
 //                            NoteCollection
 // =========================================================================
 function testNoteCollection() {
-    var ABC  = new sounds.NoteCollection([A, B, C], "ABC"),
+    var A  = new sounds.Note("A",  440.000, 4, "La"),
+        B  = new sounds.Note("B",  493.883, 4, "Si"),
+        C  = new sounds.Note("C",  523.251, 5, "Do"),
+        D  = new sounds.Note("D",  587.330, 5, "Re"),
+        E  = new sounds.Note("E",  659.255, 5),
+        F  = new sounds.Note("F",  698.456, 5),
+        G  = new sounds.Note("G",  783.991, 5, "Sol"),
+        Ab = new sounds.Note("Ab", 830.609, 5),
+        ABC  = new sounds.NoteCollection([A, B, C], "ABC"),
+        ABC2 = ABC.copy(),
+        ABC3 = new sounds.NoteCollection([A, B, C], "name"),
+        BCA  = new sounds.NoteCollection([B, C, A], "ABC"),
         GAbC = new sounds.NoteCollection([G, Ab, C], "GAbC"),
         BCD  = new sounds.NoteCollection([B, C, D], "BCD");
 
-    ae(ABC.getSize()  , 3);
-    ae(ABC.getName()  , "ABC");
-    ae(ABC.getName2() , "");
-    ae(JSON.stringify(ABC.getNotes())   , JSON.stringify([A, B, C]));
-    aea(ABC.toIndexes(),  [9, 11, 0]);
+    ae(ABC.noteEquals(ABC2.getNotes()), true);
+    ae(ABC.noteEquals(BCD.getNotes()), false);
+    ae(ABC3.noteEquals(ABC.getNotes()), true);
+    ae(ABC3.noteEquals([A, B, C]), true);
+    ae(ABC3.noteEquals([A, B, D]), false);
+    ae(ABC2.noteEquals(1), false);
+    ae(ABC2.equals(ABC), true);
+    ae(ABC.equals(BCD), false);
+    ae(ABC.equals("!¡!"), false);
+    ae(ABC.strictEquals(ABC2), true);
+    BCA.rotateBack();
+    ae(BCA.strictEquals(ABC), false);
+    ae(BCA.equals(ABC), true);
+    ae(ABC.getSize(), 3);
+    ae(ABC.getName(), "ABC");
+    ae(ABC.getName2(), "");
+    aea(ABC.getNotes(), [A, B, C]);
+    aea(ABC.toIndexes(), [9, 11, 0]);
     aea(GAbC.toIndexes(), [7, 8, 0]);
-    ae(ABC.toFormula().toString() , [2, 1, 9].toString());
-
+    aea(ABC.toFormula(), [2, 1, 9]);
 
     BCD.addNote(E);
-    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([B, C, D, E]));
+    aea(BCD.getNotes() , [B, C, D, E]);
     ae(BCD.getSize() , 4);
     BCD.reset();
     ae(BCD.getSize() , 3);
-    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([B, C, D]));
+    aea(BCD.getNotes() , [B, C, D]);
     BCD.setNotes([D, E]);
     ae(BCD.getSize() , 2);
-    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([D, E]));
+    aea(BCD.getNotes() , [D, E]);
     BCD.reset();
     ae(BCD.getSize() , 3);
-    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([B, C, D]));
+    aea(BCD.getNotes() , [B, C, D]);
     BCD.reverse();
     ae(BCD.getSize() , 3);
-    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([D, C, B]));
+    aea(BCD.getNotes() , [D, C, B]);
     BCD.rotate();
-    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([C, B, D]));
+    aea(BCD.getNotes() , [C, B, D]);
     BCD.removeNoteAt(1);
-    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([C, D]));
+    aea(BCD.getNotes() , [C, D]);
     ae(BCD.getSize() , 2);
     ae(BCD.getNotesAsString() , "C D ");
     ae(BCD.getOriginalNotesAsString() , "B C D ");
@@ -199,25 +224,25 @@ function testNoteCollection() {
     ae(BCD.getSize() , 2);
     BCD.reset();
     ae(BCD.getSize() , 3);
-    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([B, C, D]));
+    aea(BCD.getNotes() , [B, C, D]);
     BCD.rotateBack();
-    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([D, B, C]));
+    aea(BCD.getNotes() , [D, B, C]);
     BCD.rotateBack();
-    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([C, D, B]));
+    aea(BCD.getNotes() , [C, D, B]);
     BCD.rotateBack();
-    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([B, C, D]));
+    aea(BCD.getNotes() , [B, C, D]);
     BCD.rotate();
-    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([C, D, B]));
+    aea(BCD.getNotes() , [C, D, B]);
     BCD.rotate();
-    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([D, B, C]));
+    aea(BCD.getNotes() , [D, B, C]);
     BCD.rotate();
-    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([B, C, D]));
+    aea(BCD.getNotes() , [B, C, D]);
     BCD.setNotes([A, B, C, D, E, F, G]);
     ae(BCD.getSize() , 7, "43");
-    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([A, B, C, D, E, F, G]));
+    aea(BCD.getNotes() , [A, B, C, D, E, F, G]);
     BCD.removeNotesWithFreqRange(490, 700);
     ae(BCD.getSize() , 2, "45");
-    ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([A, G]));
+    aea(BCD.getNotes() , [A, G]);
 }
 
 // Chord access and mutation

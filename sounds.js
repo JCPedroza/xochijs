@@ -3,16 +3,18 @@
 /* jslint node: true */
 "use strict";
 
-// ==============================================
-//                 Imports
-// ==============================================
-var formulas = require("./formulas");
+// =========================================================================
+//                               Imports
+// =========================================================================
+var formulas   = require("./formulas");
 
-// ==============================================
-//                     Note
-// ==============================================
+// =========================================================================
+//                                Note
+// =========================================================================
+
 /**
-* Represents a musical note. Supports object specifier as argument.
+* Represents a musical note. 
+* Supports object specifier as argument.
 * @constructor
 * @param name   The name of the note (optional).
 * @param freq   Frequency of the note (optional).
@@ -24,6 +26,7 @@ var Note = function Note (name, freq, octave, name2) {
     this._octave = octave || arguments[0]["octave"] || 0;
     this._freq   = freq   || arguments[0]["freq"]   || 0;
     this._name2  = name2  || arguments[0]["name2"]  || "";
+    // Checks for "object" to handle object specifier.
     this._name   = typeof name !== "object" ?
                    name || "" : arguments[0]["name"] || "";
 };
@@ -100,21 +103,22 @@ Note.prototype.copy = function () {
     return new Note(this._name, this._freq, this._octave, this._name2);
 };
 
-/** Checks equality between two Note objects. */
+/** Checks equality. */
 Note.prototype.equals = function (that) {
     if (typeof that !== "object" || that.constructor.name !== this.constructor.name){
         return false;
     }
-    return that.getName()   === this._name    || that.getFreq()  === this._freq ||
-           that.getOctave() === this._octave  || that.getName2() === this._name2;
+    return that.getName()   === this._name    && that.getFreq()  === this._freq &&
+           that.getOctave() === this._octave  && that.getName2() === this._name2;
 };
 
-// ==============================================
-//                 NoteCollection
-// ==============================================
+// =========================================================================
+//                              NoteCollection
+// =========================================================================
 
 /**
-* Represents a group of notes. Parent constructor for Chord and Scale.
+* Represents a group of notes. 
+* Parent constructor for Chord and Scale.
 * @constructor
 * @param notes An array of Note objects.
 * @param name  Name for the NoteCollection (optional).
@@ -339,14 +343,58 @@ NoteCollection.prototype.toFormula = function (pool) {
     return returnArray;
 };
 
-
 // ------------------------
 //      Other Methods
 // ------------------------
 
-// ==============================================
-//                    Chord
-// ==============================================
+/** Creates a copy of this. */
+NoteCollection.prototype.copy = function () {
+    return new NoteCollection(this._notes, this._name, this._name2);
+};
+
+/** Checks equality bewteen this._notes and a Note array. */
+NoteCollection.prototype.noteEquals = function (thatNotes) {
+    if (!(thatNotes instanceof Array) || !(thatNotes[0] instanceof Note)){
+        return false;
+    }
+    return this._noteArrayEquals(thatNotes, this._notes);
+};
+
+/** Checks equality, without including this._notes2. */
+NoteCollection.prototype.equals = function (that) {
+    if (typeof that !== "object" || that.constructor.name !== this.constructor.name){
+        return false;
+    }
+    return this._name === that.getName() && this._name2 === that.getName2() &&
+           this.noteEquals(that.getNotes());
+};
+
+/** Checks equality, including this._notes2. */
+NoteCollection.prototype.strictEquals = function (that) {
+    return this.equals(that) &&
+           this._noteArrayEquals(that.getOriginalNotes(), this.getOriginalNotes());
+};
+
+// Helper for this.equals and this.strictEquals.
+NoteCollection.prototype._noteArrayEquals = function (thatNotes, thisNotes) {
+    var index,
+    thatLength = thatNotes.length;
+    if (thatLength !== thisNotes.length) {
+        return false;
+    }
+    for (index = 0; index < thatLength; index += 1) {
+        if (!thatNotes[index].equals(thisNotes[index])){
+            return false;
+        }
+    }
+    return true;
+};
+
+
+// =========================================================================
+//                                Chord
+// =========================================================================
+
 /**
 * Represents a group of notes as a Chord. 
 * Inherits fron NoteCollection.
@@ -393,9 +441,10 @@ Chord.prototype.invertOriginal = function (n) {
     return this;
 };
 
-// ==============================================
-//                    Scale
-// ==============================================
+// =========================================================================
+//                                Scale
+// =========================================================================
+
 /** 
 * Group of Note objects with melodic dynamics (like a succession of notes).
 *
@@ -412,9 +461,10 @@ var Scale = function Scale (notes, name, name2) {
 Scale.prototype = Object.create(NoteCollection.prototype);
 Scale.prototype.constructor = Scale;
 
-// ==============================================
-//               ChordCollection
-// ==============================================
+// =========================================================================
+//                            ChordCollection
+// =========================================================================
+
 /** 
 * Represents a group of chords 
 * @constructor
@@ -473,9 +523,10 @@ ChordCollection.prototype.toString = function(){
     return returnString;
 };
 
-// ==============================================
-//                   Harmony
-// ==============================================
+// =========================================================================
+//                                Harmony
+// =========================================================================
+
 /**
 * Represents a group of chords.
 * @constructor
@@ -493,10 +544,32 @@ Harmony.prototype.constructor = Harmony;
 
 
 
-// node exports
+// =========================================================================
+//                              Node Exports
+// =========================================================================
+
 exports.Note            = Note;
 exports.NoteCollection  = NoteCollection;
 exports.Chord           = Chord;
 exports.Scale           = Scale;
 exports.ChordCollection = ChordCollection;
 exports.Harmony         = Harmony;
+
+// =========================================================================
+//                                Notes
+// =========================================================================
+
+// Object Specifier:
+// An object literal as function argument. The order of the key-value pairs
+// doesn't matter. This improves readability and removes restrictions in the
+// default argument dynamic.
+// Example:
+// var aNote = new Note("note1", 400);                  // normal way
+// var bNote = new Note({name: "note1", freq: "400"});  // object specifier way
+// What if we only want to give the note a name and name2, while using default
+// arguments for the other members? With the normal way we would need to 
+// provide values for those members. With object specifiers we don't need to.
+// var cNote = new Note("note3", undefined, undefined, "altname3");  // normal way
+// var dNote = new Note("note4", 0, 0, "altname4");                  // normal way
+// var eNore = new NOte({name: "note5", name2: "altname5"});         // object specifier way
+// Constructors are designed to handle either case.
