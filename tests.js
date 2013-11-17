@@ -30,16 +30,34 @@ var aea = function(a, b){
     }
 };
 
-/** console.assert alias */
-var ae = function(a){
+/** Assert equals. */
+var ae = function(a, b){
     try{
-        console.assert(a);
+        console.assert(a === b);
     }
     catch(Error){
         numberOfErrors++;
         console.log();
         console.log(Error.name);               // name of the error
         console.log(a);                        // value a
+        console.log(b);                        // value b
+        console.log(Error.stack.split("\n"));  // line number of the caller
+        console.log();
+    }
+    
+};
+
+/** Assert difference. */
+var adiff = function(a, b){
+    try{
+        console.assert(a !== b);
+    }
+    catch(Error){
+        numberOfErrors++;
+        console.log();
+        console.log(Error.name);               // name of the error
+        console.log(a);                        // value a
+        console.log(b);                        // value b
         console.log(Error.stack.split("\n"));  // line number of the caller
         console.log();
     }
@@ -93,172 +111,181 @@ var chc1 = new sounds.ChordCollection([CEG, ACE, FAC], "chc1");
 var h1   = new sounds.Harmony([CEG, ACE, FAC], "h1");
 
 // =========================================================================
-//                             Note Tests 
+//                                Note
 // =========================================================================
 function testNote() {
     var A1 = new sounds.Note("A", 440.000, 4, "La"),
         H1 = new sounds.Note("H", 500.011, 8, ":D" ),
+        J1 = new sounds.Note({freq: 1000, octave: 1}),
+        F1 = new sounds.Note({name: "F1", name2: "1F"}),
         A2 = A1.copy();
-
-    ae(A1.getName()     === "A");
-    ae(A1.getFreq()     === 440.000);
-    ae(A1.getOctave()   === 4);
-    ae(A1.toString()    === "name=A name2=La freq=440 octave=4");
-    ae(A1.equals(A2)    === true);
-    ae(H1.equals(A2)    === false);
-    ae(A1.equals(1)     === false);
-    ae(A1.equals(false) === false);
-    ae(A1.equals("foo") === false);
-    ae(A1 !== A2);
-
+    
+    ae(F1.getName()     , "F1");
+    ae(F1.getName2()    , "1F");
+    ae(F1.getFreq()     , 0);
+    ae(F1.getOctave()   , 0);
+    ae(J1.getName()     , "");
+    ae(J1.getName2()    , "");
+    ae(J1.getFreq()     , 1000);
+    ae(J1.getOctave()   , 1);
+    ae(A1.getName()     , "A");
+    ae(A1.getFreq()     , 440.000);
+    ae(A1.getOctave()   , 4);
+    ae(A1.toString()    , "name=A name2=La freq=440 octave=4");
+    ae(A1.equals(A2)    , true);
+    ae(H1.equals(A2)    , false);
+    ae(A1.equals(1)     , false);
+    ae(A1.equals(false) , false);
+    ae(A1.equals("foo") , false);
+    adiff(A1, A2);
 }
 
 // NoteCollection getters
-ae(ABC.getSize()  === 3);
-ae(ABC.getName()  === "ABC");
-ae(ABC.getName2() === "");
-ae(JSON.stringify(ABC.getNotes())   === JSON.stringify([A, B, C]));
+ae(ABC.getSize()  , 3);
+ae(ABC.getName()  , "ABC");
+ae(ABC.getName2() , "");
+ae(JSON.stringify(ABC.getNotes())   , JSON.stringify([A, B, C]));
 aea(ABC.toIndexes(),  [9, 11, 0]);
 aea(GAbC.toIndexes(), [7, 8, 0]);
-ae(ABC.toFormula().toString() === [2, 1, 9].toString());
+ae(ABC.toFormula().toString() , [2, 1, 9].toString());
 
 // NoteCollection mutation
 BCD.addNote(E);
-ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([B, C, D, E]));
-ae(BCD.getSize() === 4);
+ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([B, C, D, E]));
+ae(BCD.getSize() , 4);
 BCD.reset();
-ae(BCD.getSize() === 3);
-ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([B, C, D]));
+ae(BCD.getSize() , 3);
+ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([B, C, D]));
 BCD.setNotes([D, E]);
-ae(BCD.getSize() === 2);
-ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([D, E]));
+ae(BCD.getSize() , 2);
+ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([D, E]));
 BCD.reset();
-ae(BCD.getSize() === 3);
-ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([B, C, D]));
+ae(BCD.getSize() , 3);
+ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([B, C, D]));
 BCD.reverse();
-ae(BCD.getSize() === 3);
-ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([D, C, B]));
+ae(BCD.getSize() , 3);
+ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([D, C, B]));
 BCD.rotate();
-ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([C, B, D]));
+ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([C, B, D]));
 BCD.removeNoteAt(1);
-ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([C, D]));
-ae(BCD.getSize() === 2);
-ae(BCD.getNotesAsString() === "C D ");
-ae(BCD.getOriginalNotesAsString() === "B C D ");
-ae(BCD.getFreqsAsString() === "523.251 587.33 ");
+ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([C, D]));
+ae(BCD.getSize() , 2);
+ae(BCD.getNotesAsString() , "C D ");
+ae(BCD.getOriginalNotesAsString() , "B C D ");
+ae(BCD.getFreqsAsString() , "523.251 587.33 ");
 BCD.setName("C D");
 BCD.setName2("secondary name");
-ae(BCD.getName() === "C D");
-ae(BCD.getName2() === "secondary name");
+ae(BCD.getName() , "C D");
+ae(BCD.getName2() , "secondary name");
 BCD.setNotes([C, A, B, A2, A3, G, C, A2]);
-ae(BCD.getNotesAsString() === "C A B A A G C A ");
-ae(BCD.getSize() === 8);
+ae(BCD.getNotesAsString() , "C A B A A G C A ");
+ae(BCD.getSize() , 8);
 BCD.removeNotesWithName("A");
-ae(BCD.getNotesAsString() === "C B G C ");
-ae(BCD.getSize() === 4);
+ae(BCD.getNotesAsString() , "C B G C ");
+ae(BCD.getSize() , 4);
 BCD.setNotes([C, A, B, A2, A3, G, C, A2]);
 BCD.removeNotesWithFreq(440);
-ae(BCD.getNotesAsString() === "C B G C ");
-ae(BCD.getSize() === 4);
+ae(BCD.getNotesAsString() , "C B G C ");
+ae(BCD.getSize() , 4);
 BCD.removeNotesWithName2("Do");
-ae(BCD.getNotesAsString() === "B G ");
-ae(BCD.getSize() === 2);
+ae(BCD.getNotesAsString() , "B G ");
+ae(BCD.getSize() , 2);
 BCD.reset();
-ae(BCD.getSize() === 3);
-ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([B, C, D]));
+ae(BCD.getSize() , 3);
+ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([B, C, D]));
 BCD.rotateBack();
-ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([D, B, C]));
+ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([D, B, C]));
 BCD.rotateBack();
-ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([C, D, B]));
+ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([C, D, B]));
 BCD.rotateBack();
-ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([B, C, D]));
+ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([B, C, D]));
 BCD.rotate();
-ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([C, D, B]));
+ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([C, D, B]));
 BCD.rotate();
-ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([D, B, C]));
+ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([D, B, C]));
 BCD.rotate();
-ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([B, C, D]));
+ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([B, C, D]));
 BCD.setNotes([A, B, C, D, E, F, G]);
-ae(BCD.getSize() === 7, "43");
-ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([A, B, C, D, E, F, G]));
+ae(BCD.getSize() , 7, "43");
+ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([A, B, C, D, E, F, G]));
 BCD.removeNotesWithFreqRange(490, 700);
-ae(BCD.getSize() === 2, "45");
-ae(JSON.stringify(BCD.getNotes()) === JSON.stringify([A, G]));
+ae(BCD.getSize() , 2, "45");
+ae(JSON.stringify(BCD.getNotes()) , JSON.stringify([A, G]));
 
 // Chord access and mutation
 aea(CEG.toIndexes(), [0, 4, 7]);
-ae(CEG.getNotesAsString() === "C E G ");
+ae(CEG.getNotesAsString() , "C E G ");
 CEG.invert(1);
-ae(CEG.getNotesAsString() === "E G C ");
+ae(CEG.getNotesAsString() , "E G C ");
 CEG.invert(1);
-ae(CEG.getNotesAsString() === "G C E ");
+ae(CEG.getNotesAsString() , "G C E ");
 CEG.invert(1);
-ae(CEG.getNotesAsString() === "C E G ");
+ae(CEG.getNotesAsString() , "C E G ");
 CEG.invert(-1);
-ae(CEG.getNotesAsString() === "G C E ");
+ae(CEG.getNotesAsString() , "G C E ");
 CEG.invert(-1);
-ae(CEG.getNotesAsString() === "E G C ");
+ae(CEG.getNotesAsString() , "E G C ");
 CEG.invert(-1);
-ae(CEG.getNotesAsString() === "C E G ");
+ae(CEG.getNotesAsString() , "C E G ");
 CEG.invert(2);
-ae(CEG.getNotesAsString() === "G C E ");
+ae(CEG.getNotesAsString() , "G C E ");
 CEG.invert(-1);
-ae(CEG.getNotesAsString() === "E G C ");
+ae(CEG.getNotesAsString() , "E G C ");
 CEG.invert(-2);
-ae(CEG.getNotesAsString() === "G C E ");
+ae(CEG.getNotesAsString() , "G C E ");
 CEG.reset();
-ae(CEG.getNotesAsString() === "C E G ");
+ae(CEG.getNotesAsString() , "C E G ");
 
 
 // Scale access and mutation
-ae(CM.toFormula().toString() === [2,2,1,2,2,2,1].toString());
+ae(CM.toFormula().toString() , [2,2,1,2,2,2,1].toString());
 
 // ChordCollection access and mutation
-ae(chc1.getChordsNames() === "C major A minor F major ");
-ae(chc1.getSize() === 3);
+ae(chc1.getChordsNames() , "C major A minor F major ");
+ae(chc1.getSize() , 3);
 
 // Harmony access and mutation
-ae(h1.getChordsNames() === "C major A minor F major ");
+ae(h1.getChordsNames() , "C major A minor F major ");
 
 // NoteCollection.toFormula()
-ae(CEG.toFormula().toString()  === [4 ,3, 5].toString());
-ae(FAC.toFormula().toString()  === [4, 3, 5].toString());
-ae(ACE.toFormula().toString()  === [3, 4, 5].toString());
-ae(DFA.toFormula().toString()  === [3, 4, 5].toString());
-ae(CEGB.toFormula().toString() === [4, 3, 4, 1].toString());
-ae(FACE.toFormula().toString() === [4, 3, 4, 1].toString());
-ae(ACEG.toFormula().toString() === [3, 4, 3, 2].toString());
-ae(DFAC.toFormula().toString() === [3, 4, 3, 2].toString());
-ae(CFG.toFormula().toString()  === [5, 2, 5].toString());
-ae(CDG.toFormula().toString()  === [2, 5, 5].toString());
+ae(CEG.toFormula().toString()  , [4 ,3, 5].toString());
+ae(FAC.toFormula().toString()  , [4, 3, 5].toString());
+ae(ACE.toFormula().toString()  , [3, 4, 5].toString());
+ae(DFA.toFormula().toString()  , [3, 4, 5].toString());
+ae(CEGB.toFormula().toString() , [4, 3, 4, 1].toString());
+ae(FACE.toFormula().toString() , [4, 3, 4, 1].toString());
+ae(ACEG.toFormula().toString() , [3, 4, 3, 2].toString());
+ae(DFAC.toFormula().toString() , [3, 4, 3, 2].toString());
+ae(CFG.toFormula().toString()  , [5, 2, 5].toString());
+ae(CDG.toFormula().toString()  , [2, 5, 5].toString());
 
 // processing stepCount
-ae(processing.stepCount(A, Bb) === 1);
-ae(processing.stepCount(A, B)  === 2);
-ae(processing.stepCount(G, Ab) === 1);
-ae(processing.stepCount(D, Db) === 11);
+ae(processing.stepCount(A, Bb) , 1);
+ae(processing.stepCount(A, B)  , 2);
+ae(processing.stepCount(G, Ab) , 1);
+ae(processing.stepCount(D, Db) , 11);
 
 // processing scalize
-ae(processing.scalize(C, formulas.MAJOR).getNotesAsString() === "C D E F G A B ");
-ae(processing.scalize(C, formulas.MINOR).getNotesAsString() === "C D Eb F G Ab Bb ");
+ae(processing.scalize(C, formulas.MAJOR).getNotesAsString() , "C D E F G A B ");
+ae(processing.scalize(C, formulas.MINOR).getNotesAsString() , "C D Eb F G Ab Bb ");
 
 // processing buildInversions
 var CEGinvs  = processing.buildInversions(CEG);
 var CEGinvs2 = [];
 for (var i = 0; i < CEGinvs.length; i++)
     CEGinvs2[i] = CEGinvs[i].getNotesAsString();
-ae(equals(CEGinvs2, ['C E G ', 'E G C ', 'G C E ']));
+aea(CEGinvs2, ['C E G ', 'E G C ', 'G C E ']);
 
 // processing arraysEqual
-ae(equals([1, 2], [1, 2])    === true);
-ae(equals([1, 3, 4], [1, 2]) === false);
+ae(equals([1, 2], [1, 2])    , true);
+ae(equals([1, 3, 4], [1, 2]) , false);
 
 // processing.buildPermutations()
 var buildPermutations1    = processing.buildPermutations(CEG);
 var buildPermutations1Str = "";
 for (var i = 0; i < buildPermutations1.length; i++)
     buildPermutations1Str += buildPermutations1[i].getNotesAsString() + " ";
-ae(buildPermutations1Str === "C E G  C G E  E C G  E G C  G C E  G E C  ");
+ae(buildPermutations1Str , "C E G  C G E  E C G  E G C  G C E  G E C  ");
 
 // =========================================================================
 //                      processing.fromFormulaToNotes
@@ -368,7 +395,7 @@ function testIdentify(){
 //                         harmony.harmonize() 
 // =========================================================================
 function testHarmonize(){
-    ae(harmony.harmonize(CM, 3).getChordsNotesAsString() ===
+    ae(harmony.harmonize(CM, 3).getChordsNotesAsString() ,
         "< C E G > < D F A > < E G B > < F A C > < G B D > < A C E > < B D F > ");
     aea(harmony.harmonize(CM, 3, 1), [ 'C maj', 'D min', 'E min', 'F maj', 'G maj', 'A min', 'B dim' ]);
     aea(harmony.harmonize(CM, 4, 1), [ 'C maj7', 'D min7', 'E min7', 'F maj7', 'G 7', 'A min7', 'B min7b5' ]);

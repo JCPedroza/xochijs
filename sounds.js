@@ -1,3 +1,5 @@
+
+/** @module sounds */
 /* jslint node: true */
 "use strict";
 
@@ -11,19 +13,19 @@ var formulas = require("./formulas");
 // ==============================================
 /**
 * Represents a musical note.
-*
 * @constructor
-* @param name   The name of the note.
+* @param name   The name of the note (optional).
 * @param freq   Frequency of the note (optional).
 * @param octave Index/octave of the note (optional).
 * @param name2  Secondary name of the note (optional).
 * @returns A Note object.
 */
 var Note = function Note (name, freq, octave, name2) {
-    this._name   = name   || "";
-    this._octave = octave || 0;
-    this._freq   = freq   || 0;
-    this._name2  = name2  || "";
+    this._octave = octave || arguments[0]["octave"] || 0;
+    this._freq   = freq   || arguments[0]["freq"]   || 0;
+    this._name2  = name2  || arguments[0]["name2"]  || "";
+    this._name   = typeof name !== "object" ?
+                   name || "" : arguments[0]["name"] || "";
 };
 
 // ------------------------
@@ -109,6 +111,7 @@ Note.prototype.equals = function (that) {
 // ==============================================
 //                 NoteCollection
 // ==============================================
+
 /**
 * Represents a group of notes. Parent constructor for Chord and Scale.
 * @constructor
