@@ -92,13 +92,26 @@ var CM  = new sounds.Scale([C, D, E, F, G, A, B], "C ionian");
 var chc1 = new sounds.ChordCollection([CEG, ACE, FAC], "chc1");
 var h1   = new sounds.Harmony([CEG, ACE, FAC], "h1");
 
-// ===== assertions =====
+// =========================================================================
+//                             Note Tests 
+// =========================================================================
+function testNote() {
+    var A1 = new sounds.Note("A", 440.000, 4, "La"),
+        H1 = new sounds.Note("H", 500.011, 8, ":D" ),
+        A2 = A1.copy();
 
-// Note getters
-ae(A.getName()   === "A");
-ae(A.getFreq()   === 440.000);
-ae(A.getOctave() === 4);
-ae(A.toString()  === "name=A name2=La freq=440 octave=4");
+    ae(A1.getName()     === "A");
+    ae(A1.getFreq()     === 440.000);
+    ae(A1.getOctave()   === 4);
+    ae(A1.toString()    === "name=A name2=La freq=440 octave=4");
+    ae(A1.equals(A2)    === true);
+    ae(H1.equals(A2)    === false);
+    ae(A1.equals(1)     === false);
+    ae(A1.equals(false) === false);
+    ae(A1.equals("foo") === false);
+    ae(A1 !== A2);
+
+}
 
 // NoteCollection getters
 ae(ABC.getSize()  === 3);
@@ -366,6 +379,7 @@ function testHarmonize(){
 }
 
 // Perform tests:
+testNote();
 testToFormula();
 testIdentify();
 testHarmonize();

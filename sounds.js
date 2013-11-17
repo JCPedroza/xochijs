@@ -19,7 +19,7 @@ var formulas = require("./formulas");
 * @param name2  Secondary name of the note (optional).
 * @returns A Note object.
 */
-var Note = function (name, freq, octave, name2) {
+var Note = function Note (name, freq, octave, name2) {
     this._name   = name   || "";
     this._octave = octave || 0;
     this._freq   = freq   || 0;
@@ -89,6 +89,23 @@ Note.prototype.toString = function () {
            " freq=" + this._freq + " octave=" + this._octave;
 };
 
+// ------------------------
+//      Other Methods
+// ------------------------
+
+/** Creates a copy of this. */
+Note.prototype.copy = function () {
+    return new Note(this._name, this._freq, this._octave, this._name2);
+};
+
+/** Checks equality between two Note objects. */
+Note.prototype.equals = function (that) {
+    if (typeof that !== "object" || that.constructor.name !== this.constructor.name)
+        return false;
+    return that.getName()   === this._name    || that.getFreq()  === this._freq ||
+           that.getOctave() === this._octave  || that.getName2() === this._name2;
+};
+
 // ==============================================
 //                 NoteCollection
 // ==============================================
@@ -99,7 +116,7 @@ Note.prototype.toString = function () {
 * @param name  Name for the NoteCollection (optional).
 * @param name2 Secondary name for the NoteCollection (optional).
 */
-var NoteCollection = function (notes, name, name2) {
+var NoteCollection = function NoteCollection (notes, name, name2) {
     // if (!(notes instanceof Array)) 
     //    throw new Error("notes must be an array of Note"); 
     this._notes  = notes;                           // array of notes
@@ -314,7 +331,7 @@ NoteCollection.prototype.toFormula = function (pool) {
 * @param name  Name for the NoteCollection (optional).
 * @param name2 Secondary name for the NoteCollection (optional).
 */
-var Chord = function (notes, name, name2) {
+var Chord = function Chord (notes, name, name2) {
     NoteCollection.apply(this, arguments);  // inherits from NoteCollection
 };
 
@@ -360,7 +377,7 @@ Chord.prototype.invertOriginal = function (n) {
 *
 * @constructor
 */
-var Scale = function (notes, name, name2) {
+var Scale = function Scale (notes, name, name2) {
     NoteCollection.apply(this, arguments);  // inherits from NoteCollection
 };
 
@@ -378,7 +395,7 @@ Scale.prototype.constructor = Scale;
 * Represents a group of chords 
 * @constructor
 */
-var ChordCollection = function (chords, name, name2) {
+var ChordCollection = function ChordCollection (chords, name, name2) {
     // if (!(chords instanceof Array)) throw new Error("chords must be an array of Chord"); !!! this needs to work with prototype inheritance!!!!
     this._name   = name  || "";
     this._name2  = name2 || "";
@@ -439,7 +456,7 @@ ChordCollection.prototype.toString = function(){
 * Represents a group of chords.
 * @constructor
 */
-var Harmony = function (chords, name, name2){
+var Harmony = function Harmony (chords, name, name2){
     ChordCollection.apply(this, arguments);  // Inherits from ChordCollection.
 };
 
