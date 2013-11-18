@@ -127,9 +127,10 @@ Note.prototype.equals = function (that) {
 * @param name2 Secondary name for the NoteCollection (optional).
 */
 var NoteCollection = function NoteCollection (notes, name, name2) {
+    // Typechecking is to handle: no arguments, object specifier, and 
+    // default values.
     this._name   = name  || arguments[0] && arguments[0]["name"]  || "";
     this._name2  = name2 || arguments[0] && arguments[0]["name2"] || "";
-    // Typecheck to handle object specifiers:
     this._notes  = notes instanceof Array ?
                    notes :
                    arguments[0] && arguments[0]["notes"] || [];
