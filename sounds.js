@@ -22,15 +22,16 @@ var formulas   = require("./formulas");
 * @param name2  Secondary name of the note (optional).
 * @returns A Note object.
 */
-var Note = function Note (name, freq, octave, name2) {
+var Note = function Note(name, freq, octave, name2) {
     // Typechecking is to handle: no arguments, object specifier, and 
-    // default values.
-    this._octave = octave || arguments[0] && arguments[0].octave || 0;
-    this._freq   = freq   || arguments[0] && arguments[0].freq   || 0;
-    this._name2  = name2  || arguments[0] && arguments[0].name2  || "";
+    // default values. The name argument can be the name of the note or
+    // an object specifier or undefined.
+    this._octave = octave || (name && name.octave) || 0;
+    this._freq   = freq   || (name && name.freq)   || 0;
+    this._name2  = name2  || (name && name.name2)  || "";
     this._name   = typeof name === "string" ?
                    name :
-                   arguments[0] && arguments[0].name || "";
+                   (name && name.name) || "";
 };
 
 // ------------------------
@@ -126,14 +127,15 @@ Note.prototype.equals = function (that) {
 * @param name  Name for the NoteCollection (optional).
 * @param name2 Secondary name for the NoteCollection (optional).
 */
-var NoteCollection = function NoteCollection (notes, name, name2) {
+var NoteCollection = function NoteCollection(notes, name, name2) {
     // Typechecking is to handle: no arguments, object specifier, and 
-    // default values.
-    this._name   = name  || arguments[0] && arguments[0].name  || "";
-    this._name2  = name2 || arguments[0] && arguments[0].name2 || "";
+    // default values. Notes can be an array of Note, an object specifier, 
+    // or undefined.
+    this._name   = name  || (notes && notes.name)  || "";
+    this._name2  = name2 || (notes && notes.name2) || "";
     this._notes  = notes instanceof Array ?
                    notes :
-                   arguments[0] && arguments[0].notes || [];
+                   (notes && notes.notes) || [];
     this._notes2 = this._notes.slice(0);            // !!! Should this be deep copy?
 };
 
@@ -419,7 +421,7 @@ NoteCollection.prototype._noteArrayEquals = function (thatNotes, thisNotes) {
 * @param name  Name for the NoteCollection (optional).
 * @param name2 Secondary name for the NoteCollection (optional).
 */
-var Chord = function Chord (notes, name, name2) {
+var Chord = function Chord(notes, name, name2) {
     NoteCollection.apply(this, arguments);  // inherits from NoteCollection
 };
 
@@ -474,7 +476,7 @@ Chord.prototype.invertOriginal = function (n) {
 *
 * @constructor
 */
-var Scale = function Scale (notes, name, name2) {
+var Scale = function Scale(notes, name, name2) {
     NoteCollection.apply(this, arguments);  // inherits from NoteCollection
 };
 
@@ -493,7 +495,7 @@ Scale.prototype.constructor = Scale;
 * Represents a group of chords 
 * @constructor
 */
-var ChordCollection = function ChordCollection (chords, name, name2) {
+var ChordCollection = function ChordCollection(chords, name, name2) {
     // if (!(chords instanceof Array)) throw new Error("chords must be an array of Chord"); !!! this needs to work with prototype inheritance!!!!
     this._name   = name  || "";
     this._name2  = name2 || "";
@@ -555,7 +557,7 @@ ChordCollection.prototype.toString = function(){
 * Represents a group of chords.
 * @constructor
 */
-var Harmony = function Harmony (chords, name, name2){
+var Harmony = function Harmony(chords, name, name2){
     ChordCollection.apply(this, arguments);  // Inherits from ChordCollection.
 };
 
