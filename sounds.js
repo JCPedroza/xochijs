@@ -23,12 +23,14 @@ var formulas   = require("./formulas");
 * @returns A Note object.
 */
 var Note = function Note (name, freq, octave, name2) {
-    this._octave = octave || arguments[0]["octave"] || 0;
-    this._freq   = freq   || arguments[0]["freq"]   || 0;
-    this._name2  = name2  || arguments[0]["name2"]  || "";
-    // Typecheck for "object" to handle object specifier.
+    // Typechecking is to handle: no arguments, object specifier, and 
+    // default values.
+    this._octave = octave || arguments[0] && arguments[0]["octave"] || 0;
+    this._freq   = freq   || arguments[0] && arguments[0]["freq"]   || 0;
+    this._name2  = name2  || arguments[0] && arguments[0]["name2"]  || "";
     this._name   = typeof name === "string" ?
-                   name : arguments[0]["name"] || "";
+                   name :
+                   arguments[0] && arguments[0]["name"] || "";
 };
 
 // ------------------------
@@ -125,10 +127,12 @@ Note.prototype.equals = function (that) {
 * @param name2 Secondary name for the NoteCollection (optional).
 */
 var NoteCollection = function NoteCollection (notes, name, name2) {
-    this._name   = name  || arguments[0]["name"]  || "";
-    this._name2  = name2 || arguments[0]["name2"] || "";
+    this._name   = name  || arguments[0] && arguments[0]["name"]  || "";
+    this._name2  = name2 || arguments[0] && arguments[0]["name2"] || "";
     // Typecheck to handle object specifiers:
-    this._notes  = notes instanceof Array ? notes : arguments[0]["notes"] || [];
+    this._notes  = notes instanceof Array ?
+                   notes :
+                   arguments[0] && arguments[0]["notes"] || [];
     this._notes2 = this._notes.slice(0);            // !!! Should this be deep copy?
 };
 

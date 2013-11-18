@@ -121,9 +121,14 @@ function testNote() {
         H1 = new sounds.Note("H", 500.011, 8, ":D" ),
         J1 = new sounds.Note({freq: 1000, octave: 1}),
         F1 = new sounds.Note({name: "F1", name2: "1F"}),
-        A3 = new sounds.Note("A", 440.000, 3, "Lo");
-        A2 = A1.copy();
+        A3 = new sounds.Note("A", 440.000, 3, "Lo"),
+        A2 = A1.copy(),
+        M1 = new sounds.Note();
     
+    ae(M1.getName()     , "");
+    ae(M1.getName2()    , "");
+    ae(M1.getOctave()   , 0);
+    ae(M1.getFreq()     , 0);
     ae(F1.getName()     , "F1");
     ae(F1.getName2()    , "1F");
     ae(F1.getFreq()     , 0);
@@ -165,10 +170,15 @@ function testNoteCollection() {
         GAbC = new sounds.NoteCollection([G, Ab, C], "GAbC"),
         CDE  = new sounds.NoteCollection({name: "CDE", name2: "DoReMi", notes: [C, D, E]}),
         DEF  = new sounds.NoteCollection({name2: "DEF"}),
-        EFG  = new sounds.NoteCollection({notes: [E, F, G]});
+        EFG  = new sounds.NoteCollection({notes: [E, F, G]}),
+        JJJ  = new sounds.NoteCollection(),
         BCD  = new sounds.NoteCollection([B, C, D], "BCD");
 
     // Accessors
+    ae(JJJ.getSize(), 0);
+    ae(JJJ.getName(), "");
+    ae(JJJ.getName2(), "");
+    aea(JJJ.getNotes(), []);
     ae(ABC.getSize(), 3);
     ae(ABC.getName(), "ABC");
     ae(ABC.getName2(), "");
