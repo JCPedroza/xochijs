@@ -436,13 +436,19 @@ Chord.prototype.constructor = Chord;
 
 /** Sets notes to nth inversion. Sets to previous inversions if n is negative. */ // !!! can this be done more efficiently?
 Chord.prototype.invert = function (n) {
-    if (typeof(n) !== "number") throw new Error("n must be a number");
-    if (n > 0)
-        for (var i = 0; i < n; i++)
+    if (typeof(n) !== "number") {
+        throw new Error("n must be a number");
+    }
+    if (n > 0) {
+        for (var i = 0; i < n; i++) {
             this.rotate();
-    if (n < 0)
-        for (var j = 0; j > n; j--)
+        }
+    }
+    if (n < 0) {
+        for (var j = 0; j > n; j--) {
             this.rotateBack();
+        }
+    }
     return this;
 };
 
@@ -451,7 +457,9 @@ Chord.prototype.invert = function (n) {
 * Sets to previous inversions if n is negative.
 */
 Chord.prototype.invertOriginal = function (n) {
-    if (typeof(n) !== "number") throw new Error("n must be of type number");
+    if (typeof(n) !== "number") {
+        throw new Error("n must be of type number");
+    }
     this.reset();
     this.invert(n);
     return this;
