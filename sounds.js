@@ -125,8 +125,6 @@ Note.prototype.equals = function (that) {
 * @param name2 Secondary name for the NoteCollection (optional).
 */
 var NoteCollection = function NoteCollection (notes, name, name2) {
-    // if (!(notes instanceof Array)) 
-    //    throw new Error("notes must be an array of Note"); 
     this._name   = name  || arguments[0]["name"]  || "";
     this._name2  = name2 || arguments[0]["name2"] || "";
     // Typecheck to handle object specifiers:
