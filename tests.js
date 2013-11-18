@@ -16,6 +16,9 @@ var equals = processing.arraysEqual;  // checks equality for arrays
 
 /** Assert equals for two arrays. */
 var aea = function(a, b){
+    if (!(a instanceof Array) || !(b instanceof Array)){
+        throw new TypeError("arguments must be of type Array");
+    }
     try{
         console.assert(equals(a, b));
     }
@@ -156,24 +159,13 @@ function testNoteCollection() {
         Ab = new sounds.Note("Ab", 830.609, 5),
         ABC  = new sounds.NoteCollection([A, B, C], "ABC"),
         ABC2 = ABC.copy(),
+        ABC4 = ABC.deepCopy(),
         ABC3 = new sounds.NoteCollection([A, B, C], "name"),
         BCA  = new sounds.NoteCollection([B, C, A], "ABC"),
         GAbC = new sounds.NoteCollection([G, Ab, C], "GAbC"),
         BCD  = new sounds.NoteCollection([B, C, D], "BCD");
 
-    ae(ABC.noteEquals(ABC2.getNotes()), true);
-    ae(ABC.noteEquals(BCD.getNotes()), false);
-    ae(ABC3.noteEquals(ABC.getNotes()), true);
-    ae(ABC3.noteEquals([A, B, C]), true);
-    ae(ABC3.noteEquals([A, B, D]), false);
-    ae(ABC2.noteEquals(1), false);
-    ae(ABC2.equals(ABC), true);
-    ae(ABC.equals(BCD), false);
-    ae(ABC.equals("!¡!"), false);
-    ae(ABC.strictEquals(ABC2), true);
-    BCA.rotateBack();
-    ae(BCA.strictEquals(ABC), false);
-    ae(BCA.equals(ABC), true);
+    // Accessors
     ae(ABC.getSize(), 3);
     ae(ABC.getName(), "ABC");
     ae(ABC.getName2(), "");
@@ -182,6 +174,44 @@ function testNoteCollection() {
     aea(GAbC.toIndexes(), [7, 8, 0]);
     aea(ABC.toFormula(), [2, 1, 9]);
 
+    // equals()
+    ae(ABC2.equals(ABC), true);
+    ae(ABC.equals(BCD), false);
+    ae(ABC.equals("!¡!"), false);
+
+    // noteEquals()
+    ae(ABC.noteEquals(ABC2.getNotes()), true);
+    ae(ABC.noteEquals(BCD.getNotes()), false);
+    ae(ABC3.noteEquals(ABC.getNotes()), true);
+    ae(ABC3.noteEquals([A, B, C]), true);
+    ae(ABC3.noteEquals([A, B, D]), false);
+    ae(ABC2.noteEquals(1), false);
+
+    // strictEquals()
+    ae(ABC.strictEquals(ABC2), true);
+    BCA.rotateBack();
+    ae(BCA.strictEquals(ABC), false);
+    ae(BCA.equals(ABC), true);
+
+    // deepCopy()
+    // Check for note equality.
+    ae(ABC.equals(ABC4), true);
+    ae(ABC4.strictEquals(ABC), true);
+    // Check for reference difference.
+    ae((function(){
+            var index,
+                ABCNotes  = ABC.getNotes(),
+                ABC4Notes = ABC4.getNotes();
+            for (index = 0; index < ABC.length; index += 1) {
+                if (ABCNotes[index] === ABC4Notes[index]) {
+                    return false;
+                }
+            }
+            return true;
+        })(),
+        true);
+        
+    // Mutation:
     BCD.addNote(E);
     aea(BCD.getNotes() , [B, C, D, E]);
     ae(BCD.getSize() , 4);

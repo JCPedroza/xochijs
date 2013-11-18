@@ -347,9 +347,21 @@ NoteCollection.prototype.toFormula = function (pool) {
 //      Other Methods
 // ------------------------
 
-/** Creates a copy of this. */
+/** Creates a swallow copy of this. */
 NoteCollection.prototype.copy = function () {
     return new NoteCollection(this._notes, this._name, this._name2);
+};
+
+/** Creates a deep copy of this. */
+NoteCollection.prototype.deepCopy = function () {
+    var index,
+        thisNotes = this._notes,
+        thatNotes = [],
+        length    = thisNotes.length;
+    for (index = 0; index < length; index += 1) {
+        thatNotes.push(thisNotes[index].copy());
+    }
+    return new NoteCollection(thatNotes, this._name, this._name2);
 };
 
 /** Checks equality bewteen this._notes and a Note array. */
@@ -383,7 +395,7 @@ NoteCollection.prototype._noteArrayEquals = function (thatNotes, thisNotes) {
         return false;
     }
     for (index = 0; index < thatLength; index += 1) {
-        if (!thatNotes[index].equals(thisNotes[index])){
+        if (!thatNotes[index].equals(thisNotes[index])) {
             return false;
         }
     }
