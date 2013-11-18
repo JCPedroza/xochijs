@@ -46,3 +46,5 @@
 - Should Note first argument should be freq?
 
 - Make a separate toString and toStringDetailed for your objects.
+
+- Seems that using the arguments object is slow, try to find a better way to handle things.
