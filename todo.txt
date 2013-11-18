@@ -1,4 +1,6 @@
 
+- Current: object specifiers, copy, equals
+
 - chord identification algorithm (on it)
     - alt chords
 
@@ -40,3 +42,7 @@
 - Copy methods for all prototypes.
 
 - Think about swallow copies, like in slice in original notes, do you really need deep copies? 
+
+- Should Note first argument should be freq?
+
+- Make a separate toString and toStringDetailed for your objects.
