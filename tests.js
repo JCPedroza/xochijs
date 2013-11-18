@@ -163,6 +163,9 @@ function testNoteCollection() {
         ABC3 = new sounds.NoteCollection([A, B, C], "name"),
         BCA  = new sounds.NoteCollection([B, C, A], "ABC"),
         GAbC = new sounds.NoteCollection([G, Ab, C], "GAbC"),
+        CDE  = new sounds.NoteCollection({name: "CDE", name2: "DoReMi", notes: [C, D, E]}),
+        DEF  = new sounds.NoteCollection({name2: "DEF"}),
+        EFG  = new sounds.NoteCollection({notes: [E, F, G]});
         BCD  = new sounds.NoteCollection([B, C, D], "BCD");
 
     // Accessors
@@ -173,6 +176,12 @@ function testNoteCollection() {
     aea(ABC.toIndexes(), [9, 11, 0]);
     aea(GAbC.toIndexes(), [7, 8, 0]);
     aea(ABC.toFormula(), [2, 1, 9]);
+    ae(CDE.getName(), "CDE");
+    ae(CDE.getName2(), "DoReMi");
+    aea(CDE.getNotes(), [C, D, E]);
+    aea(DEF.getNotes(), []);
+    ae(DEF.getName(), "");
+    ae(EFG.getName2(), "");
 
     // equals()
     ae(ABC2.equals(ABC), true);
