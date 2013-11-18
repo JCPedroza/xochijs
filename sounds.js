@@ -27,8 +27,8 @@ var Note = function Note (name, freq, octave, name2) {
     this._freq   = freq   || arguments[0]["freq"]   || 0;
     this._name2  = name2  || arguments[0]["name2"]  || "";
     // Typecheck for "object" to handle object specifier.
-    this._name   = typeof name !== "object" ?
-                   name || "" : arguments[0]["name"] || "";
+    this._name   = typeof name === "string" ?
+                   name : arguments[0]["name"] || "";
 };
 
 // ------------------------
