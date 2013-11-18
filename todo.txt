@@ -1,5 +1,5 @@
 
-- Current: object specifiers, copy, equals
+- Current: object specifiers, copy, equals (what about varargs in constructors?)
 
 - chord identification algorithm (on it)
     - alt chords
