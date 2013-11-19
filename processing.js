@@ -179,7 +179,7 @@ var fromFormulaToNotes = function(formula, firstNote, pool){
 };
 
 // ===========================================
-//            objectArrayEquals
+//             objectArrayEquals
 // ===========================================
 /** Checks for equality in an array of objects using equals method. */
 var objectArrayEquals = function (a, b) {
@@ -196,13 +196,34 @@ var objectArrayEquals = function (a, b) {
     return true;
 };
 
+// ===========================================
+//           createArrayDeepCopy
+// ===========================================
+/** 
+* Creates a deep copy of an array .
+* (objects in the array need a copy or deepCopy method)
+*/
+var createArrayDeepCopy = function (theArray) {
+    var index,
+        deepCopy = [],
+        length = theArray.length;
+    for (index = 0; index < length; index += 1) {
+        deepCopy.push(theArray[index].deepCopy ?
+                      theArray[index].deepCopy() :
+                      theArray[index].copy());
+    }
+    return deepCopy;
+};
+
+
 // Node exports:
-exports.arraysEqual        = arraysEqual;
-exports.permute            = permute;
-exports.stepCount          = stepCount;
-exports.scalize            = scalize;
-exports.buildInversions    = buildInversions;
-exports.buildPermutations  = buildPermutations;
-exports.toFormula          = toFormula;
-exports.fromFormulaToNotes = fromFormulaToNotes;
-exports.objectArrayEquals  = objectArrayEquals;
+exports.arraysEqual         = arraysEqual;
+exports.permute             = permute;
+exports.stepCount           = stepCount;
+exports.scalize             = scalize;
+exports.buildInversions     = buildInversions;
+exports.buildPermutations   = buildPermutations;
+exports.toFormula           = toFormula;
+exports.fromFormulaToNotes  = fromFormulaToNotes;
+exports.objectArrayEquals   = objectArrayEquals;
+exports.createArrayDeepCopy = createArrayDeepCopy;
