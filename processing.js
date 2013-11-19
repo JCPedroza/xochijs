@@ -118,6 +118,7 @@ var toFormula = function(notes, pool){
     else throw new TypeError("datatype is not supported");
 };
 
+// !!! what is this?
 // Helper for toFormula, handles NOteCollection types.
 // var _toFormulaNC = function(notes, pool){
 //     var thePool = pool || formulas.ET12POOL;
@@ -177,6 +178,23 @@ var fromFormulaToNotes = function(formula, firstNote, pool){
     return returnArray;                             // Return the results as an array.
 };
 
+// ===========================================
+//            objectArrayEquals
+// ===========================================
+/** Checks for equality in an array of objects using equals method. */
+var objectArrayEquals = function (a, b) {
+    var index,
+    aLength = a.length;
+    if (aLength !== b.length) {
+        return false;
+    }
+    for (index = 0; index < aLength; index += 1) {
+        if (!a[index].equals(b[index])) {
+            return false;
+        }
+    }
+    return true;
+};
 
 // Node exports:
 exports.arraysEqual        = arraysEqual;
@@ -187,3 +205,4 @@ exports.buildInversions    = buildInversions;
 exports.buildPermutations  = buildPermutations;
 exports.toFormula          = toFormula;
 exports.fromFormulaToNotes = fromFormulaToNotes;
+exports.objectArrayEquals  = objectArrayEquals;
