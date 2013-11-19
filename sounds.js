@@ -6,7 +6,8 @@
 // =========================================================================
 //                               Imports
 // =========================================================================
-var formulas   = require("./formulas");
+var formulas   = require("./formulas"),
+    processing = require("./processing");
 
 // =========================================================================
 //                                Note
@@ -108,7 +109,7 @@ Note.prototype.copy = function () {
 
 /** Checks equality. */
 Note.prototype.equals = function (that) {
-    if (typeof that !== "object" || that.constructor.name !== this.constructor.name){
+    if (typeof that !== "object" || that.constructor.name !== this.constructor.name) {
         return false;
     }
     return that.getName()   === this._name    && that.getFreq()  === this._freq &&
@@ -375,7 +376,7 @@ NoteCollection.prototype.noteEquals = function (thatNotes) {
     if (!(thatNotes instanceof Array) || !(thatNotes[0] instanceof Note)){
         return false;
     }
-    return this._noteArrayEquals(thatNotes, this._notes);
+    return processing.objectArrayEquals(thatNotes, this._notes);
 };
 
 /** Checks equality, without including this._notes2. */
@@ -390,24 +391,8 @@ NoteCollection.prototype.equals = function (that) {
 /** Checks equality, including this._notes2. */
 NoteCollection.prototype.strictEquals = function (that) {
     return this.equals(that) &&
-           this._noteArrayEquals(that.getOriginalNotes(), this.getOriginalNotes());
+           processing.objectArrayEquals(that.getOriginalNotes(), this.getOriginalNotes());
 };
-
-// Helper for this.equals and this.strictEquals.
-NoteCollection.prototype._noteArrayEquals = function (thatNotes, thisNotes) {
-    var index,
-    thatLength = thatNotes.length;
-    if (thatLength !== thisNotes.length) {
-        return false;
-    }
-    for (index = 0; index < thatLength; index += 1) {
-        if (!thatNotes[index].equals(thisNotes[index])) {
-            return false;
-        }
-    }
-    return true;
-};
-
 
 // =========================================================================
 //                                Chord
@@ -492,11 +477,10 @@ Scale.prototype.constructor = Scale;
 // =========================================================================
 
 /** 
-* Represents a group of chords 
+* Represents a group of chords. 
 * @constructor
 */
 var ChordCollection = function ChordCollection(chords, name, name2) {
-    // if (!(chords instanceof Array)) throw new Error("chords must be an array of Chord"); !!! this needs to work with prototype inheritance!!!!
     this._name   = name  || "";
     this._name2  = name2 || "";
     this._chords = chords;
@@ -516,29 +500,29 @@ ChordCollection.prototype.setChords = function (newChords) {
 //        Accessors
 // ------------------------
 
-ChordCollection.prototype.getSize = function(){
+ChordCollection.prototype.getSize = function () {
     return this._chords.length;
 };
 
-ChordCollection.prototype.getChords = function(){
+ChordCollection.prototype.getChords = function () {
     return this._chords;
 };
 
-ChordCollection.prototype.getChordsNames = function(){
+ChordCollection.prototype.getChordsNames = function () {
     var returnString = "";
     for (var i in this._chords)
         returnString += this._chords[i]._name + " ";
     return returnString;
 };
 
-ChordCollection.prototype.getChordsNotesAsString = function(){
+ChordCollection.prototype.getChordsNotesAsString = function () {
     var returnString = "";
     for (var i in this._chords)
         returnString += "< " + this._chords[i].getNotesAsString() + "> ";
     return returnString;
 };
 
-ChordCollection.prototype.toString = function(){
+ChordCollection.prototype.toString = function () {
     var returnString = "name=" + this._name + "\nname2=" + this._name2 + "\nsize=" + this.getSize();
     returnString += "\n\nchords= ";
     for (var i in this._chords){
@@ -548,6 +532,24 @@ ChordCollection.prototype.toString = function(){
     }
     return returnString;
 };
+
+// ------------------------
+//      Other Methods
+// ------------------------
+
+/** Creates a swallow copy of this. */
+ChordCollection.prototype.copy = function () {
+    return new ChordCollection(this._chords, this._name, this._name2);
+};
+
+/** Checks for equality. */
+ChordCollection.prototype.equals = function (that) {
+    if (typeof that !== "object" || that.constructor.name !== this.constructor.name) {
+        return false;
+    }
+};
+
+
 
 // =========================================================================
 //                                Harmony
