@@ -125,28 +125,29 @@ function testNote() {
         A2 = A1.copy(),
         M1 = new sounds.Note();
     
-    ae(M1.getName()     , "");
-    ae(M1.getName2()    , "");
-    ae(M1.getOctave()   , 0);
-    ae(M1.getFreq()     , 0);
-    ae(F1.getName()     , "F1");
-    ae(F1.getName2()    , "1F");
-    ae(F1.getFreq()     , 0);
-    ae(F1.getOctave()   , 0);
-    ae(J1.getName()     , "");
-    ae(J1.getName2()    , "");
-    ae(J1.getFreq()     , 1000);
-    ae(J1.getOctave()   , 1);
-    ae(A1.getName()     , "A");
-    ae(A1.getFreq()     , 440.000);
-    ae(A1.getOctave()   , 4);
-    ae(A1.toString()    , "name=A name2=La freq=440 octave=4");
-    ae(A1.equals(A2)    , true);
-    ae(H1.equals(A2)    , false);
-    ae(A1.equals(1)     , false);
-    ae(A1.equals(false) , false);
-    ae(A1.equals("foo") , false);
-    ae(A3.equals(A1)    , false);
+    ae(M1.getName(), "");
+    ae(M1.getName2(), "");
+    ae(M1.getOctave(), 0);
+    ae(M1.getFreq(), 0);
+    ae(F1.getName(), "F1");
+    ae(F1.getName2(), "1F");
+    ae(F1.getFreq(), 0);
+    ae(F1.getOctave(), 0);
+    ae(J1.getName(), "");
+    ae(J1.getName2(), "");
+    ae(J1.getFreq(), 1000);
+    ae(J1.getOctave(), 1);
+    ae(A1.getName(), "A");
+    ae(A1.getFreq(), 440.000);
+    ae(A1.getOctave(), 4);
+    ae(A1.toString(), "name=A name2=La freq=440 octave=4");
+    ae(A1.equals(A2), true);
+    ae(H1.equals(A2), false);
+    ae(A1.equals(1), false);
+    ae(A1.equals(false), false);
+    ae(A1.equals("foo"), false);
+    ae(A3.equals(A1), false);
+    ae(A3.equals({}), false);
     adiff(A1, A2);
 }
 
@@ -221,13 +222,13 @@ function testNoteCollection() {
             var index,
                 ABCNotes  = ABC.getNotes(),
                 ABC4Notes = ABC4.getNotes();
-            for (index = 0; index < ABC.length; index += 1) {
+            for (index = 0; index < ABCNotes.length; index += 1) {
                 if (ABCNotes[index] === ABC4Notes[index]) {
                     return false;
                 }
             }
             return true;
-        })(),
+        }()),
         true);
         
     // Mutation:
@@ -294,7 +295,9 @@ function testNoteCollection() {
     aea(BCD.getNotes() , [A, G]);
 }
 
-// Chord access and mutation
+// =========================================================================
+//                                 Chord 
+// =========================================================================
 aea(CEG.toIndexes(), [0, 4, 7]);
 ae(CEG.getNotesAsString() , "C E G ");
 CEG.invert(1);
@@ -319,15 +322,85 @@ CEG.reset();
 ae(CEG.getNotesAsString() , "C E G ");
 
 
-// Scale access and mutation
+// =========================================================================
+//                                Scale
+// =========================================================================
 ae(CM.toFormula().toString() , [2,2,1,2,2,2,1].toString());
 
-// ChordCollection access and mutation
-ae(chc1.getChordsNames() , "C major A minor F major ");
-ae(chc1.getSize() , 3);
+// =========================================================================
+//                           Chord Collection
+// =========================================================================
+var testChordCollection = function () {
+    var A  = new sounds.Note("A",  440.000, 4, "La"),
+        Bb = new sounds.Note("Bb", 466.164, 4),
+        B  = new sounds.Note("B",  493.883, 4, "Si"),
+        C  = new sounds.Note("C",  523.251, 5, "Do"),
+        Db = new sounds.Note("Db", 554.365, 5),
+        D  = new sounds.Note("D",  587.330, 5, "Re"),
+        Eb = new sounds.Note("Eb", 622.254, 5),
+        E  = new sounds.Note("E",  659.255, 5),
+        F  = new sounds.Note("F",  698.456, 5),
+        Gb = new sounds.Note("Gb", 739.989, 5),
+        G  = new sounds.Note("G",  783.991, 5, "Sol"),
+        Ab = new sounds.Note("Ab", 830.609, 5),
+        CEG  = new sounds.Chord([C, E, G], "C major"),
+        ACE  = new sounds.Chord([A, C, E], "A minor"),
+        FAC  = new sounds.Chord([F, A, C], "F major"),
+        DFA  = new sounds.Chord([D, F, A], "D minor"),
+        chc1 = new sounds.ChordCollection([CEG, ACE, FAC], "chc1", "lala"),
+        chc3 = new sounds.ChordCollection(),
+        chc4 = new sounds.ChordCollection([DFA, FAC, ACE, CEG], "chc4"),
+        chc5 = new sounds.ChordCollection({chords: [CEG, DFA]}),
+        chc6 = chc5.deepCopy(),
+        chc2 = chc1.copy();
 
-// Harmony access and mutation
-ae(h1.getChordsNames() , "C major A minor F major ");
+    ae(chc1.getChordsNames(), "C major A minor F major ");
+    ae(chc1.getSize(), 3);
+    ae(chc1.getName2(), "lala");
+    aea(chc4.getChords(), [DFA, FAC, ACE, CEG]);
+    ae(chc5.getName(), "");
+    ae(chc1.equals(chc2), true);
+    ae(chc1.equals([]), false);
+    ae(chc4.equals(chc1), false);
+    ae(chc2.equals(chc3), false);
+
+    // Check if deep copy: (chord equality and reference difference)
+    ae(chc5.equals(chc6), true);
+    ae(function () {
+           var chordIndex,
+               noteIndex,
+               chc5Chord,
+               chc6Chord,
+               chc5ChordNotes,
+               chc6ChordNotes,
+               chc5Chords = chc5.getChords(),
+               chc6Chords = chc6.getChords();
+           for (chordIndex = 0; chordIndex < chc5Chords.length; chordIndex += 1) {
+               chc5Chord = chc5Chords[chordIndex];
+               chc6Chord = chc6Chords[chordIndex];
+               if (chc5Chord === chc6Chord) {
+                   return false;
+               }
+               chc5ChordNotes = chc5Chord.getNotes();
+               chc6ChordNotes = chc6Chord.getNotes();
+               for (noteIndex = 0; noteIndex < chc5ChordNotes.length; noteIndex += 1) {
+                   if (chc5ChordNotes[noteIndex] === chc6ChordNotes[noteIndex]) {
+                       return false;
+                   }
+                   if (!chc5ChordNotes[noteIndex].equals(chc6ChordNotes[noteIndex])){
+                       return false;
+                   }
+               }
+           }
+           return true;
+       }(),
+       true);
+
+};
+// =========================================================================
+//                               Harmony
+// =========================================================================
+ae(h1.getChordsNames(), "C major A minor F major ");
 
 // NoteCollection.toFormula()
 ae(CEG.toFormula().toString()  , [4 ,3, 5].toString());
@@ -490,6 +563,7 @@ function testHarmonize(){
 // Perform tests:
 testNote();
 testNoteCollection();
+testChordCollection();
 testToFormula();
 testIdentify();
 testHarmonize();

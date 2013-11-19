@@ -104,7 +104,7 @@ Note.prototype.toString = function () {
 
 /** Creates a copy of this. */
 Note.prototype.copy = function () {
-    return new Note(this._name, this._freq, this._octave, this._name2);
+    return new this.constructor(this._name, this._freq, this._octave, this._name2);
 };
 
 /** Checks equality. */
@@ -356,19 +356,13 @@ NoteCollection.prototype.toFormula = function (pool) {
 
 /** Creates a swallow copy of this. */
 NoteCollection.prototype.copy = function () {
-    return new NoteCollection(this._notes, this._name, this._name2);
+    return new this.constructor(this._notes, this._name, this._name2);
 };
 
 /** Creates a deep copy of this. */
 NoteCollection.prototype.deepCopy = function () {
-    var index,
-        thisNotes = this._notes,
-        thatNotes = [],
-        length    = thisNotes.length;
-    for (index = 0; index < length; index += 1) {
-        thatNotes.push(thisNotes[index].copy());
-    }
-    return new NoteCollection(thatNotes, this._name, this._name2);
+    return new this.constructor(processing.createArrayDeepCopy(this._notes),
+                              this._name, this._name2);
 };
 
 /** Checks equality bewteen this._notes and a Note array. */
@@ -481,9 +475,11 @@ Scale.prototype.constructor = Scale;
 * @constructor
 */
 var ChordCollection = function ChordCollection(chords, name, name2) {
-    this._name   = name  || "";
-    this._name2  = name2 || "";
-    this._chords = chords;
+    this._name   = name  || (chords && chords.name)  || "";
+    this._name2  = name2 || (chords && chords.name2) || "";
+    this._chords = chords instanceof Array ?
+                   chords :
+                   (chords && chords.chords) || [];
 };
 
 // ------------------------
@@ -499,6 +495,14 @@ ChordCollection.prototype.setChords = function (newChords) {
 // ------------------------
 //        Accessors
 // ------------------------
+
+ChordCollection.prototype.getName = function () {
+    return this._name;
+};
+
+ChordCollection.prototype.getName2 = function () {
+    return this._name2;
+};
 
 ChordCollection.prototype.getSize = function () {
     return this._chords.length;
@@ -539,16 +543,32 @@ ChordCollection.prototype.toString = function () {
 
 /** Creates a swallow copy of this. */
 ChordCollection.prototype.copy = function () {
-    return new ChordCollection(this._chords, this._name, this._name2);
+    return new this.constructor(this._chords, this._name, this._name2);
 };
 
-/** Checks for equality. */
-ChordCollection.prototype.equals = function (that) {
-    if (typeof that !== "object" || that.constructor.name !== this.constructor.name) {
+/** Creates a deep copy of this. */
+ChordCollection.prototype.deepCopy = function () {
+    return new this.constructor(processing.createArrayDeepCopy(this._chords),
+                               this._name, this._name2);
+};
+
+/** Checks for equality between this._chords and an array of chords. */
+ChordCollection.prototype.chordEquals = function (thatChords) {
+    if (!(thatChords instanceof Array) || !(thatChords[0] instanceof Chord)) {
         return false;
     }
+    return processing.objectArrayEquals(thatChords, this._chords);
 };
 
+/** Checks for equality for this. */
+ChordCollection.prototype.equals = function (that) {
+    if (typeof that !== "object" || that.constructor.name !== this.constructor.name){
+        return false;
+
+    }
+    return this._name === that.getName() && this._name2 === that.getName2() &&
+           this.chordEquals(that.getChords());
+};
 
 
 // =========================================================================
