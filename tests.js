@@ -140,7 +140,7 @@ function testNote() {
     ae(A1.getName(), "A");
     ae(A1.getFreq(), 440.000);
     ae(A1.getOctave(), 4);
-    ae(A1.toString(), "name=A name2=La freq=440 octave=4");
+    ae(A1.toString(), "<A La>");
     ae(A1.equals(A2), true);
     ae(H1.equals(A2), false);
     ae(A1.equals(1), false);
@@ -325,10 +325,10 @@ ae(CEG.getNotesAsString() , "C E G ");
 // =========================================================================
 //                                Scale
 // =========================================================================
-ae(CM.toFormula().toString() , [2,2,1,2,2,2,1].toString());
+aea(CM.toFormula(), [2,2,1,2,2,2,1]);
 
 // =========================================================================
-//                           Chord Collection
+//                            ChordCollection
 // =========================================================================
 var testChordCollection = function () {
     var A  = new sounds.Note("A",  440.000, 4, "La"),
@@ -407,16 +407,16 @@ var testChordCollection = function () {
 ae(h1.getChordsNames(), "C major A minor F major ");
 
 // NoteCollection.toFormula()
-ae(CEG.toFormula().toString()  , [4 ,3, 5].toString());
-ae(FAC.toFormula().toString()  , [4, 3, 5].toString());
-ae(ACE.toFormula().toString()  , [3, 4, 5].toString());
-ae(DFA.toFormula().toString()  , [3, 4, 5].toString());
-ae(CEGB.toFormula().toString() , [4, 3, 4, 1].toString());
-ae(FACE.toFormula().toString() , [4, 3, 4, 1].toString());
-ae(ACEG.toFormula().toString() , [3, 4, 3, 2].toString());
-ae(DFAC.toFormula().toString() , [3, 4, 3, 2].toString());
-ae(CFG.toFormula().toString()  , [5, 2, 5].toString());
-ae(CDG.toFormula().toString()  , [2, 5, 5].toString());
+aea(CEG.toFormula()  , [4 ,3, 5]);
+aea(FAC.toFormula()  , [4, 3, 5]);
+aea(ACE.toFormula()  , [3, 4, 5]);
+aea(DFA.toFormula()  , [3, 4, 5]);
+aea(CEGB.toFormula() , [4, 3, 4, 1]);
+aea(FACE.toFormula() , [4, 3, 4, 1]);
+aea(ACEG.toFormula() , [3, 4, 3, 2]);
+aea(DFAC.toFormula() , [3, 4, 3, 2]);
+aea(CFG.toFormula()  , [5, 2, 5]);
+aea(CDG.toFormula()  , [2, 5, 5]);
 
 // processing stepCount
 ae(processing.stepCount(A, Bb) , 1);

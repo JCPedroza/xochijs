@@ -92,8 +92,17 @@ Note.prototype.getName2 = function () {
     return this._name2;
 };
 
-/** Returns the object state as a string. */
+/** Returns a string representation of the object. */
 Note.prototype.toString = function () {
+    var theName = this._name;
+    if (this._name2 !== "") {
+        theName += (" " + this._name2);
+    }
+    return "<" + theName + ">";
+};
+
+/** Returns the object state as a string. */
+Note.prototype.toStringDetailed = function () {
     return "name=" + this._name + " name2=" + this._name2 +
            " freq=" + this._freq + " octave=" + this._octave;
 };
