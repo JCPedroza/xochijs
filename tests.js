@@ -356,6 +356,8 @@ var testChordCollection = function () {
         chc6 = chc5.deepCopy(),
         chc2 = chc1.copy();
 
+    ae(chc1.toString(), "<chc1 lala>");
+    ae(chc4.toString(), "<chc4>");
     ae(chc3.getName(), "");
     aea(chc3.getChords(), []);
     ae(chc1.getChordsNames(), "C major A minor F major ");

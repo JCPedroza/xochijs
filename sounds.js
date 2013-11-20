@@ -279,13 +279,13 @@ NoteCollection.prototype.toStringDetailed = function () {
     returnString += "\nnotes=\n";
     for (i in this._notes) {
         if (this._notes.hasOwnProperty(i)) {
-            returnString += ("<" + this._notes[i].toString() + ">");
+            returnString += ("<" + this._notes[i].toStringDetailed() + ">");
         }
     }
     returnString += "\nnotes2=\n";
     for (j in this._notes2) {
         if (this._notes2.hasOwnProperty(j)) {
-            returnString += ("<" + this._notes2[j].toString() + ">");
+            returnString += ("<" + this._notes2[j].toStringDetailed() + ">");
         }
     }
     return returnString;
@@ -573,6 +573,14 @@ ChordCollection.prototype.getChordsNotesAsString = function () {
 };
 
 ChordCollection.prototype.toString = function () {
+    var theName = this._name;
+    if (this._name2 !== "") {
+        theName += (" " + this._name2);
+    }
+    return "<" + theName + ">";
+};
+
+ChordCollection.prototype.toStringDetailed = function () {
     var i,
         returnString = "name=" + this._name + "\nname2=" + this._name2 +
                        "\nsize=" + this.getSize();
@@ -580,7 +588,7 @@ ChordCollection.prototype.toString = function () {
     for (i in this._chords) {
         if (this._chords.hasOwnProperty(i)) {
             returnString += "\n<<<\n";
-            returnString += this._chords[i].toString();
+            returnString += this._chords[i].toStringDetailed();
             returnString += "\n>>>";
         }
     }
