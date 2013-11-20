@@ -499,6 +499,14 @@ function testToFormula(){
 }
 
 // =========================================================================
+//                      processing.toFlat()
+// =========================================================================
+var testToFlat = function () {
+    ae(processing.toFlat("D#"), "Eb");
+    ae(processing.toFlat("B#"), "C");
+};
+
+// =========================================================================
 //                      processing.toFlats()
 // =========================================================================
 var testToFlats = function () {
@@ -508,6 +516,7 @@ var testToFlats = function () {
     aea(processing.toFlats(["C#", "Db", "D#", "Eb", "B#", "C"]), ["Db", "Db", "Eb", "Eb", "C", "C"]);
     aea(processing.toFlats(["C", "D", "D#", "F", "G", "G#", "A#"]), ["C", "D", "Eb", "F", "G", "Ab", "Bb"]);
 };
+
 
 // =========================================================================
 //                          identify.chord() 
@@ -584,6 +593,7 @@ testNote();
 testNoteCollection();
 testChordCollection();
 testToFormula();
+testToFlat();
 testToFlats();
 testIdentify();
 testHarmonize();

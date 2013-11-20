@@ -216,26 +216,36 @@ var createArrayDeepCopy = function (theArray) {
 };
 
 // ===========================================
+//                  toFlat
+// ===========================================
+/** Converts a sharp note into its enharmonic flat. */
+var toFlat = function (note) {
+    if (typeof note !== "string") {
+        throw new TypeError("note must be string");
+    }
+    var indexCheck,
+        pool       = formulas.ET12POOL,
+        poolLength = pool.length;
+    if (note[1] && note[1] === "#") {
+        indexCheck = pool.indexOf(note[0]);
+        if (indexCheck === -1) {
+            throw new Error("note not found in pool");
+        }
+        return pool[(indexCheck + 1) % poolLength];
+    }
+    return note;
+};
+
+// ===========================================
 //                   toFlats
 // ===========================================
 /** Converts all the sharps in an array of note names to their enharmonic flat. */
 var toFlats = function (notes) {
-    var currentNote,
-        index,
-        indexOf,
+    var index,
         length      = notes.length,
-        pool        = formulas.ET12POOL,
-        poolLength  = pool.length,
         returnArray = [];
     for (index = 0; index < length; index += 1) {
-        currentNote = notes[index];
-        if (currentNote[1] && currentNote[1] === "#") {
-            indexOf = (pool.indexOf(currentNote[0]) + 1) % poolLength;
-            returnArray.push(pool[indexOf]);
-        } else {
-            returnArray.push(currentNote);
-        }
-
+        returnArray.push(toFlat(notes[index]));
     }
     return returnArray;
 };
@@ -252,4 +262,5 @@ exports.toFormula           = toFormula;
 exports.fromFormulaToNotes  = fromFormulaToNotes;
 exports.objectArrayEquals   = objectArrayEquals;
 exports.createArrayDeepCopy = createArrayDeepCopy;
+exports.toFlat              = toFlat;
 exports.toFlats             = toFlats;
