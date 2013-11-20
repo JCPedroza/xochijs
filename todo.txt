@@ -1,8 +1,6 @@
 
 - implement valueOf and toString to all your classes and objects
 
-- Make a separate toString and toStringDetailed for your objects.
-
 - chord identification algorithm 
     - alt chords
 
