@@ -354,6 +354,8 @@ var testChordCollection = function () {
         chc6 = chc5.deepCopy(),
         chc2 = chc1.copy();
 
+    ae(chc3.getName(), "");
+    aea(chc3.getChords(), []);
     ae(chc1.getChordsNames(), "C major A minor F major ");
     ae(chc1.getSize(), 3);
     ae(chc1.getName2(), "lala");
@@ -365,6 +367,8 @@ var testChordCollection = function () {
     ae(chc2.equals(chc3), false);
 
     // Check if deep copy: (chord equality and reference difference)
+    // Checks that members of collections are equal, while not being the
+    // same object:
     ae(chc5.equals(chc6), true);
     ae(function () {
            var chordIndex,
