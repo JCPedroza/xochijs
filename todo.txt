@@ -1,6 +1,4 @@
 
-- Current: object specifiers, copy, equals
-
 - chord identification algorithm (on it)
     - alt chords
 
@@ -8,10 +6,8 @@
 
 - another toFormula but with formula taking always the root as reference.
 
-    - creation of chord objects and similar must accept variable arguments as input
-
 - "deconstructor" iterates through all permutations of different sizes (max the original size), to see what chords are 
-    inside a collection of notesg
+    inside a collection of notes
 
 - constants like formula object names to upper case
 
@@ -33,18 +29,6 @@
 
 - Pool data structure: should it be also an array of Note? And itself be an object?
 
-- Change your OOP to one that uses the prototype; and one that can recognize inheritance chain using instanceof
-
-- Classes in sounds that use typechecking in the constructor need to be able to handle prototype inheritance (the calling of the constructor without arguments)
-
-- Consctructors accepting object specifiers (TGP pdf page 66 book page 50)
-
-- Copy methods for all prototypes.
-
-- Think about swallow copies, like in slice in original notes, do you really need deep copies? 
-
 - Should Note first argument should be freq?
 
 - Make a separate toString and toStringDetailed for your objects.
-
-- Seems that using the arguments object is slow, try to find a better way to handle things.
