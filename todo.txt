@@ -1,5 +1,9 @@
 
-- chord identification algorithm (on it)
+- implement valueOf and toString to all your classes and objects
+
+- Make a separate toString and toStringDetailed for your objects.
+
+- chord identification algorithm 
     - alt chords
 
 - interval : from step to name "minor second", "perfect fifth", etc.
@@ -17,8 +21,6 @@
 
 - sharp to standard mode (flat) transformer to deal internally only with flats
 
-- implement valueOf and toString to all your classes and objects
-
 - process.toFormula needs to handle other data types
 
 - (IDEA): give more than 12 possible chord recognition results, analyze the chord with every step of the formula as the root, 
@@ -31,4 +33,4 @@
 
 - Should Note first argument should be freq?
 
-- Make a separate toString and toStringDetailed for your objects.
+
