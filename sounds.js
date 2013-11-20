@@ -146,7 +146,7 @@ var NoteCollection = function NoteCollection(notes, name, name2) {
 
 /** Change the notes. */
 NoteCollection.prototype.setNotes = function (notes) {
-    if (!(notes instanceof Array)){
+    if (!(notes instanceof Array)) {
         throw new Error("notes must be an array of Note");
     }
     this._notes = notes;
@@ -155,7 +155,7 @@ NoteCollection.prototype.setNotes = function (notes) {
 
 /** Adds one note. */
 NoteCollection.prototype.addNote = function (note) {
-    if (!(note instanceof Note)){
+    if (!(note instanceof Note)) {
         throw new Error("note must be a Note object");
     }
     this._notes.push(note);
@@ -210,37 +210,41 @@ NoteCollection.prototype.removeNoteAt = function (index) {
 /** Removes all the notes with given name. */
 NoteCollection.prototype.removeNotesWithName = function (name) {
     this._notes = this._notes.filter(
-        function(element) {
+        function (element) {
             return element.getName() !== name;
-        });
+        }
+    );
     return this;
 };
 
 /** Removes all the notes with given secondary name (name2). */
 NoteCollection.prototype.removeNotesWithName2 = function (name) {
     this._notes = this._notes.filter(
-        function(element) {
+        function (element) {
             return element.getName2() !== name;
-        });
+        }
+    );
     return this;
 };
 
 /** Removes all the notes with given frequency. */
 NoteCollection.prototype.removeNotesWithFreq = function (freq) {
     this._notes = this._notes.filter(
-        function(element) {
+        function (element) {
             return element.getFreq() !== freq;
-        });
+        }
+    );
     return this;
 };
 
 /** Removes all the notes within a frequency range, inclusive. */
 NoteCollection.prototype.removeNotesWithFreqRange = function (fromFreq, toFreq) {
     this._notes = this._notes.filter(
-        function(element) {
+        function (element) {
             var thisFreq = element.getFreq();
             return thisFreq < fromFreq || thisFreq > toFreq;
-        });
+        }
+    );
     return this;
 };
 
@@ -256,11 +260,15 @@ NoteCollection.prototype.toString = function () {
 
     returnString += "\nnotes=\n";
     for (i in this._notes) {
-        returnString += ("<" + this._notes[i].toString() + ">");
+        if (this._notes.hasOwnProperty(i)) {
+            returnString += ("<" + this._notes[i].toString() + ">");
+        }
     }
     returnString += "\nnotes2=\n";
     for (j in this._notes2) {
-        returnString += ("<" + this._notes2[j].toString() + ">");
+        if (this._notes2.hasOwnProperty(j)) {
+            returnString += ("<" + this._notes2[j].toString() + ">");
+        }
     }
     return returnString;
 };
@@ -295,7 +303,9 @@ NoteCollection.prototype.getNotesAsString = function () {
     var note,
         returnString = "";
     for (note in this._notes) {
-        returnString += this._notes[note].getName() + " ";
+        if (this._notes.hasOwnProperty(note)) {
+            returnString += this._notes[note].getName() + " ";
+        }
     }
     return returnString;
 };
@@ -305,7 +315,9 @@ NoteCollection.prototype.getOriginalNotesAsString = function () {
     var note,
         returnString = "";
     for (note in this._notes2) {
-        returnString += this._notes2[note].getName() + " ";
+        if (this._notes2.hasOwnProperty(note)) {
+            returnString += this._notes2[note].getName() + " ";
+        }
     }
     return returnString;
 };
@@ -315,7 +327,9 @@ NoteCollection.prototype.getFreqsAsString = function () {
     var note,
         returnString = "";
     for (note in this._notes) {
-        returnString += this._notes[note].getFreq() + " ";
+        if (this._notes.hasOwnProperty(note)) {
+            returnString += this._notes[note].getFreq() + " ";
+        }
     }
     return returnString;
 };
@@ -326,7 +340,9 @@ NoteCollection.prototype.toIndexes = function (pool) {
         thePool = pool || formulas.ET12POOL,
         returnArray = [];
     for (note in this._notes) {
-        returnArray.push(thePool.indexOf(this._notes[note].getName()));
+        if (this._notes.hasOwnProperty(note)) {
+            returnArray.push(thePool.indexOf(this._notes[note].getName()));
+        }
     }
     return returnArray;
 };
@@ -340,7 +356,7 @@ NoteCollection.prototype.toFormula = function (pool) {
         returnArray   = [],
         formulaLength = indexArray.length,
         poolLength    = thePool.length;
-    for (i = 0; i < formulaLength; i++) {
+    for (i = 0; i < formulaLength; i += 1) {
         sum = indexArray[i] - indexArray[(i + 1) % formulaLength];
         if (sum > 0) {
             sum -= poolLength;
@@ -367,7 +383,7 @@ NoteCollection.prototype.deepCopy = function () {
 
 /** Checks equality bewteen this._notes and a Note array. */
 NoteCollection.prototype.noteEquals = function (thatNotes) {
-    if (!(thatNotes instanceof Array) || !(thatNotes[0] instanceof Note)){
+    if (!(thatNotes instanceof Array) || !(thatNotes[0] instanceof Note)) {
         return false;
     }
     return processing.objectArrayEquals(thatNotes, this._notes);
@@ -375,7 +391,7 @@ NoteCollection.prototype.noteEquals = function (thatNotes) {
 
 /** Checks equality, without including this._notes2. */
 NoteCollection.prototype.equals = function (that) {
-    if (typeof that !== "object" || that.constructor.name !== this.constructor.name){
+    if (typeof that !== "object" || that.constructor.name !== this.constructor.name) {
         return false;
     }
     return this._name === that.getName() && this._name2 === that.getName2() &&
@@ -401,7 +417,7 @@ NoteCollection.prototype.strictEquals = function (that) {
 * @param name2 Secondary name for the NoteCollection (optional).
 */
 var Chord = function Chord(notes, name, name2) {
-    NoteCollection.apply(this, arguments);  // inherits from NoteCollection
+    NoteCollection.call(this, notes, name, name2);  // inherits from NoteCollection
 };
 
 // ------------------------
@@ -417,16 +433,18 @@ Chord.prototype.constructor = Chord;
 
 /** Sets notes to nth inversion. Sets to previous inversions if n is negative. */ // !!! can this be done more efficiently?
 Chord.prototype.invert = function (n) {
-    if (typeof(n) !== "number") {
+    var i,
+        j;
+    if (typeof n !== "number") {
         throw new Error("n must be a number");
     }
     if (n > 0) {
-        for (var i = 0; i < n; i++) {
+        for (i = 0; i < n; i += 1) {
             this.rotate();
         }
     }
     if (n < 0) {
-        for (var j = 0; j > n; j--) {
+        for (j = 0; j > n; j -= 1) {
             this.rotateBack();
         }
     }
@@ -438,7 +456,7 @@ Chord.prototype.invert = function (n) {
 * Sets to previous inversions if n is negative.
 */
 Chord.prototype.invertOriginal = function (n) {
-    if (typeof(n) !== "number") {
+    if (typeof n !== "number") {
         throw new Error("n must be of type number");
     }
     this.reset();
@@ -456,7 +474,7 @@ Chord.prototype.invertOriginal = function (n) {
 * @constructor
 */
 var Scale = function Scale(notes, name, name2) {
-    NoteCollection.apply(this, arguments);  // inherits from NoteCollection
+    NoteCollection.call(this, notes, name, name2);  // inherits from NoteCollection
 };
 
 // ------------------------
@@ -487,7 +505,9 @@ var ChordCollection = function ChordCollection(chords, name, name2) {
 // ------------------------
 
 ChordCollection.prototype.setChords = function (newChords) {
-    if (!(newChords instanceof Array)) throw new Error("chords must be an array of Chord");
+    if (!(newChords instanceof Array)) {
+        throw new Error("chords must be an array of Chord");
+    }
     this._chords = newChords;
     return this;
 };
@@ -513,26 +533,38 @@ ChordCollection.prototype.getChords = function () {
 };
 
 ChordCollection.prototype.getChordsNames = function () {
-    var returnString = "";
-    for (var i in this._chords)
-        returnString += this._chords[i]._name + " ";
+    var i,
+        returnString = "";
+    for (i in this._chords) {
+        if (this._chords.hasOwnProperty(i)) {
+            returnString += this._chords[i]._name + " ";
+        }
+    }
     return returnString;
 };
 
 ChordCollection.prototype.getChordsNotesAsString = function () {
-    var returnString = "";
-    for (var i in this._chords)
-        returnString += "< " + this._chords[i].getNotesAsString() + "> ";
+    var i,
+        returnString = "";
+    for (i in this._chords) {
+        if (this._chords.hasOwnProperty(i)) {
+            returnString += "< " + this._chords[i].getNotesAsString() + "> ";
+        }
+    }
     return returnString;
 };
 
 ChordCollection.prototype.toString = function () {
-    var returnString = "name=" + this._name + "\nname2=" + this._name2 + "\nsize=" + this.getSize();
+    var i,
+        returnString = "name=" + this._name + "\nname2=" + this._name2 +
+                       "\nsize=" + this.getSize();
     returnString += "\n\nchords= ";
-    for (var i in this._chords){
-        returnString += "\n<<<\n";
-        returnString += this._chords[i].toString();
-        returnString += "\n>>>";
+    for (i in this._chords) {
+        if (this._chords.hasOwnProperty(i)) {
+            returnString += "\n<<<\n";
+            returnString += this._chords[i].toString();
+            returnString += "\n>>>";
+        }
     }
     return returnString;
 };
@@ -562,14 +594,13 @@ ChordCollection.prototype.chordEquals = function (thatChords) {
 
 /** Checks for equality for this. */
 ChordCollection.prototype.equals = function (that) {
-    if (typeof that !== "object" || that.constructor.name !== this.constructor.name){
+    if (typeof that !== "object" || that.constructor.name !== this.constructor.name) {
         return false;
 
     }
     return this._name === that.getName() && this._name2 === that.getName2() &&
            this.chordEquals(that.getChords());
 };
-
 
 // =========================================================================
 //                                Harmony
@@ -579,8 +610,8 @@ ChordCollection.prototype.equals = function (that) {
 * Represents a group of chords.
 * @constructor
 */
-var Harmony = function Harmony(chords, name, name2){
-    ChordCollection.apply(this, arguments);  // Inherits from ChordCollection.
+var Harmony = function Harmony(chords, name, name2) {
+    ChordCollection.call(this, chords, name, name2);  // Inherits from ChordCollection.
 };
 
 // ------------------------
