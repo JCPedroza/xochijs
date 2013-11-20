@@ -92,7 +92,7 @@ Note.prototype.getName2 = function () {
     return this._name2;
 };
 
-/** Returns a string representation of the object. */
+/** Returns a string representation of this. */
 Note.prototype.toString = function () {
     var theName = this._name;
     if (this._name2 !== "") {
@@ -261,8 +261,17 @@ NoteCollection.prototype.removeNotesWithFreqRange = function (fromFreq, toFreq) 
 //        Accessors
 // ------------------------
 
-/** Returns the object state as a string. */
+/** Returns a string representation of the object. */
 NoteCollection.prototype.toString = function () {
+    var theName = this._name;
+    if (this._name2 !== "") {
+        theName += (" " + this._name2);
+    }
+    return "<" + theName + ">";
+};
+
+/** Returns the object state as a string. */
+NoteCollection.prototype.toStringDetailed = function () {
     var i,
         j,
         returnString = "name=" + this._name + "\nname2=" + this._name2 + "\nsize=" + this.getSize();

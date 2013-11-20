@@ -176,6 +176,8 @@ function testNoteCollection() {
         BCD  = new sounds.NoteCollection([B, C, D], "BCD");
 
     // Accessors
+    ae(CDE.toString(), "<CDE DoReMi>");
+    ae(ABC3.toString(), "<name>");
     ae(JJJ.getSize(), 0);
     ae(JJJ.getName(), "");
     ae(JJJ.getName2(), "");
