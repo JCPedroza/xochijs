@@ -230,10 +230,7 @@ var toFlats = function (notes) {
     for (index = 0; index < length; index += 1) {
         currentNote = notes[index];
         if (currentNote[1] && currentNote[1] === "#") {
-            indexOf = pool.indexOf(currentNote[0]) + 1;
-            if (indexOf > poolLength - 1) {
-                indexOf -= poolLength;
-            }
+            indexOf = (pool.indexOf(currentNote[0]) + 1) % poolLength;
             returnArray.push(pool[indexOf]);
         } else {
             returnArray.push(currentNote);
