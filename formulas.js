@@ -1,5 +1,19 @@
+/** @module formulas */
 /* jslint node: true */
 "use strict";
+
+// ===========================================
+//   Equal Temperament 12 Semi-tones Values
+// ===========================================
+var ET12POOL_VALUES = {
+    "C" : 0,
+    "D" : 2,
+    "E" : 4,
+    "F" : 5,
+    "G" : 7,
+    "A" : 9,
+    "B" : 11
+};
 
 // ===========================================
 //      Equal Temperament 12 semi-tones pool
@@ -167,3 +181,4 @@ exports.threeNoteChords = threeNoteChords;
 exports.fourNoteChords  = fourNoteChords;
 exports.fiveNoteChords  = fiveNoteChords;
 exports.ET12POOL        = ET12POOL;
+exports.ET12POOL_VALUES = ET12POOL_VALUES;
