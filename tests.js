@@ -517,6 +517,37 @@ var testToFlats = function () {
     aea(processing.toFlats(["C", "D", "D#", "F", "G", "G#", "A#"]), ["C", "D", "Eb", "F", "G", "Ab", "Bb"]);
 };
 
+// =========================================================================
+//                      processing.toSharp()
+// =========================================================================
+// var testToSharp = function () {
+//     console.log(":D")
+//     ae(processing.toSharp("Db"), "C#");
+//     ae(processing.toSharp("Eb"), "D#");
+//     ae(processing.toSharp("Bb"), "A#");
+//     ae(processing.toSharp("Cb"), "B");
+// };
+
+// =========================================================================
+//                      processing.turnNoteToValue
+// =========================================================================
+var testTurnNoteToValue = function () {
+    ae(processing.turnNoteToValue("C"), 0);
+    ae(processing.turnNoteToValue("B"), 11);
+    ae(processing.turnNoteToValue("C#"), 1);
+    ae(processing.turnNoteToValue("Db"), 1);
+    ae(processing.turnNoteToValue("Cb"), 11);
+    ae(processing.turnNoteToValue("B#"), 0);
+    ae(processing.turnNoteToValue("Gb"), 6);
+    ae(processing.turnNoteToValue("C##"), 2);
+    ae(processing.turnNoteToValue("C############"), 0);
+    ae(processing.turnNoteToValue("Cbbbbbbbbbbbb"), 0);
+    ae(processing.turnNoteToValue("Eb#b#b#bb##"), 4);
+    ae(processing.turnNoteToValue("G"), 7);
+    ae(processing.turnNoteToValue("Gbbbbb"), 2);
+    ae(processing.turnNoteToValue("G####"), 11);
+
+};
 
 // =========================================================================
 //                          identify.chord() 
@@ -595,9 +626,11 @@ testChordCollection();
 testToFormula();
 testToFlat();
 testToFlats();
+// testToSharp();
 testIdentify();
 testHarmonize();
 testFromFormulaToNotes();
+testTurnNoteToValue();
 
 // Print results to console:
 console.log();

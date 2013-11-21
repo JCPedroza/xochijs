@@ -241,6 +241,9 @@ var toFlat = function (note) {
 // ===========================================
 /** Converts all the sharps in an array of note names to their enharmonic flat. */
 var toFlats = function (notes) {
+    if (!(notes instanceof Array) || typeof notes[0] !== "string"){
+        throw new TypeError("argument must be an array of string");
+    }
     var index,
         length      = notes.length,
         returnArray = [];
@@ -248,6 +251,68 @@ var toFlats = function (notes) {
         returnArray.push(toFlat(notes[index]));
     }
     return returnArray;
+};
+
+// ===========================================
+//                   toSharp
+// ===========================================
+/** Converts a flat note into its enharmonic sharp equivalent. */ // !!! not working need better data structure
+// var toSharp = function (note) {
+//     if (typeof note !== "string") {
+//         throw new TypeError("note must be of string");
+//     }
+//     var indexCheck,
+//         pool       = formulas.ET12POOL,
+//         poolLength = pool.length;
+//     if (note[1] && note[1] === "b") {
+//         indexCheck = pool.indexOf(note);
+//         console.log(indexCheck)
+//         if (indexCheck === -1) {
+//             throw new Error("note not found in pool");
+//         }
+//         indexCheck = (indexCheck - 1);
+//         console.log(indexCheck)
+//         if (indexCheck < 0) {
+//             indexCheck += poolLength;
+//         }
+//         return pool[indexCheck] + "#";
+//     }
+//     return note;
+// };
+
+// ===========================================
+//              turnNoteToValue
+// ===========================================
+/** Converts a note into a value. */
+var turnNoteToValue = function (note) {
+    if (typeof note !== "string") {
+        throw new TypeError("note must be string");
+    }
+    var index,
+        modifier,
+        nameLength = note.length,
+        firstChar  = note[0],
+        poolSize   = 12,
+        value      = formulas.ET12POOL_VALUES[firstChar];
+    if (value === "undefined") {
+        throw new Error("note " + note + " not found in pool");
+    }
+    if (nameLength > 1) {
+        for (index = 1; index < nameLength; index += 1) {
+            modifier = note[index];
+            if (modifier === "#") {
+                value = (value + 1) % poolSize;
+            } else if (modifier === "b") {
+                value -= 1;
+                if (value < 0) {
+                    value += poolSize;
+                }
+            } else {
+                throw new Error("modifier " + modifier + " is not supported");
+            }
+        }
+    }
+    return value;
 };
 
 
@@ -264,3 +329,5 @@ exports.objectArrayEquals   = objectArrayEquals;
 exports.createArrayDeepCopy = createArrayDeepCopy;
 exports.toFlat              = toFlat;
 exports.toFlats             = toFlats;
+// exports.toSharp             = toSharp;
+exports.turnNoteToValue     = turnNoteToValue;
