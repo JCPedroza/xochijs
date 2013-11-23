@@ -82,12 +82,12 @@ var _getFormulas = function(chordSize){
 
 // Helper for chords(). Determines a root note of the formula. It is used for no root chords.
 var _determineRoot = function(lowest, offset){
-    if (offset === 0) return lowest;                              // Is the chord rootless?
-    var pool          = formulas.ET12POOL_VALUES;                 // The root is inside formulas.ET12POOL.
-    var indexOfLowest = pool[lowest];                             // Search for the index of the lowest note in the chords.
-    var indexOfRoot   = indexOfLowest + offset;                   // Calculate the index of the root based on the offset.
-    if (indexOfRoot < 0) indexOfRoot += pool.length;              // Correct the index if it's negative.
-    var root          = processing.turnValueToNote(indexOfRoot);  // The root of the chord.
+    if (offset === 0) return lowest;                  // Is the chord rootless?
+    var pool          = formulas.ET12POOL;            // The root is inside formulas.ET12POOL.
+    var indexOfLowest = pool.indexOf(lowest);         // Search for the index of the lowest note in the chords.
+    var indexOfRoot   = indexOfLowest + offset;       // Calculate the index of the root based on the offset.
+    if (indexOfRoot < 0) indexOfRoot += pool.length;  // Correct the index if it's negative.
+    var root          = pool[indexOfRoot];            // The root of the chord.
     return root;
 };
 
