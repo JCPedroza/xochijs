@@ -550,6 +550,16 @@ var testTurnNoteToValue = function () {
 };
 
 // =========================================================================
+//                    processing.turnNoteaToValuea
+// =========================================================================
+var testTurnNotesToValues = function () {
+    aea(processing.turnNotesToValues(["C", "C#", "D", "D#", "E", "F"]), [0, 1, 2, 3, 4, 5]);
+    aea(processing.turnNotesToValues(["F#", "G", "G#", "A", "A#", "B"]), [6, 7, 8, 9, 10, 11]);
+    aea(processing.turnNotesToValues(["B#", "Cb"]), [0, 11]);
+    aea(processing.turnNotesToValues(["E#", "Fb"]), [5, 4]);
+};
+
+// =========================================================================
 //                          identify.chord() 
 // =========================================================================
 function testIdentify(){
@@ -631,6 +641,7 @@ testIdentify();
 testHarmonize();
 testFromFormulaToNotes();
 testTurnNoteToValue();
+testTurnNotesToValues();
 
 // Print results to console:
 console.log();
