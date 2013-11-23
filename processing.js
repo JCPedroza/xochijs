@@ -315,6 +315,26 @@ var turnNoteToValue = function (note) {
     return value;
 };
 
+// ===========================================
+//             turnNotesToValues
+// ===========================================
+/** Converts a note array into a value array. */
+var turnNotesToValues = function (notes) {
+    if (!(notes instanceof Array)) {
+        throw new TypeError("notes must be an array");
+    }
+    if (typeof notes[0] !== "string") {
+        throw new TypeError("note must be string");
+    }
+    var index,
+        returnArray = [],
+        notesLength = notes.length;
+    for (index = 0; index < notesLength; index += 1) {
+        returnArray.push(turnNoteToValue(notes[index]));
+    }
+    return returnArray;
+};
+
 
 // Node exports:
 exports.arraysEqual         = arraysEqual;
@@ -331,3 +351,4 @@ exports.toFlat              = toFlat;
 exports.toFlats             = toFlats;
 // exports.toSharp             = toSharp;
 exports.turnNoteToValue     = turnNoteToValue;
+exports.turnNotesToValues   = turnNotesToValues;
