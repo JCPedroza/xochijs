@@ -223,17 +223,11 @@ var toFlat = function (note) {
     if (typeof note !== "string") {
         throw new TypeError("note must be string");
     }
-    var indexCheck,
-        pool       = formulas.ET12POOL,
-        poolLength = pool.length;
-    if (note[1] && note[1] === "#") {
-        indexCheck = pool.indexOf(note[0]);
-        if (indexCheck === -1) {
-            throw new Error("note " + note + " not found in pool");
-        }
-        return pool[(indexCheck + 1) % poolLength];
+    if (note.length !== 2 || note[1] !== "#") {
+        throw new Error("note format must be: X# (note name and a sharp)");
     }
-    return note;
+    var pool = formulas.ET12POOL;
+    return pool[(pool.indexOf(note[0]) + 1) % 12];
 };
 
 // ===========================================
@@ -262,7 +256,7 @@ var toSharp = function (note) {
         throw new TypeError("note must be of string");
     }
     if (note.length < 2 || note.length > 2 || note[1] !== "b") {
-        throw new Error("note format must be: Xb (a note  name and a flat)");
+        throw new Error("note format must be: Xb (note name and a flat)");
     }
     var newNote,
         firstChar  = note[0],

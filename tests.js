@@ -510,11 +510,10 @@ var testToFlat = function () {
 //                      processing.toFlats()
 // =========================================================================
 var testToFlats = function () {
-    aea(processing.toFlats(["C", "D", "E", "F", "G", "A", "B", "C"]), ["C", "D", "E", "F", "G", "A", "B", "C"]);
     aea(processing.toFlats(["C#", "D#", "F#", "G#", "A#"]), ["Db", "Eb", "Gb", "Ab", "Bb"]);
     aea(processing.toFlats(["E#", "B#"]), ["F", "C"]);
-    aea(processing.toFlats(["C#", "Db", "D#", "Eb", "B#", "C"]), ["Db", "Db", "Eb", "Eb", "C", "C"]);
-    aea(processing.toFlats(["C", "D", "D#", "F", "G", "G#", "A#"]), ["C", "D", "Eb", "F", "G", "Ab", "Bb"]);
+    aea(processing.toFlats(["C#", "D#", "B#"]), ["Db", "Eb", "C"]);
+    aea(processing.toFlats(["D#", "G#", "A#"]), ["Eb", "Ab", "Bb"]);
 };
 
 // =========================================================================
