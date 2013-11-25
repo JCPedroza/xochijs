@@ -520,13 +520,13 @@ var testToFlats = function () {
 // =========================================================================
 //                      processing.toSharp()
 // =========================================================================
-// var testToSharp = function () {
-//     console.log(":D")
-//     ae(processing.toSharp("Db"), "C#");
-//     ae(processing.toSharp("Eb"), "D#");
-//     ae(processing.toSharp("Bb"), "A#");
-//     ae(processing.toSharp("Cb"), "B");
-// };
+var testToSharp = function () {
+    ae(processing.toSharp("Db"), "C#");
+    ae(processing.toSharp("Eb"), "D#");
+    ae(processing.toSharp("Bb"), "A#");
+    ae(processing.toSharp("Cb"), "B");
+    ae(processing.toSharp("Fb"), "E");
+};
 
 // =========================================================================
 //                      processing.turnNoteToValue
@@ -550,7 +550,7 @@ var testTurnNoteToValue = function () {
 };
 
 // =========================================================================
-//                    processing.turnNoteaToValuea
+//                    processing.turnNotesToValues
 // =========================================================================
 var testTurnNotesToValues = function () {
     aea(processing.turnNotesToValues(["C", "C#", "D", "D#", "E", "F"]), [0, 1, 2, 3, 4, 5]);
@@ -636,7 +636,7 @@ testChordCollection();
 testToFormula();
 testToFlat();
 testToFlats();
-// testToSharp();
+testToSharp();
 testIdentify();
 testHarmonize();
 testFromFormulaToNotes();

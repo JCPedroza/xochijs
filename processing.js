@@ -229,7 +229,7 @@ var toFlat = function (note) {
     if (note[1] && note[1] === "#") {
         indexCheck = pool.indexOf(note[0]);
         if (indexCheck === -1) {
-            throw new Error("note not found in pool");
+            throw new Error("note " + note + " not found in pool");
         }
         return pool[(indexCheck + 1) % poolLength];
     }
@@ -256,29 +256,27 @@ var toFlats = function (notes) {
 // ===========================================
 //                   toSharp
 // ===========================================
-/** Converts a flat note into its enharmonic sharp equivalent. */ // !!! not working need better data structure
-// var toSharp = function (note) {
-//     if (typeof note !== "string") {
-//         throw new TypeError("note must be of string");
-//     }
-//     var indexCheck,
-//         pool       = formulas.ET12POOL,
-//         poolLength = pool.length;
-//     if (note[1] && note[1] === "b") {
-//         indexCheck = pool.indexOf(note);
-//         console.log(indexCheck)
-//         if (indexCheck === -1) {
-//             throw new Error("note not found in pool");
-//         }
-//         indexCheck = (indexCheck - 1);
-//         console.log(indexCheck)
-//         if (indexCheck < 0) {
-//             indexCheck += poolLength;
-//         }
-//         return pool[indexCheck] + "#";
-//     }
-//     return note;
-// };
+/** Converts a flat note into its enharmonic sharp equivalent. */ // 
+var toSharp = function (note) {
+    if (typeof note !== "string") {
+        throw new TypeError("note must be of string");
+    }
+    if (note.length < 2 || note.length > 2 || note[1] !== "b") {
+        throw new Error("note format must be: Xb (a note  name and a flat)");
+    }
+    var newNote,
+        firstChar  = note[0],
+        poolLength = 12,
+        value      = turnNoteToValue(note) - 1;
+    if (value < 0) {
+        value += poolLength;
+    }
+    newNote = formulas.ET12POOL[value] + "#";
+    if (newNote.length === 3) {
+        newNote = newNote[0];
+    }
+    return newNote;
+};
 
 // ===========================================
 //              turnNoteToValue
@@ -293,7 +291,7 @@ var turnNoteToValue = function (note) {
         nameLength = note.length,
         firstChar  = note[0],
         poolSize   = 12,
-        value      = formulas.ET12POOL_VALUES[firstChar];
+        value      = formulas.ET12POOL.indexOf(firstChar);
     if (value === "undefined") {
         throw new Error("note " + note + " not found in pool");
     }
@@ -327,14 +325,13 @@ var turnNotesToValues = function (notes) {
         throw new TypeError("note must be string");
     }
     var index,
-        returnArray = [],
-        notesLength = notes.length;
+        notesLength = notes.length,
+        returnArray = [];
     for (index = 0; index < notesLength; index += 1) {
         returnArray.push(turnNoteToValue(notes[index]));
     }
     return returnArray;
 };
-
 
 // Node exports:
 exports.arraysEqual         = arraysEqual;
@@ -349,6 +346,6 @@ exports.objectArrayEquals   = objectArrayEquals;
 exports.createArrayDeepCopy = createArrayDeepCopy;
 exports.toFlat              = toFlat;
 exports.toFlats             = toFlats;
-// exports.toSharp             = toSharp;
+exports.toSharp             = toSharp;
 exports.turnNoteToValue     = turnNoteToValue;
 exports.turnNotesToValues   = turnNotesToValues;
