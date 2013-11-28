@@ -19,23 +19,23 @@ var arraysEqual = function (a, b) {
     if (a === null || b === null) {
         return false;
     }
-    if (a.length != b.length) {
+    if (a.length !== b.length) {
         return false;
     }
-    if (typeof a[0] !== "object"){
-        for (i = 0; i < a.length; i += 1){
+    if (typeof a[0] !== "object") {
+        for (i = 0; i < a.length; i += 1) {
             if (a[i] !== b[i]) {
                 return false;
             }
         }
     } else {
-        for (i = 0; i < a.length; i += 1){
+        for (i = 0; i < a.length; i += 1) {
             if (!a[i].equals(b[i])) {
                 return false;
             }
         }
     }
-  return true;
+    return true;
 };
 
 /** Generates an array that contains the permutations of the input array. */
@@ -43,10 +43,10 @@ var permute = function (input) {
     type.checkArray(input);
     var permArr = [],
         usedChars = [];
-    function main(input){
+    function main(input) {
         var i,
             ch;
-        for (i = 0; i < input.length; i++) {
+        for (i = 0; i < input.length; i += 1) {
             ch = input.splice(i, 1)[0];
             usedChars.push(ch);
             if (input.length === 0) {
@@ -99,7 +99,7 @@ var buildInversions = function (chord) {
         chordCopy   = new sounds.Chord(chord.getNotes().slice(0)),
         chordSize   = chordCopy.getSize(),
         returnArray = [];
-    for (i = 0; i < chordSize; i++) {
+    for (i = 0; i < chordSize; i += 1) {
         returnArray.push(new sounds.Chord(chordCopy.getNotes().slice(0)));
         chordCopy.invert(1);
     }
@@ -112,8 +112,9 @@ var buildPermutations = function (chord) {
     var index,
         chordNotes    = chord.getNotes().slice(0),  // Copy array of notes, the notes of the chord.
         permutedArray = permute(chordNotes),        // Build an array of its permutations.
+        permutedArrayLength = permutedArray.length,
         returnArray   = [];                         // Array that will be populated with Chord objects.
-    for (index in permutedArray) {                  // Create a Chord object with each permutation.
+    for (index = 0; index < permutedArrayLength; index += 1) {  // Create a Chord object with each permutation.
         returnArray.push(new sounds.Chord(permutedArray[index]));
     }
     return returnArray;                             // Return the array of Chord objects.
@@ -122,32 +123,6 @@ var buildPermutations = function (chord) {
 // ===========================================
 //                 toFormula
 // ===========================================
-// !!! needs to handle NoteCOllection objects (you need to take a different OOP approach)
-/** 
-* Returns the formula of the provided sequence of notes. 
-* If variable arguments, the last argument must be the pool.
-*/
-var toFormula = function (notes, pool) {
-    if (typeof arguments[0] === "string") {              // Case for var args of type string.
-        return _toFormulaVarArgs(arguments, "string");
-    }
-    if (arguments[0] instanceof sounds.Note) {           // Case for var args of type note.
-        return _toFormulaVarArgs(arguments, "Note");
-    }
-    if (notes instanceof Array) {                        // Cases for arrays.
-        if (typeof notes[0] === "string") {              // Case for array of string.
-            return _toFormulaStringArray(notes, pool);
-        }
-        if (notes[0] instanceof sounds.Note) {           // Case for array of Note.
-            return _toFormulaNoteArray(notes, pool);
-        }
-    }
-    if (notes instanceof sounds.NoteCollection) {        // Case for NoteCollection types.
-        // return _toFormulaNC(notes, pool);
-        return notes.toFormula(pool);
-    }
-    throw new TypeError("datatype is not supported");
-};
 
 // !!! what is this?
 // Helper for toFormula, handles NOteCollection types.
@@ -155,30 +130,9 @@ var toFormula = function (notes, pool) {
 //     var thePool = pool || formulas.ET12POOL;
 // };
 
-// Helper for toFormula, handles variable arguments of type string.
-var _toFormulaVarArgs = function () {
-    var type         = arguments[1],
-        theArguments = Array.prototype.slice.call(arguments[0]),                 // Cast arguments to array.
-        hasPool      = theArguments[theArguments.length - 1] instanceof Array,   // Is the last index a pool?
-        pool         = hasPool ? theArguments.pop() : formulas.ET12POOL;         // Assign a pool.
-    if (type === "string") {                                                     // Case for string array.
-        return _toFormulaStringArray(theArguments, pool);
-    }
-    if (type === "Note") {                                                       // Case for Note array.
-        return _toFormulaNoteArray(theArguments, pool);
-    }
-};
 
-// Helper for _toFormulaVarArgs, deals with variable arguments of type Note.
-var _toFormulaNoteArray = function (notes, pool) {
-    for (var i = 0; i < notes.length; i += 1) {      // From array of Note to array of Note.name.
-        notes[i] = notes[i].getName();
-    }
-    return _toFormulaStringArray(notes, pool);   // Call _toFormulaStringArray with the new array.
-};
-
-// Helper for toFormula, _toFormulaNoteArray, and _toFormulaVarArgsString; handles array of strings. 
-var _toFormulaStringArray = function (notes, pool) {
+// Helper for toFormula, toFormulaNoteArray, and toFormulaVarArgsString; handles array of strings. 
+var toFormulaStringArray = function (notes, pool) {
     var i,
         value,
         thePool     = pool || formulas.ET12POOL,
@@ -197,6 +151,57 @@ var _toFormulaStringArray = function (notes, pool) {
     }
     return returnArray;
 };
+
+// Helper for toFormulaVarArgs, deals with variable arguments of type Note.
+var toFormulaNoteArray = function (notes, pool) {
+    var i;
+    for (i = 0; i < notes.length; i += 1) {      // From array of Note to array of Note.name.
+        notes[i] = notes[i].getName();
+    }
+    return toFormulaStringArray(notes, pool);   // Call toFormulaStringArray with the new array.
+};
+
+// Helper for toFormula, handles variable arguments of type string.
+var toFormulaVarArgs = function () {
+    var type         = arguments[1],
+        theArguments = Array.prototype.slice.call(arguments[0]),                 // Cast arguments to array.
+        hasPool      = theArguments[theArguments.length - 1] instanceof Array,   // Is the last index a pool?
+        pool         = hasPool ? theArguments.pop() : formulas.ET12POOL;         // Assign a pool.
+    if (type === "string") {                                                     // Case for string array.
+        return toFormulaStringArray(theArguments, pool);
+    }
+    if (type === "Note") {                                                       // Case for Note array.
+        return toFormulaNoteArray(theArguments, pool);
+    }
+};
+
+// !!! needs to handle NoteCOllection objects (you need to take a different OOP approach)
+/** 
+* Returns the formula of the provided sequence of notes. 
+* If variable arguments, the last argument must be the pool.
+*/
+var toFormula = function (notes, pool) {
+    if (typeof arguments[0] === "string") {              // Case for var args of type string.
+        return toFormulaVarArgs(arguments, "string");
+    }
+    if (arguments[0] instanceof sounds.Note) {           // Case for var args of type note.
+        return toFormulaVarArgs(arguments, "Note");
+    }
+    if (notes instanceof Array) {                        // Cases for arrays.
+        if (typeof notes[0] === "string") {              // Case for array of string.
+            return toFormulaStringArray(notes, pool);
+        }
+        if (notes[0] instanceof sounds.Note) {           // Case for array of Note.
+            return toFormulaNoteArray(notes, pool);
+        }
+    }
+    if (notes instanceof sounds.NoteCollection) {        // Case for NoteCollection types.
+        return notes.toFormula(pool);
+    }
+    throw new TypeError("datatype is not supported");
+};
+
+
 
 // ===========================================
 //             fromFormulaToNotes
@@ -264,57 +269,6 @@ var createArrayDeepCopy = function (theArray) {
 };
 
 // ===========================================
-//                  toFlat
-// ===========================================
-/** Converts a sharp note into its enharmonic flat. */
-var toFlat = function (note) {
-    type.checkString(note);
-    if (note.length !== 2 || note[1] !== "#") {
-        throw new Error("note format must be: X# (note name and a sharp)");
-    }
-    var pool = formulas.ET12POOL;
-    return pool[(pool.indexOf(note[0]) + 1) % 12];
-};
-
-// ===========================================
-//                   toFlats
-// ===========================================
-/** Converts all the sharps in an array of note names to their enharmonic flat. */
-var toFlats = function (notes) {
-    type.checkStringArray(notes);
-    var index,
-        length      = notes.length,
-        returnArray = [];
-    for (index = 0; index < length; index += 1) {
-        returnArray.push(toFlat(notes[index]));
-    }
-    return returnArray;
-};
-
-// ===========================================
-//                   toSharp
-// ===========================================
-/** Converts a flat note into its enharmonic sharp equivalent. */ // 
-var toSharp = function (note) {
-    type.checkString(note);
-    if (note.length !== 2 || note[1] !== "b") {
-        throw new Error("note format must be: Xb (note name and a flat)");
-    }
-    var newNote,
-        firstChar  = note[0],
-        poolLength = 12,
-        value      = turnNoteToValue(note) - 1;
-    if (value < 0) {
-        value += poolLength;
-    }
-    newNote = formulas.ET12POOL[value] + "#";
-    if (newNote.length === 3) {
-        newNote = newNote[0];
-    }
-    return newNote;
-};
-
-// ===========================================
 //              turnNoteToValue
 // ===========================================
 /** Converts a note into a value. */
@@ -360,6 +314,56 @@ var turnNotesToValues = function (noteNameArray) {
         returnArray.push(turnNoteToValue(noteNameArray[index]));
     }
     return returnArray;
+};
+
+// ===========================================
+//                  toFlat
+// ===========================================
+/** Converts a sharp note into its enharmonic flat. */
+var toFlat = function (note) {
+    type.checkString(note);
+    if (note.length !== 2 || note[1] !== "#") {
+        throw new Error("note format must be: X# (note name and a sharp)");
+    }
+    var pool = formulas.ET12POOL;
+    return pool[(pool.indexOf(note[0]) + 1) % 12];
+};
+
+// ===========================================
+//                   toFlats
+// ===========================================
+/** Converts all the sharps in an array of note names to their enharmonic flat. */
+var toFlats = function (notes) {
+    type.checkStringArray(notes);
+    var index,
+        length      = notes.length,
+        returnArray = [];
+    for (index = 0; index < length; index += 1) {
+        returnArray.push(toFlat(notes[index]));
+    }
+    return returnArray;
+};
+
+// ===========================================
+//                   toSharp
+// ===========================================
+/** Converts a flat note into its enharmonic sharp equivalent. */ // 
+var toSharp = function (note) {
+    type.checkString(note);
+    if (note.length !== 2 || note[1] !== "b") {
+        throw new Error("note format must be: Xb (note name and a flat)");
+    }
+    var newNote,
+        poolLength = 12,
+        value      = turnNoteToValue(note) - 1;
+    if (value < 0) {
+        value += poolLength;
+    }
+    newNote = formulas.ET12POOL[value] + "#";
+    if (newNote.length === 3) {
+        newNote = newNote[0];
+    }
+    return newNote;
 };
 
 // ===========================================
