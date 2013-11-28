@@ -559,6 +559,23 @@ var testTurnNotesToValues = function () {
 };
 
 // =========================================================================
+//                          processing.sort
+// =========================================================================
+var testSort = function () {
+    aea(processing.sort(["B", "A", "G", "F", "E", "D", "C"]), ["C", "D", "E", "F", "G", "A", "B"]);
+    aea(processing.sort(["C#", "C###", "C##", "C############"]), ["C############", "C#", "C##", "C###"]);
+    aea(processing.sort(["Dbb", "Dbbb", "Db"]), ["Dbb", "Db", "Dbbb"]);
+};
+
+// =========================================================================
+//                          processing.clean
+// =========================================================================
+var testClean = function () {
+    aea(processing.clean(["C", "C#"]), ["C", "Db"]);
+    aea(processing.clean(["C", "D", "D#", "F", "G", "G#", "Bb"]), ["C", "D", "Eb", "F", "G", "Ab", "Bb"]);
+};
+
+// =========================================================================
 //                          identify.chord() 
 // =========================================================================
 function testIdentify(){
@@ -641,6 +658,8 @@ testHarmonize();
 testFromFormulaToNotes();
 testTurnNoteToValue();
 testTurnNotesToValues();
+testClean();
+testSort();
 
 // Print results to console:
 console.log();

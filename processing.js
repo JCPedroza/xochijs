@@ -220,9 +220,7 @@ var createArrayDeepCopy = function (theArray) {
 // ===========================================
 /** Converts a sharp note into its enharmonic flat. */
 var toFlat = function (note) {
-    if (typeof note !== "string") {
-        throw new TypeError("note must be string");
-    }
+    typeCheckString(note);
     if (note.length !== 2 || note[1] !== "#") {
         throw new Error("note format must be: X# (note name and a sharp)");
     }
@@ -235,9 +233,7 @@ var toFlat = function (note) {
 // ===========================================
 /** Converts all the sharps in an array of note names to their enharmonic flat. */
 var toFlats = function (notes) {
-    if (!(notes instanceof Array) || typeof notes[0] !== "string"){
-        throw new TypeError("argument must be an array of string");
-    }
+    
     var index,
         length      = notes.length,
         returnArray = [];
@@ -252,10 +248,8 @@ var toFlats = function (notes) {
 // ===========================================
 /** Converts a flat note into its enharmonic sharp equivalent. */ // 
 var toSharp = function (note) {
-    if (typeof note !== "string") {
-        throw new TypeError("note must be of string");
-    }
-    if (note.length < 2 || note.length > 2 || note[1] !== "b") {
+    typeCheckString(note);
+    if (note.length !== 2 || note[1] !== "b") {
         throw new Error("note format must be: Xb (note name and a flat)");
     }
     var newNote,
@@ -277,9 +271,7 @@ var toSharp = function (note) {
 // ===========================================
 /** Converts a note into a value. */
 var turnNoteToValue = function (note) {
-    if (typeof note !== "string") {
-        throw new TypeError("note must be string");
-    }
+    typeCheckString(note);
     var index,
         modifier,
         nameLength = note.length,
@@ -312,12 +304,7 @@ var turnNoteToValue = function (note) {
 // ===========================================
 /** Converts a note array into a value array. */
 var turnNotesToValues = function (notes) {
-    if (!(notes instanceof Array)) {
-        throw new TypeError("notes must be an array");
-    }
-    if (typeof notes[0] !== "string") {
-        throw new TypeError("note must be string");
-    }
+    typeCheckStringArray(notes);
     var index,
         notesLength = notes.length,
         returnArray = [];
@@ -325,6 +312,72 @@ var turnNotesToValues = function (notes) {
         returnArray.push(turnNoteToValue(notes[index]));
     }
     return returnArray;
+};
+
+// ===========================================
+//                   sort
+// ===========================================
+/** Returns a sorted copy of an array of note names. */
+var sort = function (noteNameArray) {
+    typeCheckStringArray(noteNameArray);
+    return noteNameArray.slice().sort(function (a, b) {
+        var aValue = turnNoteToValue(a),
+            bValue = turnNoteToValue(b);
+        if (aValue < bValue) {
+            return -1;
+        }
+        if (aValue > bValue) {
+            return 1;
+        }
+        return 0;
+    });
+};
+
+// ===========================================
+//                   clean
+// ===========================================
+/** Sorts and changes the names of the notes using enharmonics to avoid repeats. */
+var clean = function (noteNameArray) {
+    typeCheckStringArray(noteNameArray);
+    var index,
+        modifier,
+        next,
+        newArray = sort(noteNameArray),
+        length   = newArray.length - 1;
+    for (index = 0; index < length; index += 1) {
+        next = newArray[index + 1];
+        if (newArray[index][0] === next[0]) {
+            modifier  = next[1];
+            if (modifier) {
+                if (modifier === "#") {
+                    newArray[index + 1] = toFlat(next);
+                } else if (modifier === "b") {
+                    newArray[index + 1] = toSharp(next);
+                } else {
+                    throw new Error("modifier is not supported");
+                }
+
+            }
+        }
+    }
+    return newArray;
+};
+
+// -------------------------------------------
+//        typeCheckStringArray (helper)
+// -------------------------------------------
+var typeCheckStringArray = function (arg) {
+    if (!(arg instanceof Array) || typeof arg[0] !== "string"){
+        throw new TypeError("argument must be an array of string");
+    }
+};
+// -------------------------------------------
+//          typeCheckString (helper)
+// -------------------------------------------
+var typeCheckString = function (arg) {
+    if (typeof arg !== "string") {
+        throw new TypeError("argument must be of type string");
+    }
 };
 
 // Node exports:
@@ -343,3 +396,5 @@ exports.toFlats             = toFlats;
 exports.toSharp             = toSharp;
 exports.turnNoteToValue     = turnNoteToValue;
 exports.turnNotesToValues   = turnNotesToValues;
+exports.clean               = clean;
+exports.sort                = sort;
