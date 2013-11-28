@@ -4,8 +4,9 @@
 // ===========================================
 //                 Imports
 // ===========================================
-var sounds   = require("./sounds");
-var formulas = require("./formulas");
+var sounds   = require("./sounds"),
+    formulas = require("./formulas"),
+    type     = require("./type");
 
 /** Checks equality between two arrays. */  // needs to handle nested arrays
 var arraysEqual = function(a, b) {
@@ -220,7 +221,7 @@ var createArrayDeepCopy = function (theArray) {
 // ===========================================
 /** Converts a sharp note into its enharmonic flat. */
 var toFlat = function (note) {
-    typeCheckString(note);
+    type.checkString(note);
     if (note.length !== 2 || note[1] !== "#") {
         throw new Error("note format must be: X# (note name and a sharp)");
     }
@@ -248,7 +249,7 @@ var toFlats = function (notes) {
 // ===========================================
 /** Converts a flat note into its enharmonic sharp equivalent. */ // 
 var toSharp = function (note) {
-    typeCheckString(note);
+    type.checkString(note);
     if (note.length !== 2 || note[1] !== "b") {
         throw new Error("note format must be: Xb (note name and a flat)");
     }
@@ -271,7 +272,7 @@ var toSharp = function (note) {
 // ===========================================
 /** Converts a note into a value. */
 var turnNoteToValue = function (note) {
-    typeCheckString(note);
+    type.checkString(note);
     var index,
         modifier,
         nameLength = note.length,
@@ -304,7 +305,7 @@ var turnNoteToValue = function (note) {
 // ===========================================
 /** Converts a note array into a value array. */
 var turnNotesToValues = function (notes) {
-    typeCheckStringArray(notes);
+    type.checkStringArray(notes);
     var index,
         notesLength = notes.length,
         returnArray = [];
@@ -319,7 +320,7 @@ var turnNotesToValues = function (notes) {
 // ===========================================
 /** Returns a sorted copy of an array of note names. */
 var sort = function (noteNameArray) {
-    typeCheckStringArray(noteNameArray);
+    type.checkStringArray(noteNameArray);
     return noteNameArray.slice().sort(function (a, b) {
         var aValue = turnNoteToValue(a),
             bValue = turnNoteToValue(b);
@@ -338,7 +339,7 @@ var sort = function (noteNameArray) {
 // ===========================================
 /** Sorts and changes the names of the notes using enharmonics to avoid repeats. */
 var clean = function (noteNameArray) {
-    typeCheckStringArray(noteNameArray);
+    type.checkStringArray(noteNameArray);
     var index,
         modifier,
         next,
@@ -361,23 +362,6 @@ var clean = function (noteNameArray) {
         }
     }
     return newArray;
-};
-
-// -------------------------------------------
-//        typeCheckStringArray (helper)
-// -------------------------------------------
-var typeCheckStringArray = function (arg) {
-    if (!(arg instanceof Array) || typeof arg[0] !== "string"){
-        throw new TypeError("argument must be an array of string");
-    }
-};
-// -------------------------------------------
-//          typeCheckString (helper)
-// -------------------------------------------
-var typeCheckString = function (arg) {
-    if (typeof arg !== "string") {
-        throw new TypeError("argument must be of type string");
-    }
 };
 
 // Node exports:
