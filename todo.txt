@@ -1,6 +1,5 @@
 
--toSharp is not workings smoothly, can't be designed smoothly, do I need a new data structure for ET12?
-   -- NEW DATA STRUCTURE: every note is converted to a unique number: 1 = C 12 = B, map each note to a value
+- separate typeCheck module.
 
 - implement valueOf and toString to all your classes and objects
 
