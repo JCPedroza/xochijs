@@ -1,5 +1,5 @@
 
-- separate typeCheck module.
+- varargs might be not necessary and inducing unnecessary complexity, consider eliminating varargs implementations.
 
 - implement valueOf and toString to all your classes and objects
 
