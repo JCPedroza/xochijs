@@ -416,7 +416,8 @@ var withoutDuplicates = function (noteNameArray) {
 //                   clean
 // ===========================================
 /** Sorts and changes the names of the notes using enharmonics to avoid repeats. */
-// needs to handle multiple modifiers
+// !!! needs to handle multiple modifiers
+// !!! is it handling chromaticism? more tests are needed
 var clean = function (noteNameArray) {
     type.checkStringArray(noteNameArray);
     var index,
