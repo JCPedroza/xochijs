@@ -10,7 +10,7 @@ var sounds = require("./sounds");
 //                checkString 
 // ===========================================
 var checkString = function (arg) {
-    if (typeof arg !== "string" && typeof arg !== "undefined") {
+    if (typeof arg !== "string" && arg !== undefined) {
         throw new TypeError("argument must be of type string");
     }
 };
@@ -19,7 +19,7 @@ var checkString = function (arg) {
 //                checkArray
 // ===========================================
 var checkArray = function (arg) {
-    if (!Array.isArray(arg) && typeof arg !== "undefined") {
+    if (!Array.isArray(arg) && arg !== undefined) {
         throw new TypeError("argument must be of type Array");
     }
 };
@@ -28,8 +28,8 @@ var checkArray = function (arg) {
 //             checkStringArray 
 // ===========================================
 var checkStringArray = function (arg) {
-    if ((!Array.isArray(arg) && typeof arg !== "undefined") ||
-    (typeof arg[0] !== "string")) {
+    if ((!Array.isArray(arg) && arg !== undefined) ||
+            (typeof arg[0] !== "string")) {
         throw new TypeError("argument must be an array of string");
     }
 };
@@ -38,8 +38,8 @@ var checkStringArray = function (arg) {
 //             checkNumberArray 
 // ===========================================
 var checkNumberArray = function (arg) {
-    if ((!Array.isArray(arg) && typeof arg !== "undefined") ||
-    (typeof arg[0] !== "number")) {
+    if ((!Array.isArray(arg) && arg !== undefined) ||
+            (typeof arg[0] !== "number")) {
         throw new TypeError("argument must be an array of number");
     }
 };
