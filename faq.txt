@@ -34,7 +34,8 @@ Q: What is the style guide of the proyect?
 A: http://javascript.crockford.com/code.html (including 4 line indentation and 80 char line length).
    Style can be checked using http://jshint.com.
    Q2: Why this style guide?
-   A2: http://youtu.be/taaEzHI9xyY
-       http://youtu.be/v2ifWcnQs6M
+   A2: - http://youtu.be/taaEzHI9xyY
+       - http://youtu.be/v2ifWcnQs6M
+       - Style can be easily checked using jslint.
 
 
