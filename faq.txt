@@ -23,6 +23,18 @@ A: It tells jslint to assume the code is being run by Node.js. Without this inst
      - exports: "exports is not defined" error will be ignored, since each module has an exports member and it doesn't need to be explicitly defined 
        in Node.js.
    http://stackoverflow.com/q/4462478/1690799
-   http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/
-   http://www.jslint.com/
+   http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town
+   http://jshint.com
+
+Q: What error detection tools is the proyect using?
+A: - http://www.jslint.com
+   - http://jshint.com
+
+Q: What is the style guide of the proyect?
+A: http://javascript.crockford.com/code.html (including 4 line indentation and 80 char line length).
+   Style can be checked using http://jshint.com.
+   Q2: Why this style guide?
+   A2: http://youtu.be/taaEzHI9xyY
+       http://youtu.be/v2ifWcnQs6M
+
 
