@@ -1,0 +1,2 @@
+Q: Why aren't the methods being added to the prototype?
+A: Because they need to handle private members, which aren't visible to the prototype.
