@@ -568,11 +568,23 @@ var testSort = function () {
 };
 
 // =========================================================================
+//                     processing.withoutDuplicates
+// =========================================================================
+var testWithoutDuplicates = function () {
+    aea(processing.withoutDuplicates(["D", "C", "C#", "C", "C#", "C#", "C", "D", "D"]), [ 'D', 'C', 'C#' ]);
+    aea(processing.withoutDuplicates(["C", "C", "D", "D", "E", "F", "E", "F", "G", "A", "C", "E", "B", "C", "D"]),
+                                     [ 'C', 'D', 'E', 'F', 'G', 'A', 'B' ]);
+};
+
+
+// =========================================================================
 //                          processing.clean
 // =========================================================================
 var testClean = function () {
     aea(processing.clean(["C", "C#"]), ["C", "Db"]);
     aea(processing.clean(["C", "D", "D#", "F", "G", "G#", "Bb"]), ["C", "D", "Eb", "F", "G", "Ab", "Bb"]);
+    aea(processing.clean(["D", "C", "C#", "C", "C#", "C#", "C", "D", "D"]), ["C", "Db", "D"]);
+
 };
 
 // =========================================================================
@@ -660,6 +672,7 @@ testTurnNoteToValue();
 testTurnNotesToValues();
 testClean();
 testSort();
+testWithoutDuplicates();
 
 // Print results to console:
 console.log();
