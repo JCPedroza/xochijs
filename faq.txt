@@ -1,0 +1,28 @@
+Q: Why aren't the methods being added to the prototype?
+A: Because they need to handle private members, which aren't visible to the prototype.
+
+Q: What is that "use strict" string at the start of every module?
+A: Strict Mode is a new feature in ECMAScript 5 that allows you to place a program, or a function, in a "strict" operating context. This strict
+   context prevents certain actions from being taken and throws more exceptions. 
+   Strict mode helps out in a couple ways:
+     - It catches some common coding bloopers, throwing exceptions.
+     - It prevents, or throws errors, when relatively "unsafe" actions are taken (such as gaining access to the global object).
+     - It disables features that are confusing or poorly thought out.
+   http://stackoverflow.com/q/1335851/1690799
+   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions_and_function_scope/Strict_mode
+
+Q: What is that /** @module <mudule name> */ comment at the start of every module?
+A: It'a a tag for doc-building apps, like JSDoc. It tells the doc builder that the archive is a module, and the module's name.
+   http://usejsdoc.org
+   https://github.com/jsdoc3/jsdoc
+
+Q: What is that /* jslint node: true */ comment at the start of every module?
+A: It tells jslint to assume the code is being run by Node.js. Without this instruction, tools that use jslint (like jslint.com and Sublime Text's 
+   SublimeLinter) will mark errors in code that is perfectly fine in a Node.js context. Some examples are:
+     - use strict: If implemented without Node.js, jslint recommends to "use the function form of use strict".
+     - exports: "exports is not defined" error will be ignored, since each module has an exports member and it doesn't need to be explicitly defined 
+       in Node.js.
+   http://stackoverflow.com/q/4462478/1690799
+   http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/
+   http://www.jslint.com/
+
