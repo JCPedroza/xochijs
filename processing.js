@@ -386,17 +386,47 @@ var sort = function (noteNameArray) {
 };
 
 // ===========================================
+//             withoutDuplicates
+// ===========================================
+//!!! this can be more eficient, delete iterating backwards instead
+var withoutDuplicates = function (noteNameArray) {
+    type.checkStringArray(noteNameArray);
+    var i,
+        j,
+        k,
+        newArray = noteNameArray.slice(0),
+        returnArray = [],
+        length   = newArray.length;
+    for (i = 0; i < length; i += 1) {
+        for (j = i + 1; j < length; j += 1) {
+            if (newArray[i] === newArray[j] && i !== j) {
+                newArray[j] = undefined;
+            }
+        }
+    }
+    for (k = 0; k < length; k += 1) {
+        if (newArray[k]) {
+            returnArray.push(newArray[k]);
+        }
+    }
+    return returnArray;
+};
+
+// ===========================================
 //                   clean
 // ===========================================
 /** Sorts and changes the names of the notes using enharmonics to avoid repeats. */
+// needs to handle multiple modifiers
 var clean = function (noteNameArray) {
     type.checkStringArray(noteNameArray);
     var index,
         modifier,
         next,
-        newArray = sort(noteNameArray),
-        length   = newArray.length - 1;
-    for (index = 0; index < length; index += 1) {
+        noDups   = withoutDuplicates(noteNameArray),
+        newArray = sort(noDups),
+        length   = newArray.length,
+        steps    = length - 1;
+    for (index = 0; index < steps; index += 1) {
         next = newArray[index + 1];
         if (newArray[index][0] === next[0]) {
             modifier  = next[1];
@@ -433,3 +463,4 @@ exports.turnNoteToValue     = turnNoteToValue;
 exports.turnNotesToValues   = turnNotesToValues;
 exports.clean               = clean;
 exports.sort                = sort;
+exports.withoutDuplicates   = withoutDuplicates;
