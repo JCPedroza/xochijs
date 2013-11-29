@@ -138,7 +138,7 @@ var fourNoteChords = {
     "maj6"           : [[4, 3, 2], 0],   // Major sixth
     "min6"           : [[3, 4, 2], 0],   // Minor sixth 
     // Add chords:
-    "maj add2"       : [[4, 3, 7,], 0],  // Major added-second
+    "maj add2"       : [[4, 3, 7], 0],  // Major added-second
     "maj add4"       : [[4, 3, 10], 0],  // Major added-fourth
     // 9th no 5th chords:
     "maj9 no 5th"    : [[4, 7, 3], 0],   // Major ninth no fifth
