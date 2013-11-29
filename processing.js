@@ -1,4 +1,4 @@
-/* jslint node: true */
+/*jslint node: true */
 "use strict";
 
 // ===========================================
@@ -405,7 +405,7 @@ var withoutDuplicates = function (noteNameArray) {
         }
     }
     for (k = 0; k < length; k += 1) {
-        if (newArray[k]) {
+        if (newArray[k] !== undefined) {
             returnArray.push(newArray[k]);
         }
     }

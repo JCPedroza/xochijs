@@ -1,5 +1,5 @@
 /** @module formulas */
-/* jslint node: true */
+/*jslint node: true */
 "use strict";
 
 // ===========================================

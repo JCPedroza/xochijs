@@ -1,5 +1,5 @@
 /** @module typeCheck */
-/* jslint node: true */
+/*jslint node: true */
 "use strict";
 
 // Imports:
