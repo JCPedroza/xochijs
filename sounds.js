@@ -1,7 +1,8 @@
-
 /** @module sounds */
-/* jslint node: true */
+/*jslint node: true */
 "use strict";
+
+
 
 // =========================================================================
 //                               Imports
@@ -15,22 +16,20 @@ var formulas   = require("./formulas"),
 
 /**
 * Represents a musical note. 
-* Supports object specifier as argument.
 * @constructor
 * @param name   The name of the note (optional).
 * @param freq   Frequency of the note (optional).
 * @param octave Index/octave of the note (optional).
 * @param name2  Secondary name of the note (optional).
-* @returns A Note object.
 */
 var Note = function Note(name, freq, octave, name2) {
     // Typechecking is to handle: no arguments, object specifier, and 
     // default values. The name argument can be the name of the note or
     // an object specifier or undefined.
-    this._octave = octave || (name && name.octave) || 0;
-    this._freq   = freq   || (name && name.freq)   || 0;
-    this._name2  = name2  || (name && name.name2)  || "";
-    this._name   = typeof name === "string" ?
+    this.octave = octave || (name && name.octave) || 0;
+    this.freq   = freq   || (name && name.freq)   || 0;
+    this.name2  = name2  || (name && name.name2)  || "";
+    this.name   = typeof name === "string" ?
                    name :
                    (name && name.name) || "";
 };
@@ -41,25 +40,25 @@ var Note = function Note(name, freq, octave, name2) {
 
 /** Sets name. */
 Note.prototype.setName = function (newName) {
-    this._name = newName;
+    this.name = newName;
     return this;
 };
 
 /** Sets octave. */
 Note.prototype.setOctave = function (newOctave) {
-    this._octave = newOctave;
+    this.octave = newOctave;
     return this;
 };
 
 /** Sets freq. */
 Note.prototype.setFreq = function (newFreq) {
-    this._freq = newFreq;
+    this.freq = newFreq;
     return this;
 };
 
 /** Sets the secondary name (name2). */
 Note.prototype.setName2 = function (newName2) {
-    this._name2 = newName2;
+    this.name2 = newName2;
     return this;
 };
 
@@ -69,42 +68,42 @@ Note.prototype.setName2 = function (newName2) {
 
 /** Returns the primitive value of the object, used by the + operator. */
 Note.prototype.valueOf = function () {
-    return this._freq;
+    return this.freq;
 };
 
 /** Returns name. */
 Note.prototype.getName = function () {
-    return this._name;
+    return this.name;
 };
 
 /** Returns octave. */
 Note.prototype.getOctave = function () {
-    return this._octave;
+    return this.octave;
 };
 
 /** Returns freq. */
 Note.prototype.getFreq = function () {
-    return this._freq;
+    return this.freq;
 };
 
 /** Returns secondary name (name2). */
 Note.prototype.getName2 = function () {
-    return this._name2;
+    return this.name2;
 };
 
 /** Returns a string representation of this. */
 Note.prototype.toString = function () {
-    var theName = this._name;
-    if (this._name2 !== "") {
-        theName += (" " + this._name2);
+    var theName = this.name;
+    if (this.name2 !== "") {
+        theName += (" " + this.name2);
     }
     return "<" + theName + ">";
 };
 
 /** Returns the object state as a string. */
 Note.prototype.toStringDetailed = function () {
-    return "name=" + this._name + " name2=" + this._name2 +
-           " freq=" + this._freq + " octave=" + this._octave;
+    return "name=" + this.name + " name2=" + this.name2 +
+           " freq=" + this.freq + " octave=" + this.octave;
 };
 
 // ------------------------
@@ -113,7 +112,7 @@ Note.prototype.toStringDetailed = function () {
 
 /** Creates a copy of this. */
 Note.prototype.copy = function () {
-    return new this.constructor(this._name, this._freq, this._octave, this._name2);
+    return new this.constructor(this.name, this.freq, this.octave, this.name2);
 };
 
 /** Checks equality. */
@@ -121,8 +120,8 @@ Note.prototype.equals = function (that) {
     if (typeof that !== "object" || that.constructor.name !== this.constructor.name) {
         return false;
     }
-    return that.getName()   === this._name    && that.getFreq()  === this._freq &&
-           that.getOctave() === this._octave  && that.getName2() === this._name2;
+    return that.getName()   === this.name    && that.getFreq()  === this.freq &&
+           that.getOctave() === this.octave  && that.getName2() === this.name2;
 };
 
 // =========================================================================
@@ -133,7 +132,7 @@ Note.prototype.equals = function (that) {
 * Represents a group of notes. 
 * Parent constructor for Chord and Scale.
 * @constructor
-* @param notes An array of Note objects.
+* @param notes An array of Note objects (optional).
 * @param name  Name for the NoteCollection (optional).
 * @param name2 Secondary name for the NoteCollection (optional).
 */
@@ -141,12 +140,12 @@ var NoteCollection = function NoteCollection(notes, name, name2) {
     // Typechecking is to handle: no arguments, object specifier, and 
     // default values. Notes can be an array of Note, an object specifier, 
     // or undefined.
-    this._name   = name  || (notes && notes.name)  || "";
-    this._name2  = name2 || (notes && notes.name2) || "";
-    this._notes  = notes instanceof Array ?
+    this.name   = name  || (notes && notes.name)  || "";
+    this.name2  = name2 || (notes && notes.name2) || "";
+    this.notes  = notes instanceof Array ?
                    notes :
                    (notes && notes.notes) || [];
-    this._notes2 = this._notes.slice(0);            // !!! Should this be deep copy?
+    this.notes2 = this.notes.slice(0);            // !!! Should this be deep copy?
 };
 
 // ------------------------
@@ -158,7 +157,7 @@ NoteCollection.prototype.setNotes = function (notes) {
     if (!(notes instanceof Array)) {
         throw new Error("notes must be an array of Note");
     }
-    this._notes = notes;
+    this.notes = notes;
     return this;
 };
 
@@ -167,43 +166,43 @@ NoteCollection.prototype.addNote = function (note) {
     if (!(note instanceof Note)) {
         throw new Error("note must be a Note object");
     }
-    this._notes.push(note);
+    this.notes.push(note);
     return this;
 };
 
 /** Changes the name of the NoteCollection object. */
 NoteCollection.prototype.setName = function (newName) {
-    this._name = newName;
+    this.name = newName;
     return this;
 };
 
 /** Changes the secondary name of the NoteCollection object. */
 NoteCollection.prototype.setName2 = function (newName) {
-    this._name2 = newName;
+    this.name2 = newName;
     return this;
 };
 
 /** Resets notes to its original state (notes2). */
 NoteCollection.prototype.reset = function () {
-    this._notes = this._notes2.slice(0);
+    this.notes = this.notes2.slice(0);
     return this;
 };
 
 /** Sends the first note to the last index. */  // !!! Can this be more efficient?
 NoteCollection.prototype.rotate = function () {
-    this._notes.push(this._notes.shift());
+    this.notes.push(this.notes.shift());
     return this;
 };
 
 /** Sends the last note to the first index. */  // !!! Can this be more efficient?
 NoteCollection.prototype.rotateBack = function () {
-    this._notes.unshift(this._notes.pop());
+    this.notes.unshift(this.notes.pop());
     return this;
 };
 
 /** Reverses the order of the notes. */
 NoteCollection.prototype.reverse = function () {
-    this._notes.reverse();
+    this.notes.reverse();
     return this;
 };
 
@@ -212,13 +211,13 @@ NoteCollection.prototype.removeNoteAt = function (index) {
     if (index < 0) {
         throw new Error("index must be greater than 0");
     }
-    this._notes.splice(index, 1);
+    this.notes.splice(index, 1);
     return this;
 };
 
 /** Removes all the notes with given name. */
 NoteCollection.prototype.removeNotesWithName = function (name) {
-    this._notes = this._notes.filter(
+    this.notes = this.notes.filter(
         function (element) {
             return element.getName() !== name;
         }
@@ -228,7 +227,7 @@ NoteCollection.prototype.removeNotesWithName = function (name) {
 
 /** Removes all the notes with given secondary name (name2). */
 NoteCollection.prototype.removeNotesWithName2 = function (name) {
-    this._notes = this._notes.filter(
+    this.notes = this.notes.filter(
         function (element) {
             return element.getName2() !== name;
         }
@@ -238,7 +237,7 @@ NoteCollection.prototype.removeNotesWithName2 = function (name) {
 
 /** Removes all the notes with given frequency. */
 NoteCollection.prototype.removeNotesWithFreq = function (freq) {
-    this._notes = this._notes.filter(
+    this.notes = this.notes.filter(
         function (element) {
             return element.getFreq() !== freq;
         }
@@ -248,7 +247,7 @@ NoteCollection.prototype.removeNotesWithFreq = function (freq) {
 
 /** Removes all the notes within a frequency range, inclusive. */
 NoteCollection.prototype.removeNotesWithFreqRange = function (fromFreq, toFreq) {
-    this._notes = this._notes.filter(
+    this.notes = this.notes.filter(
         function (element) {
             var thisFreq = element.getFreq();
             return thisFreq < fromFreq || thisFreq > toFreq;
@@ -263,9 +262,9 @@ NoteCollection.prototype.removeNotesWithFreqRange = function (fromFreq, toFreq) 
 
 /** Returns a string representation of the object. */
 NoteCollection.prototype.toString = function () {
-    var theName = this._name;
-    if (this._name2 !== "") {
-        theName += (" " + this._name2);
+    var theName = this.name;
+    if (this.name2 !== "") {
+        theName += (" " + this.name2);
     }
     return "<" + theName + ">";
 };
@@ -274,18 +273,18 @@ NoteCollection.prototype.toString = function () {
 NoteCollection.prototype.toStringDetailed = function () {
     var i,
         j,
-        returnString = "name=" + this._name + "\nname2=" + this._name2 + "\nsize=" + this.getSize();
+        returnString = "name=" + this.name + "\nname2=" + this.name2 + "\nsize=" + this.getSize();
 
     returnString += "\nnotes=\n";
-    for (i in this._notes) {
-        if (this._notes.hasOwnProperty(i)) {
-            returnString += ("<" + this._notes[i].toStringDetailed() + ">");
+    for (i in this.notes) {
+        if (this.notes.hasOwnProperty(i)) {
+            returnString += ("<" + this.notes[i].toStringDetailed() + ">");
         }
     }
     returnString += "\nnotes2=\n";
-    for (j in this._notes2) {
-        if (this._notes2.hasOwnProperty(j)) {
-            returnString += ("<" + this._notes2[j].toStringDetailed() + ">");
+    for (j in this.notes2) {
+        if (this.notes2.hasOwnProperty(j)) {
+            returnString += ("<" + this.notes2[j].toStringDetailed() + ">");
         }
     }
     return returnString;
@@ -293,36 +292,36 @@ NoteCollection.prototype.toStringDetailed = function () {
 
 /** Retunrs the size of the string NoteCollection. */
 NoteCollection.prototype.getSize = function () {
-    return this._notes.length;
+    return this.notes.length;
 };
 
 /** Returns the notes. */
 NoteCollection.prototype.getNotes = function () {
-    return this._notes;
+    return this.notes;
 };
 
 /** Returns the original notes. */
 NoteCollection.prototype.getOriginalNotes = function () {
-    return this._notes2;
+    return this.notes2;
 };
 
 /** Returns name. */
 NoteCollection.prototype.getName = function () {
-    return this._name;
+    return this.name;
 };
 
 /** Returns secondary name (name2) */
 NoteCollection.prototype.getName2 = function () {
-    return this._name2;
+    return this.name2;
 };
 
 /** Returns the name of the notes as a string. */
 NoteCollection.prototype.getNotesAsString = function () {
     var note,
         returnString = "";
-    for (note in this._notes) {
-        if (this._notes.hasOwnProperty(note)) {
-            returnString += this._notes[note].getName() + " ";
+    for (note in this.notes) {
+        if (this.notes.hasOwnProperty(note)) {
+            returnString += this.notes[note].getName() + " ";
         }
     }
     return returnString;
@@ -332,9 +331,9 @@ NoteCollection.prototype.getNotesAsString = function () {
 NoteCollection.prototype.getOriginalNotesAsString = function () {
     var note,
         returnString = "";
-    for (note in this._notes2) {
-        if (this._notes2.hasOwnProperty(note)) {
-            returnString += this._notes2[note].getName() + " ";
+    for (note in this.notes2) {
+        if (this.notes2.hasOwnProperty(note)) {
+            returnString += this.notes2[note].getName() + " ";
         }
     }
     return returnString;
@@ -344,9 +343,9 @@ NoteCollection.prototype.getOriginalNotesAsString = function () {
 NoteCollection.prototype.getFreqsAsString = function () {
     var note,
         returnString = "";
-    for (note in this._notes) {
-        if (this._notes.hasOwnProperty(note)) {
-            returnString += this._notes[note].getFreq() + " ";
+    for (note in this.notes) {
+        if (this.notes.hasOwnProperty(note)) {
+            returnString += this.notes[note].getFreq() + " ";
         }
     }
     return returnString;
@@ -357,9 +356,9 @@ NoteCollection.prototype.toIndexes = function (pool) {
     var note,
         thePool = pool || formulas.ET12POOL,
         returnArray = [];
-    for (note in this._notes) {
-        if (this._notes.hasOwnProperty(note)) {
-            returnArray.push(thePool.indexOf(this._notes[note].getName()));
+    for (note in this.notes) {
+        if (this.notes.hasOwnProperty(note)) {
+            returnArray.push(thePool.indexOf(this.notes[note].getName()));
         }
     }
     return returnArray;
@@ -390,33 +389,33 @@ NoteCollection.prototype.toFormula = function (pool) {
 
 /** Creates a swallow copy of this. */
 NoteCollection.prototype.copy = function () {
-    return new this.constructor(this._notes, this._name, this._name2);
+    return new this.constructor(this.notes, this.name, this.name2);
 };
 
 /** Creates a deep copy of this. */
 NoteCollection.prototype.deepCopy = function () {
-    return new this.constructor(processing.createArrayDeepCopy(this._notes),
-                              this._name, this._name2);
+    return new this.constructor(processing.createArrayDeepCopy(this.notes),
+                              this.name, this.name2);
 };
 
-/** Checks equality bewteen this._notes and a Note array. */
+/** Checks equality bewteen this.notes and a Note array. */
 NoteCollection.prototype.noteEquals = function (thatNotes) {
     if (!(thatNotes instanceof Array) || !(thatNotes[0] instanceof Note)) {
         return false;
     }
-    return processing.objectArrayEquals(thatNotes, this._notes);
+    return processing.objectArrayEquals(thatNotes, this.notes);
 };
 
-/** Checks equality, without including this._notes2. */
+/** Checks equality, without including this.notes2. */
 NoteCollection.prototype.equals = function (that) {
     if (typeof that !== "object" || that.constructor.name !== this.constructor.name) {
         return false;
     }
-    return this._name === that.getName() && this._name2 === that.getName2() &&
+    return this.name === that.getName() && this.name2 === that.getName2() &&
            this.noteEquals(that.getNotes());
 };
 
-/** Checks equality, including this._notes2. */
+/** Checks equality, including this.notes2. */
 NoteCollection.prototype.strictEquals = function (that) {
     return this.equals(that) &&
            processing.objectArrayEquals(that.getOriginalNotes(), this.getOriginalNotes());
@@ -430,7 +429,7 @@ NoteCollection.prototype.strictEquals = function (that) {
 * Represents a group of notes as a Chord. 
 * Inherits fron NoteCollection.
 * @constructor
-* @param notes An array of Note objects.
+* @param notes An array of Note objects (optional).
 * @param name  Name for the NoteCollection (optional).
 * @param name2 Secondary name for the NoteCollection (optional).
 */
@@ -488,8 +487,11 @@ Chord.prototype.invertOriginal = function (n) {
 
 /** 
 * Group of Note objects with melodic dynamics (like a succession of notes).
-*
+* Inherits fron NoteCollection.
 * @constructor
+* @param notes An array of Note objects (optional).
+* @param name  Primary name. (optional).
+* @param name2 Secondary name (optional).
 */
 var Scale = function Scale(notes, name, name2) {
     NoteCollection.call(this, notes, name, name2);  // inherits from NoteCollection
@@ -509,13 +511,16 @@ Scale.prototype.constructor = Scale;
 /** 
 * Represents a group of chords. 
 * @constructor
+* @param chords An array of Chord objects (optional).
+* @param name   Primary name (optional).
+* @param name2  Secondary name (optional).
 */
 var ChordCollection = function ChordCollection(chords, name, name2) {
-    this._name   = name  || (chords && chords.name)  || "";
-    this._name2  = name2 || (chords && chords.name2) || "";
-    this._chords = chords instanceof Array ?
-                   chords :
-                   (chords && chords.chords) || [];
+    this.name   = name  || (chords && chords.name)  || "";
+    this.name2  = name2 || (chords && chords.name2) || "";
+    this.chords = chords instanceof Array ?
+                  chords :
+                  (chords && chords.chords) || [];
 };
 
 // ------------------------
@@ -526,7 +531,7 @@ ChordCollection.prototype.setChords = function (newChords) {
     if (!(newChords instanceof Array)) {
         throw new Error("chords must be an array of Chord");
     }
-    this._chords = newChords;
+    this.chords = newChords;
     return this;
 };
 
@@ -535,27 +540,27 @@ ChordCollection.prototype.setChords = function (newChords) {
 // ------------------------
 
 ChordCollection.prototype.getName = function () {
-    return this._name;
+    return this.name;
 };
 
 ChordCollection.prototype.getName2 = function () {
-    return this._name2;
+    return this.name2;
 };
 
 ChordCollection.prototype.getSize = function () {
-    return this._chords.length;
+    return this.chords.length;
 };
 
 ChordCollection.prototype.getChords = function () {
-    return this._chords;
+    return this.chords;
 };
 
 ChordCollection.prototype.getChordsNames = function () {
     var i,
         returnString = "";
-    for (i in this._chords) {
-        if (this._chords.hasOwnProperty(i)) {
-            returnString += this._chords[i]._name + " ";
+    for (i in this.chords) {
+        if (this.chords.hasOwnProperty(i)) {
+            returnString += this.chords[i].name + " ";
         }
     }
     return returnString;
@@ -564,31 +569,31 @@ ChordCollection.prototype.getChordsNames = function () {
 ChordCollection.prototype.getChordsNotesAsString = function () {
     var i,
         returnString = "";
-    for (i in this._chords) {
-        if (this._chords.hasOwnProperty(i)) {
-            returnString += "< " + this._chords[i].getNotesAsString() + "> ";
+    for (i in this.chords) {
+        if (this.chords.hasOwnProperty(i)) {
+            returnString += "< " + this.chords[i].getNotesAsString() + "> ";
         }
     }
     return returnString;
 };
 
 ChordCollection.prototype.toString = function () {
-    var theName = this._name;
-    if (this._name2 !== "") {
-        theName += (" " + this._name2);
+    var theName = this.name;
+    if (this.name2 !== "") {
+        theName += (" " + this.name2);
     }
     return "<" + theName + ">";
 };
 
 ChordCollection.prototype.toStringDetailed = function () {
     var i,
-        returnString = "name=" + this._name + "\nname2=" + this._name2 +
+        returnString = "name=" + this.name + "\nname2=" + this.name2 +
                        "\nsize=" + this.getSize();
     returnString += "\n\nchords= ";
-    for (i in this._chords) {
-        if (this._chords.hasOwnProperty(i)) {
+    for (i in this.chords) {
+        if (this.chords.hasOwnProperty(i)) {
             returnString += "\n<<<\n";
-            returnString += this._chords[i].toStringDetailed();
+            returnString += this.chords[i].toStringDetailed();
             returnString += "\n>>>";
         }
     }
@@ -601,21 +606,21 @@ ChordCollection.prototype.toStringDetailed = function () {
 
 /** Creates a swallow copy of this. */
 ChordCollection.prototype.copy = function () {
-    return new this.constructor(this._chords, this._name, this._name2);
+    return new this.constructor(this.chords, this.name, this.name2);
 };
 
 /** Creates a deep copy of this. */
 ChordCollection.prototype.deepCopy = function () {
-    return new this.constructor(processing.createArrayDeepCopy(this._chords),
-                               this._name, this._name2);
+    return new this.constructor(processing.createArrayDeepCopy(this.chords),
+                               this.name, this.name2);
 };
 
-/** Checks for equality between this._chords and an array of chords. */
+/** Checks for equality between this.chords and an array of chords. */
 ChordCollection.prototype.chordEquals = function (thatChords) {
     if (!(thatChords instanceof Array) || !(thatChords[0] instanceof Chord)) {
         return false;
     }
-    return processing.objectArrayEquals(thatChords, this._chords);
+    return processing.objectArrayEquals(thatChords, this.chords);
 };
 
 /** Checks for equality for this. */
@@ -624,7 +629,7 @@ ChordCollection.prototype.equals = function (that) {
         return false;
 
     }
-    return this._name === that.getName() && this._name2 === that.getName2() &&
+    return this.name === that.getName() && this.name2 === that.getName2() &&
            this.chordEquals(that.getChords());
 };
 
@@ -635,6 +640,9 @@ ChordCollection.prototype.equals = function (that) {
 /**
 * Represents a group of chords.
 * @constructor
+* @param chords An array of Chord objects (optional).
+* @param name   Primary name (optional).
+* @param name2  Secondary name (optional).
 */
 var Harmony = function Harmony(chords, name, name2) {
     ChordCollection.call(this, chords, name, name2);  // Inherits from ChordCollection.
