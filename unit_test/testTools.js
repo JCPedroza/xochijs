@@ -25,7 +25,7 @@ Tester.prototype.aea = function(a, b){
 };
 
 /** Assert equals. */
-Tester.prototype.ae = function(a, b){
+Tester.prototype.ae = function (a, b) {
     try{
         console.assert(a === b);
     }
@@ -42,7 +42,7 @@ Tester.prototype.ae = function(a, b){
 };
 
 /** Assert difference. */
-Tester.prototype.adiff = function(a, b){
+Tester.prototype.adiff = function (a, b) {
     try{
         console.assert(a !== b);
     }
@@ -55,8 +55,17 @@ Tester.prototype.adiff = function(a, b){
         console.log(Error.stack.split("\n"));  // line number of the caller
         console.log();
     }
-    
 };
+
+/** Report errors, if any. */
+Tester.prototype.report = function (module) {
+    var errors = this.numberOfErrors;
+    if (errors > 0) {
+        console.log(errors + " assertion errors in module: " + module);
+    }
+};
+    
+
 
 
 // Exports:

@@ -79,9 +79,7 @@ function testIdentify(){
     tester.aea(identify.chord(new sounds.Chord([F,  A,  C,  E,  G])),  ['F maj9']);
     tester.aea(identify.chord(new sounds.Chord([C,  F,  G,  Bb, D])),  ['C 9 sus4', 'Bb 6/9']);
 
-    if (tester.numberOfErrors > 0) {
-        console.log("identify.chord() errors: " + tester.numberOfErrors);
-    }
+    tester.report("identifyChordTests");
 }
 
 exports.testIdentify = testIdentify;
