@@ -1,13 +1,14 @@
-/* jslint node: true */
+/*jslint node: true */
 "use strict";
 
 // ===== imports =====
 
-var sounds      = require("./sounds");
-var processing  = require("./processing");
-var formulas    = require("./formulas");
-var harmony     = require("./harmony");
-var identify    = require("./identify");
+var sounds      = require("../sounds");
+var processing  = require("../processing");
+var formulas    = require("../formulas");
+var harmony     = require("../harmony");
+var identify    = require("../identify");
+var testIdentify = require("./identifyChordTests");
 
 // ==== compare and assert functions ===
 
@@ -23,7 +24,7 @@ var aea = function(a, b){
         console.assert(equals(a, b));
     }
     catch(Error){
-        numberOfErrors++;
+        numberOfErrors += 1;
         console.log();
         console.log(Error.name);               // name of the error
         console.log(a);                        // value a
@@ -588,62 +589,6 @@ var testClean = function () {
 };
 
 // =========================================================================
-//                          identify.chord() 
-// =========================================================================
-function testIdentify(){
-    aea(identify.chord(new sounds.Chord([F, C])),  ['F 5', 'C sus4 no 5th' ]);
-    aea(identify.chord(new sounds.Chord([C, E])),  ['C maj no 5th', 'A min no root' ]);
-    aea(identify.chord(new sounds.Chord([C, Eb])), ['C min no 5th', 'Ab maj no root' ]);
-    aea(identify.chord(new sounds.Chord([B, D])),  ['B min no 5th', 'G maj no root' ]);
-    aea(identify.chord(new sounds.Chord([G, C])),  ['G sus4 no 5th', 'C 5' ]);
-    aea(identify.chord(new sounds.Chord([E, Gb])), ['E sus2 no 5th', 'Gb 7 no(3rd, 5th)' ]);
-    aea(identify.chord(new sounds.Chord([Db, C])), ['Db maj7 no(3rd, 5th)']);
-    aea(identify.chord(new sounds.Chord([F, Eb])), ['F 7 no(3rd, 5th)', 'Eb sus2 no 5th' ]);
-    aea(identify.chord(new sounds.Chord([Gb, C])), ['Gb b5 no 3rd', 'C b5 no 3rd' ]);
-
-    aea(identify.chord(C, E, G),         ['C maj', 'A min7 no root', 'Ab maj7#5 no root']);
-    aea(identify.chord("C", "G", "E"),   ['C maj', 'A min7 no root', 'Ab maj7#5 no root']);
-    aea(identify.chord([E, G, C]),       ['C maj', 'A min7 no root', 'Ab maj7#5 no root']);
-    aea(identify.chord(["E", "C", "G"]), ['C maj', 'A min7 no root', 'Ab maj7#5 no root']);
-    aea(identify.chord(GEC),             ['C maj', 'A min7 no root', 'Ab maj7#5 no root']);
-    aea(identify.chord(GCE),             ['C maj', 'A min7 no root', 'Ab maj7#5 no root']);
-    aea(identify.chord(CEAb),            ['C aug','A minmaj7 no root', 'E aug', 'Db minmaj7 no root', 'Ab aug', 'F minmaj7 no root' ]);
-    aea(identify.chord(CDG),             ['C sus2', 'Ab maj7b5 no root', 'G sus4', 'E min7#5 no root']);
-    aea(identify.chord(CFG),             ['C sus4', 'A min7#5 no root', 'F sus2', 'Db maj7b5 no root']);
-    aea(identify.chord(ACE),             ['A min', 'F maj7 no root', 'Gb min7b5 no root', 'C maj6 no 5th']);
-    aea(identify.chord(ACEb),            ['A dim', 'F 7 no root', 'Gb dim7 no root', 'C dim7 no 5th', 'C min6 no 5th' ]);
-    aea(identify.chord(E, Gb, Bb),       ['C 7b5 no root', 'Gb 7 no 5th']);
-    aea(identify.chord("E", "Ab", "Bb"), ['C 7#5 no root']);
-
-    aea(identify.chord(new sounds.Chord([C, E,  G,  B])),  ['C maj7' ]);
-    aea(identify.chord(new sounds.Chord([A, C,  E,  G])),  ['A min7', 'F maj9 no root', 'D 9 sus4 no root', 'C maj6' ]);
-    aea(identify.chord(new sounds.Chord([A, C,  Eb, G])),  ['A min7b5', 'F 9 no root', 'C min6']);
-    aea(identify.chord(new sounds.Chord([C, Eb, G,  Bb])), ['C min7', 'Ab maj9 no root', 'F 9 sus4 no root', 'Eb maj6' ] );
-    aea(identify.chord(new sounds.Chord([C, E,  G,  Bb])), ['C 7' ]);
-    aea(identify.chord(new sounds.Chord([C, Eb, Gb, Bb])), ['C min7b5', 'Ab 9 no root', 'Eb min6']);
-    aea(identify.chord(new sounds.Chord([C, Eb, Gb, A])),  ['C dim7', 'Eb dim7', 'Gb dim7', 'A dim7' ]);
-    aea(identify.chord(new sounds.Chord([C, Eb, G,  B])),  ['C minmaj7' ]);
-    aea(identify.chord(new sounds.Chord([F, A,  C,  D])),  ['F maj6', 'D min7', 'Bb maj9 no root', 'G 9 sus4 no root' ]);
-    aea(identify.chord(new sounds.Chord([F, Ab, C,  D])),  ['F min6', 'D min7b5', 'Bb 9 no root']);
-    aea(identify.chord(new sounds.Chord([G, B,  Eb, Gb])), ['G maj7#5' ]);
-    aea(identify.chord(new sounds.Chord([G, B,  Db, F])),  ['G 7b5', 'Db 7b5' ]);
-    aea(identify.chord(new sounds.Chord([G, B,  Eb, F])),  ['G 7#5' ]);
-    aea(identify.chord(new sounds.Chord([C, E,  G,  D])),  ['C maj add2', 'E min7#5' ]);
-    aea(identify.chord(new sounds.Chord([D, G,  E,  C])),  ['E min7#5', 'C maj add2' ]);
-    aea(identify.chord(new sounds.Chord([C, E,  G,  F])),  ['C maj add4' ]);
-    aea(identify.chord(new sounds.Chord([C, E,  Bb, D])),  ['C 9 no 5th']);
-    aea(identify.chord(new sounds.Chord([D, F,  C,  E])),  ['D min9 no 5th']);
-    aea(identify.chord(new sounds.Chord([C, E,  A,  D])),  ['C 6/9 no 5th']);
-    aea(identify.chord("C", "E", "Gb", "B"),               ['C maj7b5']);
-
-    aea(identify.chord(new sounds.Chord([C,  E,  G,  A,  D])),  ['C 6/9', 'D 9 sus4']);
-    aea(identify.chord(new sounds.Chord([D,  F,  A,  C,  E])),  ['D min9']);
-    aea(identify.chord(new sounds.Chord([D,  Gb, A,  C,  E])),  ['D 9']);
-    aea(identify.chord(new sounds.Chord([F,  A,  C,  E,  G])),  ['F maj9']);
-    aea(identify.chord(new sounds.Chord([C,  F,  G,  Bb, D])),  ['C 9 sus4', 'Bb 6/9']);
-}
-
-// =========================================================================
 //                         harmony.harmonize() 
 // =========================================================================
 function testHarmonize(){
@@ -665,7 +610,6 @@ testToFormula();
 testToFlat();
 testToFlats();
 testToSharp();
-testIdentify();
 testHarmonize();
 testFromFormulaToNotes();
 testTurnNoteToValue();
@@ -673,14 +617,10 @@ testTurnNotesToValues();
 testClean();
 testSort();
 testWithoutDuplicates();
+// Perform import tests:
+testIdentify.testIdentify();
 
-// Print results to console:
-console.log();
-if (numberOfErrors === 0)
-    console.log("All tests passed :D");
-else
-    console.log("Number of errors: " + numberOfErrors);
-console.log();
+
 
 
 
