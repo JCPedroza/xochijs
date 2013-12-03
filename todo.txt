@@ -1,3 +1,5 @@
+- you want to use simpler synonims in the 4 note paper, check them
+
 - is there a way to use all the numbers of the formula to identify the chord?
 
 - varargs might be not necessary and inducing unnecessary complexity, consider eliminating varargs implementations.
@@ -33,5 +35,12 @@
 - Pool data structure: should it be also an array of Note? And itself be an object?
 
 - Should Note first argument should be freq?
+
+- In AI improvs, create figures like pascal's triangle or cycles of an array that form a square like: 
+shorty([1,2,4,5]);
+shorty([5,1,2,4]);
+shorty([4,5,1,2]);
+shorty([2,4,5,1]);
+and play the diagonals, like 1 1 1 1, 5 2 5 2
 
 

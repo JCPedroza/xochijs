@@ -16,7 +16,7 @@ A: It'a a tag for doc-building apps, like JSDoc. It tells the doc builder that t
    http://usejsdoc.org
    https://github.com/jsdoc3/jsdoc
 
-Q: What is that /* jslint node: true */ comment at the start of every module?
+Q: What is that /*jslint node: true */ comment at the start of every module?
 A: It tells jslint to assume the code is being run by Node.js. Without this instruction, tools that use jslint (like jslint.com and Sublime Text's 
    SublimeLinter) will mark errors in code that is perfectly fine in a Node.js context. Some examples are:
      - use strict: If implemented without Node.js, jslint recommends to "use the function form of use strict".
@@ -37,5 +37,6 @@ A: http://javascript.crockford.com/code.html (including 4 line indentation and 8
    A2: - http://youtu.be/taaEzHI9xyY
        - http://youtu.be/v2ifWcnQs6M
        - Style can be easily checked using jslint.
+
 
 
