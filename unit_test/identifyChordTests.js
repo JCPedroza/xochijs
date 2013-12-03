@@ -70,8 +70,9 @@ function testIdentify(){
     tester.aea(identify.chord(new sounds.Chord([D, F,  C,  E])),  ['D min9 no 5th']);
     tester.aea(identify.chord(new sounds.Chord([C, E,  A,  D])),  ['C 6/9 no 5th']);
     tester.aea(identify.chord("C", "E", "Gb", "B"), ['C maj7b5']);
-    tester.aea(identify.chord("C", "D", "Eb", "B"), ['C minmaj9 no 5th', 'D 13b9 no 3, 5']);
-    tester.aea(identify.chord("D", "Eb", "B", "C"), ['D 13b9 no 3, 5', 'C minmaj9 no 5th']);
+    tester.aea(identify.chord("C", "D", "Eb", "B"), ['C minmaj9 no 5th', 'D 13b9 no 3, 5, 11']);
+    tester.aea(identify.chord("D", "Eb", "B", "C"), ['D 13b9 no 3, 5, 11', 'C minmaj9 no 5th']);
+    tester.aea(identify.chord(['C', 'D', 'E', 'B' ]), ["C maj9 no 5th", 'D 13 no 3, 5, 11' ]);
 
     tester.aea(identify.chord(new sounds.Chord([C,  E,  G,  A,  D])),  ['C 6/9', 'D 9 sus4']);
     tester.aea(identify.chord(new sounds.Chord([D,  F,  A,  C,  E])),  ['D min9']);
