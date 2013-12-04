@@ -65,8 +65,8 @@ exports.IONIAN_AUGMENTED = [2, 2, 1, 3, 1, 2, 1]; // ionian augmented
 // http://www.tedgreene.com/images/lessons/v_system/15_The_Mathematics_of_Four-Note_Chords-and-Beyond.pdf
 
 // http://tedgreene.com/images/lessons/v_system/14_The_43_Four-Note_Qualities.pdf (first and second homonyms only for now)
-// Synonims: m7/6 = m13
-// Done with: 1, 2, 3
+// Synonims: 7/6 = 13, 7/11 no R = 11 no R, 9
+// Done with: 1, 2, 3, 4
 
 // Array indexes: 
 // 0: formula
@@ -138,9 +138,9 @@ var fourNoteChords = {
     "maj7b5"         : [[4, 2, 5], 0,  "Major seventh flat fifth"],
     "min7#5"         : [[3, 5, 2], 0,  "Minor seventh sharp fifth"],
     // 7th plus something no somethng chords:
-    "min7/6 no 5"    : [[3, 6, 1], 0,  "Minor seventh with sixth no fifth"],
-    "7/11 no R"      : [[1, 2, 3], -4, "Dominant seventh with eleventh no root"],
-    "7/6 no 5"       : [[4, 5, 1], 0,  "Dominant seventh with sixth no fifth"],
+    "min13 no 5, 9, 11" : [[3, 6, 1], 0,  "Minor seventh with sixth no fifth"],
+    "11 no R, 9"     : [[1, 2, 3], -4, "Dominant eleventh no: root, ninth"],
+    "13 no 5, 9, 11" : [[4, 5, 1], 0,  "Dominant thirteenth no: 5, 9, 11"],
     "7#9b5 no R"     : [[2, 4, 5], -4, "Dominant seventh sharp ninth flat fifth no root"],
     // 6th chords:
     "maj6"           : [[4, 3, 2], 0,  "Major sixth"],
