@@ -67,6 +67,8 @@ exports.IONIAN_AUGMENTED = [2, 2, 1, 3, 1, 2, 1]; // ionian augmented
 // http://tedgreene.com/images/lessons/v_system/14_The_43_Four-Note_Qualities.pdf (first and second homonyms only for now)
 // Synonims: 7/6 = 13, 7/11 no R = 11 no R, 9
 // Done with: 1, 2, 3, 4
+// Exceptions: 
+// 5: Did homonyms 1, 2, 3, and 4.
 
 // Array indexes: 
 // 0: formula
@@ -137,10 +139,6 @@ var fourNoteChords = {
     "7#5"            : [[4, 4, 2], 0,  "Dominant seventh sharp five"],
     "maj7b5"         : [[4, 2, 5], 0,  "Major seventh flat fifth"],
     "min7#5"         : [[3, 5, 2], 0,  "Minor seventh sharp fifth"],
-    // 7th plus something no somethng chords:
-    "min13 no 5, 9, 11" : [[3, 6, 1], 0,  "Minor seventh with sixth no fifth"],
-    "11 no R, 9"     : [[1, 2, 3], -4, "Dominant eleventh no: root, ninth"],
-    "13 no 5, 9, 11" : [[4, 5, 1], 0,  "Dominant thirteenth no: 5, 9, 11"],
     "7#9b5 no R"     : [[2, 4, 5], -4, "Dominant seventh sharp ninth flat fifth no root"],
     // 6th chords:
     "maj6"           : [[4, 3, 2], 0,  "Major sixth"],
@@ -148,6 +146,8 @@ var fourNoteChords = {
     // Add chords:
     "maj add2"       : [[4, 3, 7], 0,  "Major added-second"],
     "maj add4"       : [[4, 3, 10], 0, "Major added-fourth"],
+    // 9th no 3rd chords:
+    "maj9 no 3"      : [[2, 5, 4], 0,  "Major ninth no third"],
     // 9th no 5th chords:
     "maj9 no 5th"    : [[2, 2, 7], 0,  "Major ninth no fifth"],
     "min9 no 5th"    : [[3, 7, 4], 0,  "Minor ninth no fifth"],
@@ -158,9 +158,15 @@ var fourNoteChords = {
     "maj9 no root"   : [[3, 4, 3], -4, "Major ninth no root"],
     "9 sus4 no root" : [[3, 4, 3], -7, "Dominant ninth suspended fourth no root"],
     "9 no root"      : [[3, 3, 4], -4, "Dominant ninth no root"],
+    // 11th chords:
+    "11 no R, 9"     : [[1, 2, 3], -4, "Dominant eleventh no: root, ninth"],
+    "min11 no R, 5"  : [[2, 5, 4], -3, "Minor eleventh no: root, fifth"],
     // 13th chords:
-    "13 no 3, 5, 11"   : [[2, 7, 1], 0, "Thirteenth no: third, fifth, eleventh"],
-    "13b9 no 3, 5, 11" : [[1, 8, 1], 0, "Thirteenth flat nine no: third, fifth, eleventh"]
+    "min13 no 5, 9, 11" : [[3, 6, 1], 0, "Minor seventh with sixth no fifth"],
+    "13 no 5, 9, 11"    : [[4, 5, 1], 0, "Dominant thirteenth no: 5, 9, 11"],
+    "13 no 3, 5, 11"    : [[2, 7, 1], 0, "Thirteenth no: third, fifth, eleventh"],
+    "13 no 3, 5, 9"     : [[5, 4, 1], 0, "Dominant thirteenth no: third, fifth, ninth"],
+    "13b9 no 3, 5, 11"  : [[1, 8, 1], 0, "Thirteenth flat nine no: third, fifth, eleventh"]
 
 };
 
