@@ -1,4 +1,4 @@
-- you want to use simpler synonims in the 4 note paper, check them
+- add to the identifyChordTests, for every query: the formula, the intervals. 
 
 - is there a way to use all the numbers of the formula to identify the chord?
 
