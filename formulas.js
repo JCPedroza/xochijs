@@ -53,39 +53,11 @@ exports.IONIAN_AUGMENTED = [2, 2, 1, 3, 1, 2, 1]; // ionian augmented
 // ===========================================
 //               Chord Formulas
 // ===========================================
-// http://www.scales-chords.com/showchbykey.php?key=C
-// http://music.stackexchange.com/questions/11659/what-determines-a-chords-name/
-// https://en.wikipedia.org/wiki/Chord_names_and_symbols_%28jazz_and_pop_music%29#Seventh_chords
-// https://en.wikibooks.org/wiki/Music_Theory/Complete_List_of_Chord_Patterns
-// http://music.stackexchange.com/questions/3732/what-notes-are-optional-in-jazz-chords
-// http://www.smithfowler.org/music/Chord_Formulas.htm
-
-// Ted green's v-system:
-// http://www.tedgreene.com/teaching/v_system.asp
-// http://www.tedgreene.com/images/lessons/v_system/15_The_Mathematics_of_Four-Note_Chords-and-Beyond.pdf
-
-// http://tedgreene.com/images/lessons/v_system/14_The_43_Four-Note_Qualities.pdf 
-// Synonims: 
-// Xm7/6         = Xm13 no 5, 9, 11, 
-// X7/11 no R    = X11 no R, 9
-// Xm/9/11 no R  = Xm11 no R, 7
-// Xmaj9sus no 5 = Xmaj11 no 3, 5
-
-// Homonyms included:
-// 1: 1, 2
-// 2: 1, 2, 3
-// 3: 1, 2, 3
-// 4: 1, 2, 3
-// 5: 1, 2, 3, 4
-
-// Reference tools:
-// http://www.scales-chords.com/chordid.php
-// http://www.gootar.com/piano/
-// Logic Pro
 
 // Array indexes: 
 // 0: formula
 // 1: root offset for no root chords, distance from the lowest note to the root
+// 2: Long name
 
 var twoNoteChords = {
     // Indeterminate triad (no 3rd):
@@ -201,3 +173,37 @@ exports.threeNoteChords = threeNoteChords;
 exports.fourNoteChords  = fourNoteChords;
 exports.fiveNoteChords  = fiveNoteChords;
 exports.ET12POOL        = ET12POOL;
+
+// ===========================================
+//           Chord Formulas Notes
+// ===========================================
+
+// http://www.scales-chords.com/showchbykey.php?key=C
+// http://music.stackexchange.com/questions/11659/what-determines-a-chords-name/
+// https://en.wikipedia.org/wiki/Chord_names_and_symbols_%28jazz_and_pop_music%29#Seventh_chords
+// https://en.wikibooks.org/wiki/Music_Theory/Complete_List_of_Chord_Patterns
+// http://music.stackexchange.com/questions/3732/what-notes-are-optional-in-jazz-chords
+// http://www.smithfowler.org/music/Chord_Formulas.htm
+
+// Ted green's v-system:
+// http://www.tedgreene.com/teaching/v_system.asp
+// http://www.tedgreene.com/images/lessons/v_system/15_The_Mathematics_of_Four-Note_Chords-and-Beyond.pdf
+
+// http://tedgreene.com/images/lessons/v_system/14_The_43_Four-Note_Qualities.pdf 
+// Synonims: 
+// Xm7/6         = Xm13 no 5, 9, 11, 
+// X7/11 no R    = X11 no R, 9
+// Xm/9/11 no R  = Xm11 no R, 7
+// Xmaj9sus no 5 = Xmaj11 no 3, 5
+
+// Homonyms included:
+// 1: 1, 2
+// 2: 1, 2, 3
+// 3: 1, 2, 3
+// 4: 1, 2, 3
+// 5: 1, 2, 3, 4
+
+// Reference tools:
+// http://www.scales-chords.com/chordid.php
+// http://www.gootar.com/piano/
+// Logic Pro
