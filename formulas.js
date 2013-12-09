@@ -144,15 +144,20 @@ var fourNoteChords = {
     "9 no root"         : [[3, 3, 4], -4, "Dominant ninth no root"],
     // 11th chords:
     "maj11 no 3, 5"     : [[2, 3, 6],  0, "Major eleventh no: third, fifth"],
+    "min11 no 5, 7"     : [[2, 1, 2],  0, "Minor eleventh no: fifth, seventh"],
     "11 no R, 9"        : [[1, 2, 3], -4, "Dominant eleventh no: root, ninth"],
     "min11 no R, 5"     : [[2, 5, 4], -3, "Minor eleventh no: root, fifth"],
     "min11 no R, 7"     : [[2, 2, 7], -3, "Minor eleventh no: root, seventh"],
     // 13th chords:
     "min13 no 5, 9, 11" : [[3, 6, 1],  0, "Minor seventh with sixth no fifth"],
     "13 no 5, 9, 11"    : [[4, 5, 1],  0, "Dominant thirteenth no: 5, 9, 11"],
-    "13 no 3, 5, 11"    : [[2, 7, 1],  0, "Thirteenth no: third, fifth, eleventh"],
+    "13 no 3, 5, 11"    : [[2, 7, 1],  0, "Dominant thirteenth no: third, fifth, eleventh"],
     "13 no 3, 5, 9"     : [[5, 4, 1],  0, "Dominant thirteenth no: third, fifth, ninth"],
-    "13b9 no 3, 5, 11"  : [[1, 8, 1],  0, "Thirteenth flat nine no: third, fifth, eleventh"]
+    "maj13 no 3, 5, 11" : [[2, 7, 2],  0, "Major thirteenth no: third, fifth, eleventh"],
+    "13b9 no 3, 5, 11"  : [[1, 8, 1],  0, "Dominant thirteenth flat nine no: third, fifth, eleventh"],
+    "13 no 3, 9, 11"    : [[7, 2, 1],  0, "Dominant thirteenth no: third, ninth, eleventh"],
+    // Other:
+    "7#9b9 no 3, 5"     : [[1, 2, 7],  0, "Dominant seventh sharp ninth flat ningth"]
 
 };
 
@@ -189,12 +194,22 @@ exports.ET12POOL        = ET12POOL;
 // http://www.tedgreene.com/teaching/v_system.asp
 // http://www.tedgreene.com/images/lessons/v_system/15_The_Mathematics_of_Four-Note_Chords-and-Beyond.pdf
 
+// To keep in mind:
+// 2 would be D a major 2nd up, but in most cases, it's considered a 9th no matter what octave it is in. The chord would still 
+// be C9. In jazz chords, 4ths are generally considered 11ths unless there is no 3rd present (like a sus chord). 6ths are generally 
+// considered 13ths unless there is no 7th present (like a min6 or Maj6 chord). 2nds are almost always considered 9ths. Sus2 would 
+// be an exception (no 3rd present) but it's rare in jazz.
+
 // http://tedgreene.com/images/lessons/v_system/14_The_43_Four-Note_Qualities.pdf 
 // Synonims: 
-// Xm7/6         = Xm13 no 5, 9, 11, 
+// Xm7/6         = Xm13 no 5, 9, 11 
+// X7/6 no 3     = X13 no 3, 9, 11 
 // X7/11 no R    = X11 no R, 9
 // Xm/9/11 no R  = Xm11 no R, 7
+// Xm/9/11       = Xm11 no 5, 7  < as is in paper, should it be Xm/9/11 no 5th?
 // Xmaj9sus no 5 = Xmaj11 no 3, 5
+
+
 
 // Homonyms included:
 // 1: 1, 2
@@ -202,6 +217,8 @@ exports.ET12POOL        = ET12POOL;
 // 3: 1, 2, 3
 // 4: 1, 2, 3
 // 5: 1, 2, 3, 4
+// 6: none
+// 7: 1, 2, 3, 4
 
 // Reference tools:
 // http://www.scales-chords.com/chordid.php
