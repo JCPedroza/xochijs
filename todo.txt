@@ -1,3 +1,5 @@
+- check things to note before continuing with chord recognition formulas
+
 - add to the identifyChordTests, for every query: the formula, the intervals. 
 
 - is there a way to use all the numbers of the formula to identify the chord?
