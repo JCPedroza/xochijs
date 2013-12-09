@@ -125,6 +125,8 @@ var fourNoteChords = {
     "maj7b5"            : [[4, 2, 5],  0, "Major seventh flat fifth"],
     "min7#5"            : [[3, 5, 2],  0, "Minor seventh sharp fifth"],
     "7#9b5 no R"        : [[2, 4, 5], -4, "Dominant seventh sharp ninth flat fifth no root"],
+    "7#9b9 no 3, 5"     : [[1, 2, 7],  0, "Dominant seventh sharp ninth flat ningth"],
+    "maj7#9 no 5"       : [[3, 1, 7],  0, "Major seventh sharp ninth no fifth"],
     // 6th chords:
     "maj6"              : [[4, 3, 2],  0, "Major sixth"],
     "min6"              : [[3, 4, 2],  0, "Minor sixth"],
@@ -142,9 +144,11 @@ var fourNoteChords = {
     "maj9 no root"      : [[3, 4, 3], -4, "Major ninth no root"],
     "9 sus4 no root"    : [[3, 4, 3], -7, "Dominant ninth suspended fourth no root"],
     "9 no root"         : [[3, 3, 4], -4, "Dominant ninth no root"],
+    "min9#11 no R, 7"   : [[3, 1, 7], -3, "Minor ninth sharp eleventh no: root, seventh"],
     // 11th chords:
     "maj11 no 3, 5"     : [[2, 3, 6],  0, "Major eleventh no: third, fifth"],
     "min11 no 5, 7"     : [[2, 1, 2],  0, "Minor eleventh no: fifth, seventh"],
+    "11b9 no 5, 7"      : [[1, 3, 1],  0, "Dominant eleventh flat ninth no: fifth, seventh"],
     "11 no R, 9"        : [[1, 2, 3], -4, "Dominant eleventh no: root, ninth"],
     "min11 no R, 5"     : [[2, 5, 4], -3, "Minor eleventh no: root, fifth"],
     "min11 no R, 7"     : [[2, 2, 7], -3, "Minor eleventh no: root, seventh"],
@@ -155,9 +159,8 @@ var fourNoteChords = {
     "13 no 3, 5, 9"     : [[5, 4, 1],  0, "Dominant thirteenth no: third, fifth, ninth"],
     "maj13 no 3, 5, 11" : [[2, 7, 2],  0, "Major thirteenth no: third, fifth, eleventh"],
     "13b9 no 3, 5, 11"  : [[1, 8, 1],  0, "Dominant thirteenth flat nine no: third, fifth, eleventh"],
-    "13 no 3, 9, 11"    : [[7, 2, 1],  0, "Dominant thirteenth no: third, ninth, eleventh"],
-    // Other:
-    "7#9b9 no 3, 5"     : [[1, 2, 7],  0, "Dominant seventh sharp ninth flat ningth"]
+    "13 no 3, 9, 11"    : [[7, 2, 1],  0, "Dominant thirteenth no: third, ninth, eleventh"]
+    
 
 };
 
@@ -219,6 +222,7 @@ exports.ET12POOL        = ET12POOL;
 // 5: 1, 2, 3, 4
 // 6: none
 // 7: 1, 2, 3, 4
+// 8: 1, 2, 3
 
 // Reference tools:
 // http://www.scales-chords.com/chordid.php
