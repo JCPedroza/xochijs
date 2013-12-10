@@ -7,17 +7,32 @@
 // ===========================================
 var processing  = require("./processing"),
     formulas    = require("./formulas"),
-    sounds      = require("./sounds");
+    sounds      = require("./sounds"),
+    type        = require("./type");
 
 // ===========================================
 //                Intervals
 // ===========================================
+// !!! type check
 /** Calculates the interval between two notes, as a number. */
 var intervalValue = function (note1, note2, pool) {
     var thePool    = pool || formulas.ET12POOL;
-    var result = thePool.indexOf(note1) - thePool.indexOf(note2);
+    type.checkNoteNameGroupInPool([note1, note2], thePool);
+    var result     = thePool.indexOf(note1) - thePool.indexOf(note2);
     return result < 0 ? Math.abs(result) : Math.abs(result - thePool.length);
 
+};
+
+// !!! type check
+/** Calculates the interval between a note and multiple other notes, as a number. */
+var intervalValueGroup = function (note, noteGroup) {
+    var returnArray = [];
+    var index;
+    var length = noteGroup.length;
+    for (index = 0; index < length; index += 1) {
+        returnArray[index] = intervalValue(note, noteGroup[index]);
+    }
+    return returnArray;
 };
 
 // ===========================================
@@ -152,8 +167,9 @@ var identifyChordFormula = function (formula) {
 //                Node Exports
 // ===========================================
 
-exports.intervalValue = intervalValue;
-exports.chord         = chord;
+exports.intervalValue      = intervalValue;
+exports.intervalValueGroup = intervalValueGroup;
+exports.chord              = chord;
 
 // ===========================================
 //                   Notes

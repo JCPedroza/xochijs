@@ -605,13 +605,20 @@ function testHarmonize(){
 // =========================================================================
 //                         identify.intervalValue() 
 // =========================================================================
-var testIdentifyValue = function () {
+var testIdentifyIntervalValue = function () {
     ae(identify.intervalValue("C", "E"),  4);
     ae(identify.intervalValue("A", "Db"), 4);
     ae(identify.intervalValue("F", "A"),  4);
     ae(identify.intervalValue("G", "Bb"), 3);
     ae(identify.intervalValue("Bb", "C"), 2);
     ae(identify.intervalValue("C", "Bb"), 10);
+};
+
+// =========================================================================
+//                      identify.intervalValueGroup() 
+// =========================================================================
+var testIdentifyIntervalValueGroup = function () {
+    aea(identify.intervalValueGroup("C", ["E", "G"]), [4, 7]);
 };
 
 // Perform tests:
@@ -629,7 +636,8 @@ testTurnNotesToValues();
 testClean();
 testSort();
 testWithoutDuplicates();
-testIdentifyValue();
+testIdentifyIntervalValue();
+testIdentifyIntervalValueGroup();
 // Perform import tests:
 testIdentify.testIdentify();
 
