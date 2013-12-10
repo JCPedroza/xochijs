@@ -190,6 +190,7 @@ exports.ET12POOL        = ET12POOL;
 //           Chord Formulas Notes
 // ===========================================
 
+// http://www.standingstones.com/chordname.html <-- systematic chord naming
 // http://www.scales-chords.com/showchbykey.php?key=C
 // http://music.stackexchange.com/questions/11659/what-determines-a-chords-name/
 // https://en.wikipedia.org/wiki/Chord_names_and_symbols_%28jazz_and_pop_music%29#Seventh_chords
