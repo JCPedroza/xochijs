@@ -113,53 +113,57 @@ var threeNoteChords = {
 
 var fourNoteChords = {
     // 7th chords:
-    "maj7"              : [[4, 3, 4],  0, "Major seventh"],
-    "min7"              : [[3, 4, 3],  0, "Minor seventh"],
-    "7"                 : [[4, 3, 3],  0, "Dominant seventh"],
-    "min7b5"            : [[3, 3, 4],  0, "Half-diminished seventh"],
-    "dim7"              : [[3, 3, 3],  0, "Diminished seventh"],
-    "minmaj7"           : [[3, 4, 4],  0, "Minor-major seventh"],
-    "maj7#5"            : [[4, 4, 3],  0, "Augmented-major seventh"],
-    "7b5"               : [[4, 2, 4],  0, "Dominant seventh flat five"],
-    "7#5"               : [[4, 4, 2],  0, "Dominant seventh sharp five"],
-    "maj7b5"            : [[4, 2, 5],  0, "Major seventh flat fifth"],
-    "min7#5"            : [[3, 5, 2],  0, "Minor seventh sharp fifth"],
-    "7#9b5 no R"        : [[2, 4, 5], -4, "Dominant seventh sharp ninth flat fifth no root"],
-    "7#9b9 no 3, 5"     : [[1, 2, 7],  0, "Dominant seventh sharp ninth flat ningth"],
-    "maj7#9 no 5"       : [[3, 1, 7],  0, "Major seventh sharp ninth no fifth"],
+    "maj7"          : [[4, 3, 4],  0, "Major seventh"],
+    "min7"          : [[3, 4, 3],  0, "Minor seventh"],
+    "7"             : [[4, 3, 3],  0, "Dominant seventh"],
+    "min7b5"        : [[3, 3, 4],  0, "Half-diminished seventh"],
+    "dim7"          : [[3, 3, 3],  0, "Diminished seventh"],
+    "minmaj7"       : [[3, 4, 4],  0, "Minor-major seventh"],
+    "maj7#5"        : [[4, 4, 3],  0, "Augmented-major seventh"],
+    "7b5"           : [[4, 2, 4],  0, "Dominant seventh flat five"],
+    "7#5"           : [[4, 4, 2],  0, "Dominant seventh sharp five"],
+    "maj7b5"        : [[4, 2, 5],  0, "Major seventh flat fifth"],
+    "min7#5"        : [[3, 5, 2],  0, "Minor seventh sharp fifth"],
+    "7#9b5 no R"    : [[2, 4, 5], -4, "Dominant seventh sharp ninth flat fifth no root"],
+    "7#9b9 no 3, 5" : [[1, 2, 7],  0, "Dominant seventh sharp ninth flat ningth"],
+    "maj7#9 no 5"   : [[3, 1, 7],  0, "Major seventh sharp ninth no fifth"],
+    "7#11 no 3"     : [[6, 1, 3],  0, "Dominant seventh sharp eleventh no third"],
     // 6th chords:
-    "maj6"              : [[4, 3, 2],  0, "Major sixth"],
-    "min6"              : [[3, 4, 2],  0, "Minor sixth"],
+    "maj6"          : [[4, 3, 2],  0, "Major sixth"],
+    "min6"          : [[3, 4, 2],  0, "Minor sixth"],
     // Add chords:
-    "maj add2"          : [[4, 3, 7],  0, "Major added-second"],
-    "maj add4"          : [[4, 3, 10], 0, "Major added-fourth"],
+    "maj add2"      : [[4, 3, 7],  0, "Major added-second"],
+    "maj add4"      : [[4, 3, 10], 0, "Major added-fourth"],
     // 9th chords:
-    "maj9 no 3"         : [[2, 5, 4],  0, "Major ninth no third"],
-    "maj9 no 5th"       : [[2, 2, 7],  0, "Major ninth no fifth"],
-    "min9 no 5th"       : [[3, 7, 4],  0, "Minor ninth no fifth"],
-    "9 no 5th"          : [[4, 6, 4],  0, "Dominant ninth no fifth"],
-    "minmaj9 no 5th"    : [[2, 1, 8],  0, "Minor-major ninth no fifth"],
-    "6/9 no 5th"        : [[4, 5, 5],  0, "Six Nine no fifth"],
-    "maj9#11 no 3, 5"   : [[2, 4, 5],  0, "Major ninth sharp eleventh no   : third, fifth"],
-    "maj9 no root"      : [[3, 4, 3], -4, "Major ninth no root"],
-    "9 sus4 no root"    : [[3, 4, 3], -7, "Dominant ninth suspended fourth no root"],
-    "9 no root"         : [[3, 3, 4], -4, "Dominant ninth no root"],
-    "min9#11 no R, 7"   : [[3, 1, 7], -3, "Minor ninth sharp eleventh no: root, seventh"],
+    "maj9 no 3"       : [[2, 5, 4],  0, "Major ninth no third"],
+    "maj9 no 5th"     : [[2, 2, 7],  0, "Major ninth no fifth"],
+    "min9 no 5th"     : [[3, 7, 4],  0, "Minor ninth no fifth"],
+    "9 no 5th"        : [[4, 6, 4],  0, "Dominant ninth no fifth"],
+    "minmaj9 no 5th"  : [[2, 1, 8],  0, "Minor-major ninth no fifth"],
+    "6/9 no 5th"      : [[4, 5, 5],  0, "Six Nine no fifth"],
+    "maj9#11 no 3, 5" : [[2, 4, 5],  0, "Major ninth sharp eleventh no   : third, fifth"],
+    "maj9 no root"    : [[3, 4, 3], -4, "Major ninth no root"],
+    "9 sus4 no root"  : [[3, 4, 3], -7, "Dominant ninth suspended fourth no root"],
+    "9 no root"       : [[3, 3, 4], -4, "Dominant ninth no root"],
+    "min9#11 no R, 7" : [[3, 1, 7], -3, "Minor ninth sharp eleventh no: root, seventh"],
     // 11th chords:
-    "maj11 no 3, 5"     : [[2, 3, 6],  0, "Major eleventh no: third, fifth"],
-    "min11 no 5, 7"     : [[2, 1, 2],  0, "Minor eleventh no: fifth, seventh"],
-    "11b9 no 5, 7"      : [[1, 3, 1],  0, "Dominant eleventh flat ninth no: fifth, seventh"],
-    "11 no R, 9"        : [[1, 2, 3], -4, "Dominant eleventh no: root, ninth"],
-    "min11 no R, 5"     : [[2, 5, 4], -3, "Minor eleventh no: root, fifth"],
-    "min11 no R, 7"     : [[2, 2, 7], -3, "Minor eleventh no: root, seventh"],
+    "maj11 no 3, 5"    : [[2, 3, 6],  0, "Major eleventh no: third, fifth"],
+    "min11 no 5, 7"    : [[2, 1, 2],  0, "Minor eleventh no: fifth, seventh"],
+    "11b9 no 5, 7"     : [[1, 3, 1],  0, "Dominant eleventh flat ninth no: fifth, seventh"],
+    "11 no R, 9"       : [[1, 2, 3], -4, "Dominant eleventh no: root, ninth"],
+    "min11 no R, 5"    : [[2, 5, 4], -3, "Minor eleventh no: root, fifth"],
+    "min11 no R, 7"    : [[2, 2, 7], -3, "Minor eleventh no: root, seventh"],
+    "11#5 no R, 9"     : [[1, 3, 2], -4, "Dominant eleventh sharp fifth no: root, ninth"],
+    "minmaj11 no 5, 9" : [[3, 2, 6],  0, "Minor-major eleventh no: fifth, ninth"],
     // 13th chords:
-    "min13 no 5, 9, 11" : [[3, 6, 1],  0, "Minor seventh with sixth no fifth"],
-    "13 no 5, 9, 11"    : [[4, 5, 1],  0, "Dominant thirteenth no: 5, 9, 11"],
-    "13 no 3, 5, 11"    : [[2, 7, 1],  0, "Dominant thirteenth no: third, fifth, eleventh"],
-    "13 no 3, 5, 9"     : [[5, 4, 1],  0, "Dominant thirteenth no: third, fifth, ninth"],
-    "maj13 no 3, 5, 11" : [[2, 7, 2],  0, "Major thirteenth no: third, fifth, eleventh"],
-    "13b9 no 3, 5, 11"  : [[1, 8, 1],  0, "Dominant thirteenth flat nine no: third, fifth, eleventh"],
-    "13 no 3, 9, 11"    : [[7, 2, 1],  0, "Dominant thirteenth no: third, ninth, eleventh"]
+    "min13 no 5, 9, 11"     : [[3, 6, 1],  0, "Minor seventh with sixth no fifth"],
+    "13 no 5, 9, 11"        : [[4, 5, 1],  0, "Dominant thirteenth no: 5, 9, 11"],
+    "13 no 3, 5, 11"        : [[2, 7, 1],  0, "Dominant thirteenth no: third, fifth, eleventh"],
+    "13 no 3, 5, 9"         : [[5, 4, 1],  0, "Dominant thirteenth no: third, fifth, ninth"],
+    "maj13 no 3, 5, 11"     : [[2, 7, 2],  0, "Major thirteenth no: third, fifth, eleventh"],
+    "13b9 no 3, 5, 11"      : [[1, 8, 1],  0, "Dominant thirteenth flat nine no: third, fifth, eleventh"],
+    "13 no 3, 9, 11"        : [[7, 2, 1],  0, "Dominant thirteenth no: third, ninth, eleventh"],
+    "13#9b9 no R, 3, 5, 11" : [[1, 3, 2], -9, "Dominant thirteenth no: root, third, fifth, eleventh"]
     
 
 };
@@ -211,8 +215,7 @@ exports.ET12POOL        = ET12POOL;
 // Xm/9/11 no R  = Xm11 no R, 7
 // Xm/9/11       = Xm11 no 5, 7  < as is in paper, should it be Xm/9/11 no 5th?
 // Xmaj9sus no 5 = Xmaj11 no 3, 5
-
-
+// = D11+  = D11#5 ???
 
 // Homonyms included:
 // 1: 1, 2
@@ -223,6 +226,7 @@ exports.ET12POOL        = ET12POOL;
 // 6: none
 // 7: 1, 2, 3, 4
 // 8: 1, 2, 3
+// 9: 1, 2, 3, 5
 
 // Reference tools:
 // http://www.scales-chords.com/chordid.php
