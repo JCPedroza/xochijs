@@ -602,6 +602,18 @@ function testHarmonize(){
                          [ 'C minmaj7', 'D min7', 'Eb maj7#5', 'F 7', 'G 7', 'A min7b5', 'B min7b5' ]);
 }
 
+// =========================================================================
+//                         identify.intervalValue() 
+// =========================================================================
+var testIdentifyValue = function () {
+    ae(identify.intervalValue("C", "E"),  4);
+    ae(identify.intervalValue("A", "Db"), 4);
+    ae(identify.intervalValue("F", "A"),  4);
+    ae(identify.intervalValue("G", "Bb"), 3);
+    ae(identify.intervalValue("Bb", "C"), 2);
+    ae(identify.intervalValue("C", "Bb"), 10);
+};
+
 // Perform tests:
 testNote();
 testNoteCollection();
@@ -617,6 +629,7 @@ testTurnNotesToValues();
 testClean();
 testSort();
 testWithoutDuplicates();
+testIdentifyValue();
 // Perform import tests:
 testIdentify.testIdentify();
 

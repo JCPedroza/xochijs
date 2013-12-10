@@ -10,6 +10,26 @@ var processing  = require("./processing"),
     sounds      = require("./sounds");
 
 // ===========================================
+//                Intervals
+// ===========================================
+/** Calculates the interval between two notes, as a number. */
+var intervalValue = function (note1, note2, pool) {
+    var thePool    = pool || formulas.ET12POOL;
+    var result = thePool.indexOf(note1) - thePool.indexOf(note2);
+    return result < 0 ? Math.abs(result) : Math.abs(result - thePool.length);
+
+};
+
+// ===========================================
+//         Chord Recognition Testing
+// ===========================================
+// Chord must be an array of string
+var identifyX = function (chord) {
+    var root = chord[0];
+};
+
+
+// ===========================================
 //              Chord Recognition
 // ===========================================
 
@@ -132,7 +152,8 @@ var identifyChordFormula = function (formula) {
 //                Node Exports
 // ===========================================
 
-exports.chord = chord;
+exports.intervalValue = intervalValue;
+exports.chord         = chord;
 
 // ===========================================
 //                   Notes
