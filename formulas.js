@@ -8,6 +8,13 @@
 var ET12POOL = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
 
 // ===========================================
+//                 Intervals
+// ===========================================
+var INTERVALS = ["unison", "minor second", "major second", "minor third",
+                 "major third", "perfect fourth", "tritone", "perfect fifth",
+                 "minor sixth", "major sixth", "minor seventh", "major seventh"];
+
+// ===========================================
 //              Scale Formulas
 // ===========================================
 
@@ -180,11 +187,13 @@ var fiveNoteChords = {
 };
 
 // Node exports:
+exports.ET12POOL        = ET12POOL;
+exports.INTERVALS       = INTERVALS;
 exports.twoNoteChords   = twoNoteChords;
 exports.threeNoteChords = threeNoteChords;
 exports.fourNoteChords  = fourNoteChords;
 exports.fiveNoteChords  = fiveNoteChords;
-exports.ET12POOL        = ET12POOL;
+
 
 // ===========================================
 //           Chord Formulas Notes
