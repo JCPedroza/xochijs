@@ -1,3 +1,6 @@
+- make a module for input check, like if note in pull, minus to mayus, convert sharps to flats to handle them internally, 
+    remocing duplicates, etc.
+
 - should alterations be in perentheses?
 
 - check things to note before continuing with chord recognition formulas
