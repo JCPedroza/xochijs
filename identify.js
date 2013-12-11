@@ -8,7 +8,8 @@
 var processing  = require("./processing"),
     formulas    = require("./formulas"),
     sounds      = require("./sounds"),
-    type        = require("./type");
+    type        = require("./type"),
+    inout       = require("./inout");
 
 // ===========================================
 //                Intervals
@@ -17,7 +18,7 @@ var processing  = require("./processing"),
 /** Calculates the interval between two notes, as a number. */
 var intervalValue = function (note1, note2, pool) {
     var thePool = pool || formulas.ET12POOL;
-    type.checkNoteNameGroupInPool([note1, note2], thePool);
+    inout.checkNoteNameGroupInPool([note1, note2], thePool);
     var result  = thePool.indexOf(note1) - thePool.indexOf(note2);
     return result <= 0 ? Math.abs(result) : Math.abs(result - thePool.length);
 };
@@ -42,39 +43,66 @@ var interval = function (note1, note2, pool) {
     return formulas.INTERVALS[intervalValue(note1, note2, pool)];
 };
 
+/** Checks if an array of note names contains a fifth of the input note. */
+var containsFifth = function (root, noteArray) {
+    var index;
+    var length = noteArray.length;
+    var theInterval;
+    var result = [];
+    result.is = function (what) {
+        var i,
+            len = this.length;
+        for (i = 0; i < len; i+= 1) {
+            if (this[i][1] === what) {
+                return true;
+            }
+            return false;
+        }
+    };
+    for (index = 0; index < length; index += 1) {
+        theInterval = intervalValue(root, noteArray[index]);
+        if (theInterval === 6) {
+            result.push([index, "flat"]);
+        } else if (theInterval === 7) {
+            result.push([index, "perfect"]);
+        } else if (theInterval === 8) {
+            result.push([index, "sharp"]);
+        }
+    }
+    if (result.length === 0) {
+        return false;
+    }
+    return result;
+};
+
 // ===========================================
 //  Chord Recognition Testing (experimental)
 // ===========================================
 // Chord must be an array of string
 // !!! type/input check
 // !!! should handle b9#9, b5#5, etc
+// !!! works only with triads atm
 // http://www.standingstones.com/chordname.html
 var identifyX = function (chord) {
     var index;
     var root      = chord[0];
     var name      = root;
+    var without   = [];
     var intervals = intervalValueGroup(root, chord.slice(1));
     var length    = intervals.length;
-    if (intervals.indexOf(3) !== -1) {   // minor 3rd
-        name += "minor";
-    }
-    if (intervals.indexOf(10) !== -1) {  // minor 7th
-        name += "7";
-    }
-    if (intervals.indexOf(11) !== -1) {  // major 7th
-        name += "maj7";
-    }
-    if (intervals.indexOf(6) !== -1) {   // diminished 5th
-        name += "b5";
-    }
-    if (intervals.indexOf(8) !== -1) {   // augmented 5th
-        name += "#5";
-    }
-    if (intervals.indexOf(1) !== -1) {   // minor 9th
-        name += "b9";
-    }
-    if (intervals.indexOf(3) !== -1) {   // major 9th
-        name += "#9";
+    var fifth     = containsFifth(root, intervals);
+    if (fifth) {
+        if (fifth.is("flat")) {
+            name += "dim";
+        }
+        if (fifth.is("perfect")) {
+
+        }
+        if (fifth.is("sharp")) {
+            name += "aug";
+        }
+    } else {
+        without.push("5th");
     }
 };
 
@@ -205,6 +233,7 @@ var identifyChordFormula = function (formula) {
 exports.intervalValue      = intervalValue;
 exports.intervalValueGroup = intervalValueGroup;
 exports.interval           = interval;
+exports.containsFifth      = containsFifth;
 exports.identifyX          = identifyX;
 exports.chord              = chord;
 
