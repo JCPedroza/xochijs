@@ -1,3 +1,5 @@
+- plan the more functional chord recognition algorithm! On paper before it you code it, make it work theoretically.
+
 - make a module for input check, like if note in pull, minus to mayus, convert sharps to flats to handle them internally, 
     remocing duplicates, etc.
 
